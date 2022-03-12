@@ -207,6 +207,9 @@ tbody div{
   }
    */
 /* div left and right */
+.order-container{
+    height: 850px;
+}
 .outerDiv
 	{
 		color: #fff;
@@ -222,6 +225,7 @@ tbody div{
 		background-color: #efefef;
 		color: #000;
 		width: 50%;
+        height: auto;
 		float: left;
 	}
 	.rightDiv
@@ -231,7 +235,7 @@ tbody div{
 		background-color: #efefef;
 		color: #000;
 		width: 48%;
-        height: 490px;
+        height: auto;
 		float: right;
 	}		
     

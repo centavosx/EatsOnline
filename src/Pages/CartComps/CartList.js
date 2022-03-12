@@ -6,7 +6,6 @@ import SelectOrder from './SelectOrder';
 import CartConfirmation from './CartConfirmation';
 const CartList = () => {
   
-  const [items, setItems] = useState({});
   const [cart, setCart] = useState([]);
   const [select, setSelect] = useState({});
   const [totalamount, setTotalAmount] = useState(0);
@@ -15,12 +14,10 @@ const CartList = () => {
   const [state, setState] = useState(false);
   const [data,setData] = useState({
       address: '',
-      dateBought: '',
-      id: '',
       items: [],
       payment: '',
-      phone: '',
       totalprice: '',
+      userid: localStorage.getItem("id")
   });
 
   React.useEffect(()=>{
@@ -36,6 +33,7 @@ const CartList = () => {
               obj[x[0]] = x[1].amount
             }
             setdataAmt(obj);
+  
             setCart(resp.data.data)
           }
         }
@@ -217,8 +215,8 @@ const CartList = () => {
                         {/* quantity adjustment */}
                         <div className="btn">
                           <input type="button" className="minusBtn" value={"-"} onClick={()=>update(data[0], dataAmt[data[0]]-1, data[1].numberofitems)}/>
-                          <input type="number" className="input-cart" value={data[1].numberofitems>0?[data[0]]:0} onChange={(e)=>update(data[0], parseInt(e.target.value))}/>
-                          <input type="button" className="plusBtn" value={"+"} onClick={()=>data[1].numberofitems>=dataAmt[data[0]]?(data[0], dataAmt[data[0]]+1, data[1].numberofitems):null}/>
+                          <input type="number" className="input-cart" value={data[1].numberofitems>0?dataAmt[data[0]]:0} onChange={(e)=>update(data[0], parseInt(e.target.value))}/>
+                          <input type="button" className="plusBtn" value={"+"} onClick={()=>data[1].numberofitems>=dataAmt[data[0]]?update(data[0], dataAmt[data[0]]+1, data[1].numberofitems):null}/>
                         </div>
                         {/* <!-- price buy --> */}
                         <div className="price-buy">

@@ -1,20 +1,31 @@
 import axios from "axios";
 import React, { useState } from "react"
 import "../../CSS/Checkout.css"
-import { decryptJSON, encryptJSON } from "../EncryptionDecryption";
+import { decryptJSON, decrypt, encryptJSON } from "../EncryptionDecryption";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 const SelectOrder = (props) =>{
     const [data,setData] = useState([]);
     const [address, setAddress] = useState([]);
-    const [orderoA, setOrderoA] = useState(false);
+    const [orderoA, setOrderoA] = useState(null);
+    const [chA, setChA] = useState(true);
     const history = useHistory();
     React.useEffect(()=>{
         let x = [];
         for(let v in props.data){
-            x.push([v, props.data[v]])
+            if(!("adv" in props.data[v])){
+                setChA(false);
+            }
+            delete props.data[v].date;
+            props.data[v].key = decrypt(props.data[v].key)
+            x.push([v, props.data[v]]);
         }
+        props.t_data.items = x;
+        props.t_data.totalprice = props.totalamount;
+        
+        props.setData(props.t_data);
+        console.log(props.t_data);
         setData(x);
-    }, [props.data, props.totalamount])
+    }, [props.data, props.totalamount, props.t_data])
     React.useEffect(()=>{
         axios.post(process.env.REACT_APP_APIURL+"profileData", encryptJSON({
             id: localStorage.getItem("id"),
@@ -80,32 +91,35 @@ const SelectOrder = (props) =>{
                                 <label className="ao-btn" htmlFor="advorder">Advance Order</label>
                             </div>
                         </div>
+                        <hr className="my-4"/>
+                        <h4 className="order-m">Message</h4> 
+                        <textarea class="form-control" name="message" rows="5" style={{width: '40vw'}}placeholder="Message" onChange={(e)=>{props.t_data.message = e.target.value; props.setData(props.t_data);}}></textarea>
             {orderoA?
             <>
             <hr className="my-4"/>
             <div class="form-group mt-3" >
-            <textarea class="form-control" name="message" rows="5" placeholder="Message"></textarea>
-                <label class="inline">Select Delivery Date </label>
-                <div><span>Chipolata </span>
-                    <select class="form-control alterationTypeSelect" style={{width:'40vw'}}>
-                        <option>Thu Jun 10 2021</option><option>Fri Jun 11 2021</option>
-                        <option>Sat Jun 12 2021</option><option>Sun Jun 13 2021</option>
-                        <option >Mon Jun 14 2021</option><option>Tue Jun 15 2021</option>
-                        <option>Wed Jun 16 2021</option></select></div>
-                <div><span>Merquez </span>
-                    <select class="form-control alterationTypeSelect" style={{width:'40vw'}}>
-                        <option>No available date for advance order</option></select></div></div>
+            
+            <h4 className="order-m">Select Delivery Date</h4> 
+                {data.map((data,index)=><div key={index}><span>{data[1].title} </span>
+                    {"adv" in data[1]?<select class="form-control alterationTypeSelect" style={{width:'40vw'}} onClick={(e)=>{props.t_data.items[index][1].date = e.target.value; props.setData(props.t_data); console.log(props.t_data)}}>
+                        {data[1].adv.map((d, i)=> <option key={i} value={new Date(d).toDateString()}>{new Date(d).toDateString()}</option>)}
+                        </select>
+                        :<select class="form-control alterationTypeSelect" style={{width:'40vw'}}>
+                            <option>No available date</option>
+                        </select>
+                }</div>)}
+                <div></div></div>
                 </>:null
             }
             <hr className="my-4"/>
             <h4 className="order-m">Payment Method</h4> 
                 <div className="my-3">
-                    <div className="order-now">
-                        <input id="cod" name="payment" type="radio" className="form-check-input"/>
+                    <div className="order-now" >
+                        <input id="cod" name="payment" type="radio" className="form-check-input" onClick={()=>{props.t_data.payment = "C.O.D"; props.setData(props.t_data); console.log(props.t_data);}}/>
                         <label className="form-check-label" htmlFor="cod">Pay C.O.D </label>
                     </div>
                     <div className="advance-order">
-                        <input id="online" name="payment" type="radio" className="form-check-input"/>
+                        <input id="online" name="payment" type="radio" className="form-check-input" onClick={()=>{props.t_data.payment = "Online Payment"; props.setData(props.t_data)}}/>
                         <label className="form-check-label" htmlFor="pay">Online Payment</label>
                     </div>
                 </div>
@@ -126,7 +140,7 @@ const SelectOrder = (props) =>{
                     </div>
             </div>
             <hr className="hr-line" />
-                <p className="s-total">Total: PHP <span id="price">{props.totalamount}</span></p>
+                <p className="s-total">Total: PHP <span id="price">{props.totalamount.toFixed(2)}</span></p>
         </div>
        
                

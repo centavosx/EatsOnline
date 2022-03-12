@@ -22,6 +22,8 @@ const Header = (props) => {
                 }else{
                     setName({});
                 }
+            }).catch(()=>{
+                setName({name:'null', link: ''});
             })
         }
         
