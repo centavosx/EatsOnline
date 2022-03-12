@@ -1,0 +1,572 @@
+
+.single-container {
+    margin: 30px;
+    width: 100%;
+    max-width: 1000px;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Nunito';
+  }
+  
+  h5 {
+    text-transform: uppercase;
+    margin-top: 0px;
+    margin-left: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: 'Nunito';
+  }
+  
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  a {
+    text-decoration: none;
+    color: #bbb;
+    font-family: 'Nunito';
+  }
+  
+  .Single-image {
+    float: left;
+    width: 25%;
+    /* display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #fff;
+    border-left: 2px solid #28aac7;
+    border-top: 2px solid #28aac7;
+    border-bottom: 2px solid #28aac7;
+    border-radius: 20px 20px 0 0;
+    padding: 55px 0;
+    width: 100%;
+    margin: auto; */
+  }
+  .Single-pic {
+    max-width: 100px;
+    position: static;
+    /* left: 100px; */
+    /* margin: 10px 0; */
+    /* padding-left: 50px; */
+  }
+  .s-header{
+    width: 100%;
+    float: right;
+    padding: 30px;
+    height: 1600px;
+    background-color: white;
+    border-radius: 20px;
+    border: 2px solid #28aac7;
+    font-family: 'Nunito';
+  }
+
+  .Single-details {
+    width: 70%;
+    text-align: left;
+    margin-right: 20px;
+    /* padding: 30px; */
+    /* background-color: white;
+    border-radius: 20px;
+    border: 2px solid #28aac7;
+    border-top: 2px solid #28aac7;
+    border-bottom: 2px solid #28aac7;  */
+  
+  }
+  .Single-details .s-title {
+    text-transform: uppercase;
+    margin-bottom: 2px;
+    margin-left: 380px;
+    margin-top: 65px;
+    font-size: 24px;
+    font-weight: bold;
+    font-family: 'Nunito';
+  }
+
+
+  .Single-details .s-colorCat {
+    text-transform: uppercase;
+    color: #bbb;
+    font-weight: 700;
+    font-size: 14px;
+    margin-left: 30px;
+  }
+  .Single-details .s-price {
+    font-weight: 700;
+    margin-top: 5px;
+    margin-left: 383px;
+    font-size: 18px;
+    font-family: 'Nunito';
+  }
+  .Single-details .s-price .s-current {
+    color: #fe6168;
+    margin-left: 6px;
+    margin-top: 20px;
+  }
+  .Single-details .s-before {
+    text-decoration: line-through;
+  }
+  .Single-details .s-header {
+    margin-bottom: 40px;
+    position: relative;
+  }
+  .Single-details article > h5 {
+    margin: 0;
+    margin-top: 15px;
+    font-size: 16px;
+    font-weight: bold;
+    margin-left: 382px;
+    font-family: 'Nunito';
+  }
+  .Single-details article > p {
+    color: #4E4E4E;
+    margin-left: 383px;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  .Single-details .s-controls {
+    margin: 2em 0;
+  }
+.Single-details .s-controls > div {
+    flex: 1;
+    margin-left: 30px;
+    /* margin:  */
+ } 
+  .Single-details .s-controls .s-option {
+    margin-left: 5px;
+    margin-right: 5px;
+    display: inline-block;
+    position: relative;
+    color: #bbb;
+    font-size: 16px;  
+    text-align: center;
+  }
+
+  .Single-details .s-controls .s-option:hover {
+    color: #000;
+  }
+  .Single-details .s-controls .s-option::before {
+    content: "";
+    position: absolute;
+    border-width: 2px 2px 0 0;
+    border-style: solid;
+    top: 0;
+    bottom: 0;
+    height: 5px;
+    width: 5px;
+    right: -18px;
+    margin: auto;
+    transform: rotate(135deg);
+  }
+
+  .Single-details .s-controls .p-btn { 
+    background-color: #28AAC7;
+     color: #cefbf5;
+     width: 20px;
+     border: none;
+     outline: none;
+     border-radius: 8px;
+     font-size: 15px;
+   }
+
+   .Single-details .s-controls .m-btn { 
+    background-color: #28AAC7;
+     color: #cefbf5;
+     width: 20px;
+     border: none;
+     outline: none;
+     border-radius: 8px;
+     font-size: 15px;
+   }
+
+  .Single-details .s-controls > div + div {
+    margin-top: 10px;
+    flex: none;
+  }
+  .Single-details .s-controls ul {
+    display: flex;
+    margin: 15px 5px;
+  }
+  .Single-details .s-colors li + li {
+    margin-left: 15px;
+  }
+  .Single-details .s-colors {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: block;
+  }
+  
+  .dots {
+    display: flex;
+    margin-top: 40px;
+  }
+  .dots > a {
+    background-color: #349a98;
+    width: 10px;
+    height: 10px;
+    margin: 0 4px;
+    border-radius: 50%;
+  }
+  .dots > a:hover, .dots > a.active {
+    background-color: white;
+  }
+  .dots i {
+    display: none;
+  }
+  
+  .s-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .s-footer > .s-btn {
+    border-radius: 80px;
+    text-transform: uppercase;
+    background-color: #10505e;
+    color: #fff;
+    border: #10505e;
+    float: right;
+  }
+  .s-footer > .s-btn:hover {
+    background: #28aac7;
+    border: #28aac7;
+  }
+  .s-footer > a img {
+    width: 24px;
+    opacity: 0.8;
+  }
+  .s-footer > a:hover img {
+    opacity: 1;
+  }
+  
+  @media (min-width: 37.5em) {
+    .Single-details .srate {
+      position: absolute;
+      top: 12px;
+      right: 10px;
+      margin-top: 0;
+    }
+    .Single-details .s-controls > div.qty {
+      width: 60px;
+    }
+    .Single-details .s-controls > div + div {
+      border-left: 2px solid rgba(187, 187, 187, 0.5);
+      padding-left: 25px;
+      padding-right: 25px;
+      width: 100px;
+      margin-top: 0;
+    }
+    .Single-details .s-controls {
+      display: flex;
+    }
+  }
+  @media (min-width: 56.25em) {
+    .Single-container {
+      display: flex;
+      flex-direction: row;
+      align-items: normal;
+      margin: 50px;
+    }
+    .Single-image {
+      float: left;
+      width: 30%;}
+    /* .Single-image {
+      display: flex;
+      border-radius: 20px;
+      max-width: 330px;
+      padding: 130px;
+      height: 1000px;
+    }
+   */
+    .Single-pic{
+      /* left: -40px; */
+      max-width: 350px;
+      padding: 10px;
+      /* margin: 10px; */
+    }
+  
+    .Single-details {
+      width: 100%;
+      border-radius: 20px;
+      font-size: 18px;
+      height: 1000px;
+      font-family: 'Nunito';
+    }
+
+    .s-btn {
+      padding: 8px;
+      border-radius: 25px;
+      overflow: hidden;
+      letter-spacing: 0.02em;
+      padding: 7px 20px;
+      text-transform: uppercase;
+      background-color: #10505e;
+      color: #fff;
+      float: right;
+      margin-right: 450px;
+      margin-top: -35px;
+      margin-left: 150px;
+      border: 2px solid #10505e;
+
+  }
+
+  .s-btn:hover{
+    background-color: #0794c9;
+    color: #ffffff;
+    border: 2px solid #0794c9;
+  }
+
+  }
+  
+  
+  
+  /*Rating*/
+  
+  .s-rate {
+      float: right;
+      height: 55px;
+      padding: 0 80px;
+      position: static;
+      margin-top: -40px;
+      margin-right: 200px;
+
+  }
+  .s-rate:not(:checked) > input {
+      position:absolute;
+      top:0px;
+  }
+  .s-rate:not(:checked) > label {
+      float:right;
+      width:1em;
+      overflow:hidden;
+      white-space:nowrap;
+      cursor:pointer;
+      font-size:18px;
+      color:#ccc;
+  }
+  .s-rate:not(:checked) > label:before {
+      content: '★ ';
+  }
+  .s-rate > input:checked ~ label {
+      color: #ffc700;    
+  }
+  .s-rate:not(:checked) > label:hover,
+  .s-rate:not(:checked) > label:hover ~ label {
+      color: #deb217;  
+  }
+  .s-rate > input:checked + label:hover,
+  .s-rate > input:checked + label:hover ~ label,
+  .s-rate > input:checked ~ label:hover,
+  .s-rate > input:checked ~ label:hover ~ label,
+  .s-rate > label:hover ~ input:checked ~ label {
+      color: #c59b08;
+  }
+
+/* comment */
+.s-review{
+  margin-top: 110px;
+  background-color: #5B5B5B;
+  text-align: center;
+  color: #cefbf5;
+  padding: 5px;
+}
+
+.review-card {
+    font-size: 24px;
+    font-weight: bold;
+    font-family: 'Nunito';
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    /* padding: 20px; */
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border-radius: 6px;
+    -moz-box-shadow: 0px 0px 5px 0px rgba(212, 182, 212, 1);
+}
+
+.rounded-circle{
+  align-items: center;
+  display: flex;
+  margin-top: 25px;
+}
+
+.comment-box {
+    padding: 5px
+}
+
+.comment-area textarea {
+    resize: none;
+    border: 1px solid #ad9f9f;
+    font-size: 14px;
+}
+
+
+.form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #ffffff;
+    outline: 0;
+    box-shadow: 0 0 0 1px #0794c9 !important
+}
+.pull-left .btn{
+  border-radius: 50px;
+  padding-left: 13px;
+  padding-right: 13px;
+  text-transform: uppercase;
+  background-color: #10505E;
+  border: 1px solid #10505e;
+  color: #fff;
+}
+
+.pull-left .btn:hover{
+  border-radius: 50px;
+  text-transform: uppercase;
+  background-color: #0794c9;
+  border: 1px solid #0794c9;
+  color: #fff;
+}
+
+.send {
+  border-radius: 100px;
+  text-transform: uppercase;
+  background-color: #10505e;
+  color: #fff;
+  padding: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border: 1px solid #10505e;
+}
+
+.send:hover {
+  background-color: #0794c9;
+  border: 1px solid #0794c9;
+    /* color: #fff;
+    background-color: #f50202;
+    border-color: #f50202 */
+}
+
+.rating {
+  direction: rtl;
+  display: inline-block;
+  cursor: default;
+} 
+  .rating:not(:checked) > input {
+      position:absolute;
+      top:0px;
+  }
+  .rating:not(:checked) > label {
+      float:right;
+      width:1em;
+      overflow:hidden;
+      white-space:nowrap;
+      cursor:pointer;
+      font-size:18px;
+      color:#ccc;
+  }
+  .rating:not(:checked) > label:before {
+      content: '★ ';
+  }
+  .rating > input:checked ~ label {
+      color: #ffc700;    
+  }
+  .rating:not(:checked) > label:hover,
+  .rating:not(:checked) > label:hover ~ label {
+      color: #deb217;  
+  }
+  .rating > input:checked + label:hover,
+  .rating > input:checked + label:hover ~ label,
+  .rating > input:checked ~ label:hover,
+  .rating > input:checked ~ label:hover ~ label,
+  .rating > label:hover ~ input:checked ~ label {
+      color: #c59b08;
+  }
+
+
+
+.badge {
+  padding: 7px;
+  padding-right: 9px;
+  padding-left: 16px;
+  box-shadow: 5px 6px 6px 2px #e9ecef
+}
+
+.user-img {
+  margin-top: 4px
+}
+
+.check-icon {
+  font-size: 17px;
+  color: #c3bfbf;
+  top: 1px;
+  position: relative;
+  margin-left: 3px
+}
+
+.form-check-input {
+  margin-top: 6px;
+  margin-left: -24px !important;
+  cursor: pointer
+}
+
+.form-check-input:focus {
+  box-shadow: none
+}
+
+.icons i {
+  margin-left: 8px
+}
+
+.reply {
+  margin-left: 12px
+}
+
+.reply small {
+  color: #b7b4b4
+}
+
+.reply small:hover {
+  color: #0794c9;
+  cursor: pointer
+}
+/* recommendation */
+.s-recommended{
+  margin-top: 40px;
+  background-color: #5B5B5B;
+  text-align: center;
+  color: #cefbf5;
+  padding: 5px;
+}
+/* btn */
+.btn .input{
+  width: 50px;
+  height:20px;
+  font-size: 0.9rem;
+  margin: 0 10px;
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+}
+.btn .minusBtn, .plusBtn{
+  background-color: #28AAC7;
+  color: #cefbf5;
+  width: 20px;
+  border: none;
+  outline: none;
+  border-radius: 8px;
+  font-size: 15px;
+    margin: 2px;
+}
+/* comment */
+.comment{
+  text-transform: uppercase;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: 'Nunito';
+  margin-top: 20px;
+}

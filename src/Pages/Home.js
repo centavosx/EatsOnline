@@ -1,0 +1,25 @@
+import React, { useState } from 'react'
+import Carousel from './HomeComps/Carousel.js';
+import Products from "./HomeComps/Products.js"
+import AboutUs from "./HomeComps/AboutUs.js";
+import Goback from "./HomeComps/Goback.js"
+import axios from 'axios';
+// import ContactUs from './HomeComps/ContactUs.js';
+
+const Home = (props) => {
+   React.useEffect(()=>{
+    localStorage.setItem("page", "home");
+   }, [])
+
+    return (
+        <main>
+            <Carousel />
+            <Products max={10} featured={true} sortwhat={"totalsold"} value={[]}/>
+            <AboutUs />
+             {/*\\<ContactUs/> */}
+            <Goback />
+        </main>
+    )
+}
+
+export default Home;

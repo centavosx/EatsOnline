@@ -1,0 +1,29 @@
+@import url(https://fonts.googleapis.com/css?family=Nunito);
+
+.up-button {
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: #10505e;
+  }
+
+.section-title{
+  font-family: 'Nunito Sans';
+  height: auto;
+}
+
+.footer-info .facebook {
+color: white;
+}
+
+.footer-info .instagram {
+  color: white;
+  }
+
+.footer-info .twitter {
+    color: white;
+    }
+
+footer{
+  background-color: #10505e;
+  color: white;
+}

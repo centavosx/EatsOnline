@@ -1,0 +1,285 @@
+.c-form{
+    color: #10505e;
+}
+.order-now{
+    /* width: 200px; */
+    /* background: red;*/
+    padding: 0px 20px;
+    float: left;
+    color: #10505e;
+}
+.bg-light{
+    background-color: #fff;
+}
+.advance-order{
+    word-wrap:break-word;
+    width: 50%;
+    margin-left: 150px;
+    color: #10505e;
+}
+.row{
+    justify-content: center;
+}
+.my-4{
+    color: #10505e;
+}
+.order-m{
+    justify-content: center;
+    display: flex;
+    color: #10505e;
+}
+.form-label{
+    align-items: center;
+    display: flex;
+    color: #10505e;
+}
+
+
+/* button */
+.c-btn{
+    border-radius: 100px;
+    text-transform: uppercase;
+    background-color: #10505e;
+    color: #fff;
+}
+.c-btn:hover{
+    background-color: #28aac7;
+}
+.btns-group{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: -170px;
+  }
+
+  .btn-group {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 50px;
+  }
+
+.prev-btn {
+    padding: 0.20rem;
+    display: block;
+    text-decoration: none;
+    background-color: #cefbf5;
+    color: #10505e;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-left: auto;
+    margin-right: 480px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.next-btn {
+    padding: 0.20rem;
+    display: block;
+    text-decoration: none;
+    background-color: #cefbf5;
+    color: #10505e;
+    font-size: 20px;
+    font-style: bold;
+    text-align: center;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-left: auto;
+}
+
+
+/* line */
+.hr-line{
+    size:8px;
+    width: 100%;
+    color: #000;
+}
+
+
+/* table */
+table{
+    border-radius: 25px;
+    font-family: 'Nunito';
+    margin-bottom: 20px;
+}
+thead{
+    background-color: #545454;
+    color: #cefbf5;
+    text-align: center;
+    padding: 50px;
+    position: sticky;
+}
+td{
+    height: 50px;
+    font-family: 'Nunito';
+    width: 33.5%;
+    border: 1px solid black;
+    color: black;
+    font-weight: normal;
+    text-transform: uppercase;
+    padding: 8px;
+    text-align: center;
+
+}
+
+th{
+    height: 50px;
+    font-family: 'Nunito';
+    width: 20%;
+    border: 1px solid black;
+    color: white;
+    font-weight: normal;
+    text-transform: uppercase;
+}
+
+.tableFixHead .thead .tr .th {
+    position: sticky;
+    top: 0;
+    height: 42px;
+}
+
+tbody div{
+    /* overflow-y:scroll; */
+    height:auto;
+}
+#style-4::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+}
+
+#style-4::-webkit-scrollbar
+{
+	width: 10px;
+	background-color: #F5F5F5;
+}
+
+#style-4::-webkit-scrollbar-thumb
+{
+	background-color: #000000;
+	border: 2px solid #555555;
+}
+/* total */
+.s-total{
+    text-align: end;
+}
+/*  */
+.text{
+    align-items: center;
+    color: black;
+}
+/*responsive*/
+/* 
+@media (max-width: 500px) {
+    .table thead {
+      display: none;
+    }
+  
+    .table,
+    .table tbody,
+    .table tr,
+    .table td {
+      display: block;
+      width: 100%;
+    }
+    .table tr {
+      margin-bottom: 15px;
+    }
+    .table td {
+      padding-left: 50%;
+      text-align: left;
+      position: relative;
+    }
+    .table td::before {
+      content: attr(data-label);
+      position: absolute;
+      left: 0;
+      width: 50%;
+      padding-left: 15px;
+      font-size: 15px;
+      font-weight: bold;
+      text-align: left;
+    }
+  }
+   */
+/* div left and right */
+.outerDiv
+	{
+		color: #fff;
+		height: 500px;
+		width: 100%;
+		/* margin: 0px 20px; */
+		padding: 5px;
+	}
+	.leftDiv
+	{
+        border-radius: 2%;
+        padding: 20px 10px;
+		background-color: #efefef;
+		color: #000;
+		width: 50%;
+		float: left;
+	}
+	.rightDiv
+	{   
+        border-radius: 2%;
+        padding: 20px 10px;
+		background-color: #efefef;
+		color: #000;
+		width: 48%;
+        height: 490px;
+		float: right;
+	}		
+    
+    .form-check-input{
+        margin: 0px 20px;
+    }
+    .hr-line{
+        border-top: 5px solid #000;
+    }
+    /* .wrapper { 
+        border : 2px solid #000; 
+        overflow:hidden;
+      } 
+      
+      .wrapper div { */
+         /* min-height: 200px;
+         padding: 10px;
+      }
+      #one {
+        background-color: gray;
+        float:left; 
+        margin-right:20px;
+        width:50%;
+        border-right:2px solid #000;
+      }
+      #two { 
+        background-color: white;
+        overflow:hidden;
+        margin:10px;
+        border:2px dashed #ccc;
+        min-height:170px;
+      }
+      
+      @media screen and (max-width: 400px) {
+        .order-container{
+            width: fit-content;
+        }
+         #one { 
+          float: none;
+          margin-right:0;
+          width:auto;
+          border:0;
+          border-bottom:2px solid #000;    
+        }
+        .wrapper{
+            width: 50%;
+        }
+        .btns-group {
+            width: fit-content;
+        }
+      } */
