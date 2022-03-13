@@ -6,18 +6,16 @@ import { decryptJSON, encryptJSON } from '../EncryptionDecryption';
 import "../../CSS/Profileinfo.css";
 import sha256 from 'crypto-js/sha256';
 function ProfileInfo(){
+    const [name, setName] = useState("");
+    const [phoneNumber, setPhoneNumber] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirm] = useState("");
+
     const [profileData, setProfileData] = useState({
         name: '',
-        email: '',
         phoneNumber: '',
-        addresses: []
-    })
-
-    const [profileDataC, setProfileDataC] = useState({
-        name: '',
-        email: '',
-        phoneNumber: '',
-        addresses: []
+        addresses: [],
+        password: ''
     })
 
     const[show, setShow] = useState([true, false, false, false])
@@ -30,8 +28,8 @@ function ProfileInfo(){
             response.data = decryptJSON(response.data.data)
             if(response.data.addresses==null){
                 response.data.addresses = [];
-            }
-            setProfileDataC(response.data);
+            } 
+            response.data.password = '';
             setProfileData(response.data);
         })
     }, []);
@@ -46,6 +44,27 @@ function ProfileInfo(){
         }
 
     }, [profileData])
+
+
+    const validatePass = () =>{
+        let re = /[A-Z]/;
+        let re2 = /[a-z]/;
+        let re3 = /[!@#$%^&*\(\)_+\}\{\":?><|~\.\-]/;
+        let re4 = /[0-9]/;
+        return !(!re.test(password) || !re2.test(password) || !re3.test(password) || !re4.test(password) || password.length<8)
+    }
+    
+    const checkP = () =>{
+        return password.length>0 ? validatePass() ? password == confirmPassword : false : true 
+    }
+
+    const checkName = () =>{
+        return name.length>0 ? !(name === profileData.name) : true
+    }
+
+    const checkNumber = () =>{
+        return phoneNumber.length>0 ? !(phoneNumber === profileData.phoneNumber) : true
+    }
     return (
         <div>
         {/* // <!-- Demo header--> */}
@@ -78,18 +97,27 @@ function ProfileInfo(){
                             </div> */}
                             <div className="row mt-2">
                                 <label className="labels">Name</label>
-                                <input type="text" className="form-control" placeholder={profileData.name} />
+                                <input type="text" className="form-control" placeholder={profileData.name} value={name} onChange={(e)=>setName(e.target.value)} />
                                 <label className="labels">Email</label>
                                 <input type="text" className="form-control" placeholder={profileData.email}/>
                                 <label className="labels">Phone Number</label>
-                                <input type="text" className="form-control" placeholder={profileData.phoneNumber}/>
+                                <input type="text" className="form-control" placeholder={profileData.phoneNumber} value={phoneNumber} onChange={(e)=>setPhoneNumber(e.target.value)}/>
+                                
+                               
+                                <h4> &nbsp; &nbsp;<br/>Change pass</h4>
                                 <label className="labels">Password</label>
-                                <input type="text" className="form-control" placeholder={profileData.password}/>
+                                <input type="password" className="form-control" placeholder={profileData.password} value={password} onChange={(e)=>setPassword(e.target.value)}/>
+                                {password.length>0?<>
                                 <label className="labels">Confirm Password</label>
-                                <input type="text" className="form-control" placeholder={profileData.confirmPassword}/>
+                                <input type="password" className="form-control" placeholder={profileData.confirmPassword} value={confirmPassword}onChange={(e)=>setConfirm(e.target.value)}/></>
+                                :null}
+                
+
+                                
                             </div>
+                            <Address setProfileData={setProfileData} addresses={profileData.addresses}/>
                             <div id="col">
-                                <button type="button" class="btn btn-primary btn-block">Edit</button>
+                                {checkP() && checkName() && checkNumber() ? <button type="button" class="btn btn-primary btn-block">Save</button> : null}
                             </div>
                         </div>
                     </div>:null}

@@ -14,14 +14,15 @@ const Cart = (props) => {
         localStorage.setItem("page", "cartlist");
     }, [])
 
-
+    const [width, setWidth] = useState({width: '0%'});
+    const [progress, setProgress ]= useState(["progress-step progress-step-active", "progress-step","progress-step"]);
 
     return(
       <main>
         <Carousel />
-        <Progress/>
+        <Progress width={width} progress={progress}/>
    
-        <CartList />
+        <CartList setWidth={setWidth} width={width} setProgress={setProgress}/>
         
         <Goback />
 
