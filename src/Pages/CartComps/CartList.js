@@ -22,6 +22,8 @@ const CartList = (props) => {
     userid: localStorage.getItem("id")
   });
 
+  const [output, setOutput] = useState({});
+
   React.useEffect(() => {
     axios.post(process.env.REACT_APP_APIURL + "cart",
       encryptJSON({
@@ -100,7 +102,6 @@ const CartList = (props) => {
       x[1].amount = dataAmt[x[0]];
       if (x[0] in select && x[1].numberofitems > 0) {
         totalvalue += "discount" in x[1] ? ((x[1].discount / 100) * x[1].price) * dataAmt[x[0]] : x[1].price * dataAmt[x[0]];
-
         f[x[0]] = x[1];
       }
       obj[x[0]] = dataAmt[x[0]];
@@ -172,6 +173,21 @@ const CartList = (props) => {
     setTotalAmount(totalvalue);
     setSelect(arr);
   }
+
+  const checkOut = () => {
+    axios.post("http://localhost:8001/api/v1/transact",
+      encryptJSON(data)).then((resp) => {
+        resp.data = decryptJSON(resp.data.data)
+        if (!resp.data.error) {
+          if (resp.data.completed) {
+            setOutput(resp.data.data);
+            props.setWidth({ width: '100%' });
+            props.setProgress(["progress-step progress-step-active", "progress-step progress-step-active", "progress-step progress-step-active"])
+          }
+        }
+      })
+  }
+
   return (
     <form action={void (0)} className="form">
       {/* <!-- Steps --> */}
@@ -258,15 +274,14 @@ const CartList = (props) => {
             <SelectOrder data={select} totalamount={totalamount} t_data={data} setData={setData} setUse={setUse} use={use} chA={chA} setChA={setChA} />
             <div className="btns-group">
               <a href={void (0)} className="prev-btn" onClick={() => { props.setWidth({ width: '0%' }); props.setProgress(["progress-step progress-step-active", "progress-step", "progress-step"]) }}>PREVIOUS</a>
-              {toContinue() && data.address.length > 0 && data.payment.length > 0 && data.items.length > 0 ? <a href={void (0)} className="next-btn" onClick={() => { props.setWidth({ width: '100%' }); props.setProgress(["progress-step progress-step-active", "progress-step progress-step-active", "progress-step progress-step-active"]) }}>CHECKOUT</a> : null}
+              {toContinue() && data.address.length > 0 && data.payment.length > 0 && data.items.length > 0 ? <a href={void (0)} className="next-btn" onClick={() => checkOut()}>CHECKOUT</a> : null}
             </div>
           </div>
-          :
+          ://{  }
           <div className="form-step form-step-active">
             {/* <CartConfirmation/> */}
-            <CartConfirmation data={select} totalamount={totalamount} t_data={data} setData={setData} />
+            <CartConfirmation output={output} />
             <div className="btn-group">
-              <a href={void (0)} className="cart-btn" onClick={() => { props.setWidth({ width: '50%' }); props.setProgress(["progress-step progress-step-active", "progress-step progress-step-active", "progress-step"]) }}>PREVIOUS</a>
               <input type="submit" value="Submit" className="cart-btn" />
             </div>
           </div>}

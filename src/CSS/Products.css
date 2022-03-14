@@ -64,6 +64,8 @@ body{
 .product-box{
     display: flex;
     flex-direction: column;
+    align-items: center;
+    flex-grow: 0.5;
     width: 250px;
     padding: 15px;
     border: 1px solid rgba(0, 0, 0, 0.8);
@@ -72,6 +74,16 @@ body{
     position: relative;
     
 }
+
+.product-container {
+    width:90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
 /* img */
 .p-img-container{
     width: 100%;
@@ -661,3 +673,4 @@ input[type=number] {
     display: -webkit-inline-box;
 }
 /* latest products try lang 03/12/22*/
+
