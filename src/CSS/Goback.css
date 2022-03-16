@@ -64,7 +64,7 @@
     background: #F2F36B;
     width: 50px;
     height: 50px;
-    display: block;
+    display: flex;
     text-decoration: none;
     -webkit-border-radius: 35px;
     -moz-border-radius: 35px;
@@ -81,10 +81,10 @@
     bottom: 30px;
     right: 70px;
     background-color: #fff;
-    width: 350px;
+    width: 310px;
     height: auto;
     border: 1px solid #c7d8e2;
-    border-radius: 3px;
+    border-radius: 20px;
     box-shadow: 10px 10px 30px rgba(0,0,0,0,125),
     -10px -10px 30px rgba(0,0,0,0,125);
     z-index: 100;
@@ -212,7 +212,8 @@
 }
 
 .msg-page {
-    height: 450px;
+    height: 285px;
+    width: 260px;;
     overflow-y: auto;
 }
 

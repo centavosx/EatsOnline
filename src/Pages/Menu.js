@@ -10,6 +10,7 @@ import { useParams } from 'react-router-dom/cjs/react-router-dom.min'
 const Menu = (props) =>{
     const [values, setValues] = useState([]);
     const [params, setParams] = useState(null)
+    const [loading, setLoading] = useState(false);
     React.useEffect(()=>{
         
         let val = new URLSearchParams(window.location.search).get("id");
@@ -23,13 +24,13 @@ const Menu = (props) =>{
     return(
     <main>
         <Carousel />
-        <Category setValues={setValues}/>
+        <Category setValues={setValues} setLoading={setLoading}/>
         <div style={{width: '100%', margin: 'auto'}}>
         {
             params!==null?
                 <SingleProduct/>
             :
-                <Products afeatured={false} sortwhat={"totalsold"} value={values}/>
+                <Products afeatured={false} sortwhat={"totalsold"} value={values} setLoading={setLoading} loading={loading}/>
         }
        
             {/* <Router>

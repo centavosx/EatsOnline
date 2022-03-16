@@ -1,30 +1,25 @@
 /* div left and right */
-.outerDiv
-	{
-		color: #fff;
-		height: 700px;
-		width: 100%;
-		/* margin: 0px 20px; */
-		padding: 5px;
+.confirm-wrapper { 
+	overflow: hidden;
 	}
-	.leftDiv1
-	{
-        border-radius: 2%;
-        padding: 20px 10px;
-		background-color: #efefef;
-		color: #000;
-		width: 48%;
-		float: left;
+	
+	.confirmwrapper div {
+	   padding: 2px 10px;
 	}
-	.rightDiv2
-	{   
-        border-radius: 2%;
-        padding: 20px 10px;
-		background-color: #efefef;
-		color: #000;
-		width: 50%;
-		height: 690px;
-		float: right;
+	#three {
+	  background-color: #ffffff;
+	  float:left; 
+	  margin-right:20px;
+	  width:50%;
+	  height: 70.5vh;
+	  border-right:2px solid #000;
+	  border-radius: 10px;
+	}
+	#four { 
+	  background-color: white;
+	  overflow:hidden;
+	  min-height:50%;
+	  border-radius: 10px;
 	}	
     .form-check-input{
         margin: 0px 20px;
@@ -248,4 +243,9 @@
   .cart-btn:hover {
     background-color: #28AAC7;
     color: #fff;
+  }
+  /* qr code */
+  .img-thumbnail{
+	  height: 15%;
+	  width: 40%;
   }

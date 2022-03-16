@@ -8,7 +8,7 @@ function Products(props) {
     const [products, setProducts] = useState([]);
     const [itemNum, setItemNum] = useState({});
     const [state, setState] = useState(false);
-    const [loading, setLoading] = useState(false);
+ 
     const [message, setMessage] = useState({ added: false, message: "" });
     const [key, setKey] = useState('');
     React.useEffect(() => {
@@ -18,10 +18,11 @@ function Products(props) {
         }
         setItemNum(val);
         setProducts(props.value);
+        props.setLoading(false);
     }, [props.value])
 
     React.useEffect(() => {
-        setLoading(true);
+        props.setLoading(true);
         axios.post(process.env.REACT_APP_APIURL + "getData",
             encryptJSON({
                 reference: "products",
@@ -38,7 +39,7 @@ function Products(props) {
                     setItemNum(val);
                     setProducts(resp.data.data);
                     console.log(resp.data.data)
-                    setLoading(false)
+                    props.setLoading(false)
                 }
             })
     }, []);
@@ -102,14 +103,13 @@ function Products(props) {
     }
 
     if (!props.featured) {
-        if (loading) {
+        if (props.loading) {
             return (
                 <div className="product-container" style={{ height: '100%', padding: '15px', backgroundColor: '#F2F36B', color: '#fff' }}>
                     <h2>Products are loading...</h2>
                 </div>)
         } else {
             return (
-
                 <div className="product-container">
                     {/* <!-- Product box --> */}
                     {products.map((data, index) => {
@@ -133,14 +133,15 @@ function Products(props) {
                                     <a href={void (0)} className="product-title">
                                         {data[1].title}
                                         <div className="rate">
+                                             {/* right */}
+                                             <div id="div2">
+                                                <span className="p-price" >₱ {data[1].price}</span>
+                                            </div>
                                             {/* left */}
                                             <div id="div1">
                                                 <span>{data[1].seller}</span>
                                             </div>
-                                            {/* right */}
-                                            <div id="div2">
-                                                <span className="p-price" >₱ {data[1].price}</span>
-                                            </div>
+        
 
                                         </div>
 
@@ -170,15 +171,13 @@ function Products(props) {
                                     {/* quantity adjustment experiment*/}
 
                                     <div id="div1">
-                                        <form action="">
-                                            <p className="q-btn">
-                                                {/* value={"-"} */}
-                                                <button className="qtyminus" onClick={(e) => editQty(e, data[0], itemNum[data[0]] -= 1)}>-</button>
-                                                <input type="number" className="qty-int" name="qty" value={itemNum[data[0]]} onChange={(e) => editQty(e, data[0], parseInt(e.target.value))} />
-                                                {/* value={"+"} */}
-                                                <button className="qtyplus" onClick={(e) => editQty(e, data[0], itemNum[data[0]] += 1)}>+</button>
-                                            </p>
-                                        </form>
+                                        <p className="q-btn">
+                                            {/* value={"-"} */}
+                                            <button className="qtyminus" onClick={(e) => editQty(e, data[0], itemNum[data[0]] -= 1)}>-</button>
+                                            <input type="number" className="qty-int" name="qty" value={itemNum[data[0]]} onChange={(e) => editQty(e, data[0], parseInt(e.target.value))} />
+                                            {/* value={"+"} */}
+                                            <button className="qtyplus" onClick={(e) => editQty(e, data[0], itemNum[data[0]] += 1)}>+</button>
+                                        </p>
                                     </div>
 
                                     {/* right */}
@@ -220,8 +219,8 @@ function Products(props) {
                                     {/* <!-- discount --> */}
                                     <span className="p-discount">-{data[1].discount}%</span>
                                     {/* <!-- img container --> */}
-                                    <div className="p-img-container">
-                                        <div className="p-img" >
+                                    <div className="f-img-container">
+                                        <div className="f-img" >
                                             <Link to={"/products?id=" + data[0]}>
                                                 <img src={data[1].link} className="p-img-front" alt={data[1].imgname} />
                                             </Link>
@@ -241,6 +240,22 @@ function Products(props) {
                                         <div>
                                             {key.length > 0 && key === data[0] ? <p style={message.added ? { color: 'green' } : { color: 'red' }}>{message.message}</p> : <p></p>}
                                         </div>
+                                        <div className="container">
+                                        <div className="btn">
+                                            <div id="div1">
+                                                <div className="star-rating">
+                                                    {data[1].comments == 0 ?
+                                                        <label for={"star-1"}>
+                                                            No Ratings
+                                                        </label> :
+                                                        showStar(data[1].comments)}
+                                                </div>
+                                            </div>
+                                            <div id="div2">
+                                                <span className="total-sold">{data[1].totalsold}Sold</span>
+                                            </div>
+                                        </div>
+                                    </div>
                                         <div className="price">
                                             <span className="p-price" >₱ {data[1].price}</span>
                                             <a href={void (0)} className="p-buy-btn" onClick={() => addCart(data[0])}>ADD TO CART</a>

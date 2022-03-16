@@ -12,9 +12,9 @@ function AboutUs() {
                             <div className="inner-column">
                                 <div className="sec-title">
                                     <span className="a-title"><h2>About Us</h2></span>
-                                    <p><br></br>
-                                        Eats Online PH is an official franchisee and distributor <br></br> of Philippine regional delicacies.
-                                        We aim to provide <br></br> Filipino foods originated from different regions within <br></br> the Philippines. <br></br><br></br><br></br>
+                                    <p className="about-p"><br></br>
+                                        Eats Online PH is an official franchisee and <br></br> distributor of Philippine regional delicacies. <br></br> 
+                                        We aim to provide Filipino foods originated <br></br> from different regions within the Philippines. <br></br><br></br><br></br>
                                         Order now and have it delivered at your doorsteps!
                                     </p>
                                 </div>
@@ -31,7 +31,7 @@ function AboutUs() {
                             <div className="inner-column wow fadeInLeft">
                                 <figure className="image-1">
                                     <a href={void (0)} className="lightbox-image" data-fancybox="images">
-                                        <img title="" src="../assets/Home Slider.png" alt="" /></a>
+                                        <img className="about-img" title="" src="../assets/Home Slider.png" alt="" /></a>
                                 </figure>
 
                             </div>

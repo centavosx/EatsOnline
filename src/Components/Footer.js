@@ -4,13 +4,13 @@ const Footer = (props) => {
     return (
         <footer className="footer">
 
-            <div className="container p-4">
+            {/* <div className="container p-4"> */}
                 <section className="mb-4">
                 <div className="row">
                         <div col-lg-3="true" col-md-6="true">
                             <div className="footer-info">
                                 <div className="section-title">
-                                <h2>Eats Online</h2>
+                                <h2 className="footer-h2">Eats Online</h2>
                                 </div>
                                 <p style={props.legitkey===true && props.logedin===true && props.idnum!==null?null:{color: 'white'}}>
                                 <strong style={props.legitkey===true && props.logedin===true && props.idnum!==null?null:{color: 'white'}}>Location:</strong> 19, Via Milano St., Villa Firenze, Quezon City, Philippines <br></br>
@@ -27,7 +27,7 @@ const Footer = (props) => {
                         </div>
                     </div>
                 </section>
-            </div>
+            {/* </div> */}
 
 
             <div className="text-center p-3" style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}>

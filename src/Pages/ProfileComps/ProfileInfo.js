@@ -1,3 +1,4 @@
+
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useHistory} from "react-router-dom";
@@ -5,6 +6,7 @@ import Address from './Address';
 import { decryptJSON, encryptJSON } from '../EncryptionDecryption';
 import "../../CSS/Profileinfo.css";
 import sha256 from 'crypto-js/sha256';
+import Transactions from './Transactions';
 function ProfileInfo(){
     const [name, setName] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
@@ -15,7 +17,8 @@ function ProfileInfo(){
         name: '',
         phoneNumber: '',
         addresses: [],
-        password: ''
+        password: '',
+        guest: false,
     })
 
     const[show, setShow] = useState([true, false, false, false])
@@ -23,7 +26,7 @@ function ProfileInfo(){
     React.useEffect(()=>{
         axios.post(process.env.REACT_APP_APIURL+"profileData", encryptJSON({
             id: localStorage.getItem("id"),
-            data: ["name", "address", "email", "phoneNumber", "addresses"]
+            data: ["name", "address", "email", "phoneNumber", "addresses", "guest"]
         })).then((response)=>{
             response.data = decryptJSON(response.data.data)
             if(response.data.addresses==null){
@@ -55,15 +58,29 @@ function ProfileInfo(){
     }
     
     const checkP = () =>{
-        return password.length>0 ? validatePass() ? password == confirmPassword : false : true 
+        return password.length>0 && validatePass() ? password === confirmPassword : false 
     }
 
     const checkName = () =>{
-        return name.length>0 ? !(name === profileData.name) : true
+        return password.length>0 && name.length>0 ? checkP() && !(name === profileData.name) : name.length>0 ? !(name === profileData.name) : false
     }
 
     const checkNumber = () =>{
-        return phoneNumber.length>0 ? !(phoneNumber === profileData.phoneNumber) : true
+        let c = /^\+?\d+$/;
+        return password.length>0 && phoneNumber.length>0 ? checkP() && !(phoneNumber === profileData.phoneNumber) : phoneNumber.length>10 ? c.test(phoneNumber) && !(phoneNumber === profileData.phoneNumber) : false
+    }
+
+    const updateData = () => {
+        let updateData = {}
+        if(name.length>0 && name !== profileData.name) updateData.name = name
+        if(password.length>0) updateData.password = name
+        if(phoneNumber.length>0 && phoneNumber !== profileData.phoneNumber) updateData.phoneNumber = phoneNumber
+        axios.patch(process.env.REACT_APP_APIURL+"profileData", encryptJSON({
+            id: localStorage.getItem("id"),
+            updateData: updateData
+        })).then(()=>{
+           window.location.reload(false);
+        })
     }
     return (
         <div>
@@ -103,7 +120,8 @@ function ProfileInfo(){
                                 <label className="labels">Phone Number</label>
                                 <input type="text" className="form-control" placeholder={profileData.phoneNumber} value={phoneNumber} onChange={(e)=>setPhoneNumber(e.target.value)}/>
                                 
-                               
+                               {!profileData.guest?
+                               <>
                                 <h4> &nbsp; &nbsp;<br/>Change pass</h4>
                                 <label className="labels">Password</label>
                                 <input type="password" className="form-control" placeholder={profileData.password} value={password} onChange={(e)=>setPassword(e.target.value)}/>
@@ -111,288 +129,27 @@ function ProfileInfo(){
                                 <label className="labels">Confirm Password</label>
                                 <input type="password" className="form-control" placeholder={profileData.confirmPassword} value={confirmPassword}onChange={(e)=>setConfirm(e.target.value)}/></>
                                 :null}
+                                </>
+                                :null} 
                 
 
                                 
                             </div>
                             <Address setProfileData={setProfileData} addresses={profileData.addresses}/>
                             <div id="col">
-                                {checkP() && checkName() && checkNumber() ? <button type="button" class="btn btn-primary btn-block">Save</button> : null}
+                                {checkP() || (checkName() || checkNumber()) ? <button type="button" class="btn btn-primary btn-block" onClick={()=>updateData()}>Save</button> : null}
                             </div>
                         </div>
                     </div>:null}
 
                     {/* <!-- Purchase History --> */}
-                    {show[1]?
-                    <div className="tab-pane tab-paneph fade shadow bg-white show active p-3" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-                        <div className="p-title">PURCHASE HISTORY</div> 
-                     <div class="tableFixHead tbody-scroll">      
-                     <table>
-                        <thead className="top-head">
-                            <tr>
-                                <th scope="col">No.</th>
-                                <th scope="col">Order ID</th>
-                                <th scope="col">Order Date</th>
-                                <th scope="col">Order Item</th>
-                                <th scope="col">Total Price</th>
-                                <th scope="col">Order Status</th>
-                                <th scope="col">View Order</th>
-                                <th scope="col">Cancel Order</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td data-label="No.">Visa - 3412</td>
-                                <td data-label="Order ID">04/01/2016</td>
-                                <td data-label="Order Date">$1,190</td>
-                                <td data-label="Order Item">03/01/2016 - 03/31/2016</td>
-                                <td data-label="Total Price">Visa - 3412</td>
-                                <td data-label="Order Status">04/01/2016</td>
-                                <td data-label="View Order">
-                                    <button className="v-button button-small button-round">View</button>
-                                </td>
-                                <td data-label="Cancel Order">
-                                    <button className="c-button button-small button-round">Cancel</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-label="No.">Visa - 3412</td>
-                                <td data-label="Order ID">04/01/2016</td>
-                                <td data-label="Order Date">$1,190</td>
-                                <td data-label="Order Item">03/01/2016 - 03/31/2016</td>
-                                <td data-label="Total Price">Visa - 3412</td>
-                                <td data-label="Order Status">04/01/2016</td>
-                                <td data-label="View Order">
-                                    <button className="v-button button-small button-round">View</button>
-                                </td>
-                                <td data-label="Cancel Order">
-                                    <button className="c-button button-small button-round">Cancel</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-label="No.">Visa - 3412</td>
-                                <td data-label="Order ID">04/01/2016</td>
-                                <td data-label="Order Date">$1,190</td>
-                                <td data-label="Order Item">03/01/2016 - 03/31/2016</td>
-                                <td data-label="Total Price">Visa - 3412</td>
-                                <td data-label="Order Status">04/01/2016</td>
-                                <td data-label="View Order">
-                                    <button className="v-button button-small button-round">View</button>
-                                </td>
-                                <td data-label="Cancel Order">
-                                    <button className="c-button button-small button-round">Cancel</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-label="No.">Visa - 3412</td>
-                                <td data-label="Order ID">04/01/2016</td>
-                                <td data-label="Order Date">$1,190</td>
-                                <td data-label="Order Item">03/01/2016 - 03/31/2016</td>
-                                <td data-label="Total Price">Visa - 3412</td>
-                                <td data-label="Order Status">04/01/2016</td>
-                                <td data-label="View Order">
-                                    <button className="v-button button-small button-round">View</button>
-                                </td>
-                                <td data-label="Cancel Order">
-                                    <button className="c-button button-small button-round">Cancel</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-label="No.">Visa - 3412</td>
-                                <td data-label="Order ID">04/01/2016</td>
-                                <td data-label="Order Date">$1,190</td>
-                                <td data-label="Order Item">03/01/2016 - 03/31/2016</td>
-                                <td data-label="Total Price">Visa - 3412</td>
-                                <td data-label="Order Status">04/01/2016</td>
-                                <td data-label="View Order">
-                                    <button className="v-button button-small button-round">View</button>
-                                </td>
-                                <td data-label="Cancel Order">
-                                    <button className="c-button button-small button-round">Cancel</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-label="No.">Visa - 3412</td>
-                                <td data-label="Order ID">04/01/2016</td>
-                                <td data-label="Order Date">$1,190</td>
-                                <td data-label="Order Item">03/01/2016 - 03/31/2016</td>
-                                <td data-label="Total Price">Visa - 3412</td>
-                                <td data-label="Order Status">04/01/2016</td>
-                                <td data-label="View Order">
-                                    <button className="v-button button-small button-round">View</button>
-                                </td>
-                                <td data-label="Cancel Order">
-                                    <button className="c-button button-small button-round">Cancel</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-label="No.">Visa - 3412</td>
-                                <td data-label="Order ID">04/01/2016</td>
-                                <td data-label="Order Date">$1,190</td>
-                                <td data-label="Order Item">03/01/2016 - 03/31/2016</td>
-                                <td data-label="Total Price">Visa - 3412</td>
-                                <td data-label="Order Status">04/01/2016</td>
-                                <td data-label="View Order">
-                                    <button className="v-button button-small button-round">View</button>
-                                </td>
-                                <td data-label="Cancel Order">
-                                    <button className="c-button button-small button-round">Cancel</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-label="No.">Visa - 3412</td>
-                                <td data-label="Order ID">04/01/2016</td>
-                                <td data-label="Order Date">$1,190</td>
-                                <td data-label="Order Item">03/01/2016 - 03/31/2016</td>
-                                <td data-label="Total Price">Visa - 3412</td>
-                                <td data-label="Order Status">04/01/2016</td>
-                                <td data-label="View Order">
-                                    <button className="v-button button-small button-round">View</button>
-                                </td>
-                                <td data-label="Cancel Order">
-                                    <button className="c-button button-small button-round">Cancel</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-label="No.">Visa - 3412</td>
-                                <td data-label="Order ID">04/01/2016</td>
-                                <td data-label="Order Date">$1,190</td>
-                                <td data-label="Order Item">03/01/2016 - 03/31/2016</td>
-                                <td data-label="Total Price">Visa - 3412</td>
-                                <td data-label="Order Status">04/01/2016</td>
-                                <td data-label="View Order">
-                                    <button className="v-button button-small button-round">View</button>
-                                </td>
-                                <td data-label="Cancel Order">
-                                    <button className="c-button button-small button-round">Cancel</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                        </table>
-                    </div>
-                    </div>:null}
+                    {show[1]?<Transactions transaction={true}/>
+                    :null}
 
                     {/* <!-- Advance Order --> */}
                     {show[2]?
-                    <div className="tab-pane tab-paneao fade shadow bg-white show active p-3" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
-                    <div className="p-title">ADVANCE ORDER</div> 
-                    <div className="tableFixHead tbody-scroll">
-                    <table>
-                        <thead className="top-head">
-                            <tr>
-                                <th scope="col">No.</th>
-                                <th scope="col">Order ID</th>
-                                <th scope="col">Advance Order Date</th>
-                                <th scope="col">Order Item</th>
-                                <th scope="col">Total Price</th>
-                                <th scope="col">Order Status</th>
-                                <th scope="col">View Order</th>
-                                <th scope="col">Cancel Order</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                                <td data-label="No.">Visa - 3412</td>
-                                <td data-label="Order ID">04/01/2016</td>
-                                <td data-label="Order Date">$1,190</td>
-                                <td data-label="Order Item">03/01/2016 - 03/31/2016</td>
-                                <td data-label="Total Price">Visa - 3412</td>
-                                <td data-label="Order Status">04/01/2016</td>
-                                <td data-label="View Order">
-                                    <button className="v-button button-small button-round">View</button>
-                                </td>
-                                <td data-label="Cancel Order">
-                                    <button className="c-button button-small button-round">Cancel</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-label="No.">Visa - 3412</td>
-                                <td data-label="Order ID">04/01/2016</td>
-                                <td data-label="Order Date">$1,190</td>
-                                <td data-label="Order Item">03/01/2016 - 03/31/2016</td>
-                                <td data-label="Total Price">Visa - 3412</td>
-                                <td data-label="Order Status">04/01/2016</td>
-                                <td data-label="View Order">
-                                    <button className="v-button button-small button-round">View</button>
-                                </td>
-                                <td data-label="Cancel Order">
-                                    <button className="c-button button-small button-round">Cancel</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-label="No.">Visa - 3412</td>
-                                <td data-label="Order ID">04/01/2016</td>
-                                <td data-label="Order Date">$1,190</td>
-                                <td data-label="Order Item">03/01/2016 - 03/31/2016</td>
-                                <td data-label="Total Price">Visa - 3412</td>
-                                <td data-label="Order Status">04/01/2016</td>
-                                <td data-label="View Order">
-                                    <button className="v-button button-small button-round">View</button>
-                                </td>
-                                <td data-label="Cancel Order">
-                                    <button className="c-button button-small button-round">Cancel</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-label="No.">Visa - 3412</td>
-                                <td data-label="Order ID">04/01/2016</td>
-                                <td data-label="Order Date">$1,190</td>
-                                <td data-label="Order Item">03/01/2016 - 03/31/2016</td>
-                                <td data-label="Total Price">Visa - 3412</td>
-                                <td data-label="Order Status">04/01/2016</td>
-                                <td data-label="View Order">
-                                    <button className="v-button button-small button-round">View</button>
-                                </td>
-                                <td data-label="Cancel Order">
-                                    <button className="c-button button-small button-round">Cancel</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-label="No.">Visa - 3412</td>
-                                <td data-label="Order ID">04/01/2016</td>
-                                <td data-label="Order Date">$1,190</td>
-                                <td data-label="Order Item">03/01/2016 - 03/31/2016</td>
-                                <td data-label="Total Price">Visa - 3412</td>
-                                <td data-label="Order Status">04/01/2016</td>
-                                <td data-label="View Order">
-                                    <button className="v-button button-small button-round">View</button>
-                                </td>
-                                <td data-label="Cancel Order">
-                                    <button className="c-button button-small button-round">Cancel</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-label="No.">Visa - 3412</td>
-                                <td data-label="Order ID">04/01/2016</td>
-                                <td data-label="Order Date">$1,190</td>
-                                <td data-label="Order Item">03/01/2016 - 03/31/2016</td>
-                                <td data-label="Total Price">Visa - 3412</td>
-                                <td data-label="Order Status">04/01/2016</td>
-                                <td data-label="View Order">
-                                    <button className="v-button button-small button-round">View</button>
-                                </td>
-                                <td data-label="Cancel Order">
-                                    <button className="c-button button-small button-round">Cancel</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-label="No.">Visa - 3412</td>
-                                <td data-label="Order ID">04/01/2016</td>
-                                <td data-label="Order Date">$1,190</td>
-                                <td data-label="Order Item">03/01/2016 - 03/31/2016</td>
-                                <td data-label="Total Price">Visa - 3412</td>
-                                <td data-label="Order Status">04/01/2016</td>
-                                <td data-label="View Order">
-                                    <button className="v-button button-small button-round">View</button>
-                                </td>
-                                <td data-label="Cancel Order">
-                                    <button className="c-button button-small button-round">Cancel</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                    </div>:null}
+                    
+                    <Transactions transaction={false}/>:null}
                 </div>
             </div>
         </div>

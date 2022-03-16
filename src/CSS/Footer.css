@@ -6,9 +6,16 @@
     color: #10505e;
   }
 
-.section-title{
+.section-title-f .footer-h2{
   font-family: 'Nunito Sans';
   height: auto;
+  color: #fff;
+  font-size: 24px;
+  letter-spacing: 1px;
+  font-family: 'Nunito';
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
 }
 
 .footer-info .facebook {

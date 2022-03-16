@@ -6,8 +6,9 @@ const CartConfirmation = (props) => {
     const [value, setValue] = useState(true);
     const [adminData, setAdminData] = useState({});
     const [val, setVal] = useState("bank");
+    const [image, setImage] = useState(null);
     React.useEffect(() => {
-        axios.post("http://localhost:8001/api/v1/toPay",
+        axios.post(process.env.REACT_APP_APIURL + "toPay",
             encryptJSON({
                 data: val
             })).then((resp) => {
@@ -15,9 +16,25 @@ const CartConfirmation = (props) => {
                 setAdminData(resp.data.data);
             })
     }, [adminData])
+
+
+    const filechange = (e) => {
+        if (e.target.files[0]){
+            // setImage(e.target.files[0]);
+            var file = e.target.files[0];
+            var reader  = new FileReader();
+            // reader.onload = function(e)  {
+            //     document.getElementById("image").src = e.target.result;
+            //  }
+            console.log(e.target.files[0]);
+             reader.readAsDataURL(file);
+        }
+      };
+
+
     return (
-        <div className="outerDiv">
-            <div className="leftDiv1">
+        <div className="confirm-wrapper">
+            <div className="three">
 
                 <img className="logo" src='../assets/EOLogo_TransparentBG.png' alt="Logo" />
 
@@ -76,7 +93,7 @@ const CartConfirmation = (props) => {
                 {/* // <!--End Invoice Mid--> */}
             </div>
             {/* rigth */}
-            <div className="rightDiv2">
+            <div className="four">
                 <div className="info">
                     <p>
                         Order Status: {props.output.status} <br />
@@ -123,7 +140,7 @@ const CartConfirmation = (props) => {
                 <hr className="hr-line" />
                 <h2 className='pay'>Upload Receipt</h2>
                 <form action="/action_page.php">
-                    <input className="upload" type="file" id="myFile" name="filename" />
+                    <input className="upload" type="file" id="myFile" onChange={(e)=>filechange(e)} name="filename" />
                 </form>
                 <input className="up-btn" value="UPLOAD" type="submit" />
             </div>

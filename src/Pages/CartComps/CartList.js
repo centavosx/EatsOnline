@@ -175,8 +175,11 @@ const CartList = (props) => {
   }
 
   const checkOut = () => {
-    axios.post("http://localhost:8001/api/v1/transact",
-      encryptJSON(data)).then((resp) => {
+    axios.post(process.env.REACT_APP_APIURL + "transact",
+      encryptJSON({
+        data: data,
+        advance: chA
+      })).then((resp) => {
         resp.data = decryptJSON(resp.data.data)
         if (!resp.data.error) {
           if (resp.data.completed) {
@@ -206,8 +209,8 @@ const CartList = (props) => {
                   <div className="cart-box" key={index}>
                     <input type="checkbox" className="checkbox" onClick={(e) => check(e, data[0], data[1])} checked={data[0] in select} />
                     {/* <!-- img container --> */}
-                    <div className="p-img-container">
-                      <div className="p-img">
+                    <div className="c-img-container">
+                      <div className="cart-img">
                         <a href={void (0)}>
                           <img src={data[1].link} className="p-img-front" alt="Front" />
                         </a>
@@ -271,11 +274,8 @@ const CartList = (props) => {
         </div> : props.width.width === "50%" ?
           <div className="form-step form-step-active">
             {/* <SelectOrder /> */}
-            <SelectOrder data={select} totalamount={totalamount} t_data={data} setData={setData} setUse={setUse} use={use} chA={chA} setChA={setChA} />
-            <div className="btns-group">
-              <a href={void (0)} className="prev-btn" onClick={() => { props.setWidth({ width: '0%' }); props.setProgress(["progress-step progress-step-active", "progress-step", "progress-step"]) }}>PREVIOUS</a>
-              {toContinue() && data.address.length > 0 && data.payment.length > 0 && data.items.length > 0 ? <a href={void (0)} className="next-btn" onClick={() => checkOut()}>CHECKOUT</a> : null}
-            </div>
+            <SelectOrder data={select} totalamount={totalamount} t_data={data} toContinue={toContinue} checkOut={checkOut} setWidth={props.setWidth} setProgress={props.setProgress} setData={setData} setUse={setUse} use={use} chA={chA} setChA={setChA} />
+
           </div>
           ://{  }
           <div className="form-step form-step-active">

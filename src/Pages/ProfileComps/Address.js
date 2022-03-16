@@ -8,7 +8,7 @@ const Address = (props) =>{
     const add = () =>{
         axios.post(process.env.REACT_APP_APIURL+"address", encryptJSON({
             id: localStorage.getItem("id"),
-            data: ["name", "address", "email", "phoneNumber", "addresses"],
+            data: ["name", "address", "email", "phoneNumber", "addresses", "guest"],
             address: address
         })).then((response)=>{
             response.data = decryptJSON(response.data.data)
@@ -24,7 +24,7 @@ const Address = (props) =>{
         console.log(addressId);
         axios.patch(process.env.REACT_APP_APIURL+"address", encryptJSON({
             id: localStorage.getItem("id"),
-            data: ["name", "address", "email", "phoneNumber", "addresses"],
+            data: ["name", "address", "email", "phoneNumber", "addresses", "guest"],
             address: address,
             primary: primary,
             change: change,
