@@ -194,8 +194,9 @@
 }
 @media(max-width:768px){
   .cart-img a img {
-    width: 19vw;
-    height: 30vh;
+    /* width: 19vw;
+    height: 30vh; */
+    position: inherit;
 }
   .cart-container{
     display: flex;

@@ -1,3 +1,6 @@
+.Single-pic{
+  width: 300px;
+}
 .single-container {
   margin: 30px;
   width: 100%;
@@ -29,12 +32,10 @@
   /*Rating*/
   
   .s-rate {
-    float: right;
     height: 55px;
     padding: 0 80px;
-    position: static;
     margin-top: -40px;
-    margin-right: 200px;
+    margin-right: 20px;
 
 }
 .s-rate:not(:checked) > input {
@@ -152,6 +153,8 @@ p {
     height: 30px;
     width: 30px;
     cursor: pointer; }
+
+
 
 .product-right .product-buttons {
   margin-bottom: 20px; }

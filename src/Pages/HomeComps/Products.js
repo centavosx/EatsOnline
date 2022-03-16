@@ -18,18 +18,19 @@ function Products(props) {
         }
         setItemNum(val);
         setProducts(props.value);
-        props.setLoading(false);
+        if(!props.featured)
+            props.setLoading(false);
     }, [props.value])
 
     React.useEffect(() => {
-        props.setLoading(true);
+        if(!props.featured)
+            props.setLoading(true);
         axios.post(process.env.REACT_APP_APIURL + "getData",
             encryptJSON({
                 reference: "products",
                 sortwhat: props.sortwhat,
                 index: props.featured ? [0, props.max] : props.index !== null ? props.index : null
             })).then((resp) => {
-                console.log(resp.data)
                 resp.data = decryptJSON(resp.data.data)
                 if (!resp.data.error) {
                     let val = {};
@@ -38,8 +39,8 @@ function Products(props) {
                     }
                     setItemNum(val);
                     setProducts(resp.data.data);
-                    console.log(resp.data.data)
-                    props.setLoading(false)
+                    if(!props.featured) console.log(resp.data.data)
+                        props.setLoading(false)
                 }
             })
     }, []);
@@ -141,13 +142,11 @@ function Products(props) {
                                             <div id="div1">
                                                 <span>{data[1].seller}</span>
                                             </div>
-        
-
                                         </div>
 
                                     </a>
                                     <div className="container">
-                                        <div className="btn">
+                                        <div className="products-btn">
                                             <div id="div1">
                                                 <div className="star-rating">
                                                     {data[1].comments == 0 ?
@@ -215,7 +214,7 @@ function Products(props) {
                         {/* <!-- Product box --> */}
                         {products.map((data, i) => {
                             return (
-                                <div key={i} className="product-box">
+                                <div key={i} className="featured-box">
                                     {/* <!-- discount --> */}
                                     <span className="p-discount">-{data[1].discount}%</span>
                                     {/* <!-- img container --> */}
@@ -227,23 +226,28 @@ function Products(props) {
                                         </div>
                                     </div>
                                     {/* <!-- text --> */}
-                                    <div className="p-box-text">
-                                        {/* <!-- title --> */}
+                                    <div className="f-box-text">
                                         <a href={void (0)} className="product-title">
                                             {data[1].title}
+                                            <div className="f-rate">
+                                                {/* right */}
+                                                <div className="prod-price">
+                                                    <span className="p-price" >₱ {data[1].price}</span>
+                                                </div>
+                                                {/* left */}
+                                                <div className="seller-title">
+                                                    <span>{data[1].seller}</span>
+                                                </div>
+                                            </div>
                                         </a>
-                                        {/* <!-- category --> */}
-                                        <div className="product-category">
-                                            <span>{data[1].seller}</span>
-                                        </div>
                                         {/* <!-- price buy --> */}
                                         <div>
                                             {key.length > 0 && key === data[0] ? <p style={message.added ? { color: 'green' } : { color: 'red' }}>{message.message}</p> : <p></p>}
                                         </div>
-                                        <div className="container">
-                                        <div className="btn">
-                                            <div id="div1">
-                                                <div className="star-rating">
+                                        <div className="featured-container">
+                                        {/* <div className="btn"> */}
+                                            <div id="star-rating1">
+                                                <div className="star-rating1">
                                                     {data[1].comments == 0 ?
                                                         <label for={"star-1"}>
                                                             No Ratings
@@ -251,13 +255,13 @@ function Products(props) {
                                                         showStar(data[1].comments)}
                                                 </div>
                                             </div>
-                                            <div id="div2">
-                                                <span className="total-sold">{data[1].totalsold}Sold</span>
+                                            <div id="total-sold1">
+                                                <span className="total-sold1">{data[1].totalsold}Sold</span>
                                             </div>
-                                        </div>
+                                        {/* </div> */}
                                     </div>
-                                        <div className="price">
-                                            <span className="p-price" >₱ {data[1].price}</span>
+                                        <div className="btn-price">
+                                            {/* <span className="p-price" >₱ {data[1].price}</span> */}
                                             <a href={void (0)} className="p-buy-btn" onClick={() => addCart(data[0])}>ADD TO CART</a>
                                         </div>
                                     </div>
