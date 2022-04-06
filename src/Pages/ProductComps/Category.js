@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom'
 import '../../CSS/Category.css'
 import '../../CSS/Search.css'
 import Search from '../ProductComps/Search.js'
-import { decryptJSON, encryptJSON } from '../EncryptionDecryption'
+import { decryptJSON } from '../EncryptionDecryption'
 function Category(props) {
   const [cat, setCat] = useState([])
   const history = useHistory()

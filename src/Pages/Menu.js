@@ -5,8 +5,6 @@ import Products from './HomeComps/Products.js'
 import Category from './ProductComps/Category.js'
 import Goback from './HomeComps/Goback.js'
 import SingleProduct from './ProductComps/SingleProduct.js'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import { useParams } from 'react-router-dom/cjs/react-router-dom.min'
 const Menu = (props) => {
   const [values, setValues] = useState([])
   const [params, setParams] = useState(null)

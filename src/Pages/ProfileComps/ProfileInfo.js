@@ -1,10 +1,8 @@
 import axios from 'axios'
 import React, { useState } from 'react'
-import { useHistory } from 'react-router-dom'
 import Address from './Address'
 import { decryptJSON, encryptJSON } from '../EncryptionDecryption'
 import '../../CSS/Profileinfo.css'
-import sha256 from 'crypto-js/sha256'
 import Transactions from './Transactions'
 function ProfileInfo(props) {
   const [name, setName] = useState('')

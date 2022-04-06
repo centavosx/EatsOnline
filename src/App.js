@@ -1,4 +1,3 @@
-import logo from './logo.svg'
 import './App.css'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Header from './Components/Header.js'
@@ -7,11 +6,10 @@ import Home from './Pages/Home.js'
 import Menu from './Pages/Menu'
 import Profile from './Pages/Profile.js'
 import Login from './Pages/Login'
-import React, { useState } from 'react'
+import React from 'react'
 import Cart from './Pages/Cart'
 import Chat from './Components/Chat'
 import ContactPage from './Pages/ContactPage'
-import View from './Pages/View'
 function App() {
   return (
     <div className="App">

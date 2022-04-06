@@ -2,7 +2,6 @@ import '../../CSS/home.css'
 import '../../CSS/Products.css'
 import React, { useState } from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
 import {
   decrypt,
   decryptJSON,
