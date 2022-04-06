@@ -1,112 +1,130 @@
-import "../../CSS/ContactUs.css";
-import React, { useState } from 'react';
+import '../../CSS/ContactUs.css'
+import React, { useState } from 'react'
+import axios from 'axios'
+import { decryptJSON, encryptJSON } from '../EncryptionDecryption'
 
-function ContactUs(){
-    return(
-        <div className="con-container">
-        <div className="cn-row">
-                <h1>contact us</h1>
+function ContactUs() {
+  const [email, setEmail] = useState('')
+  const [name, setName] = useState('')
+  const [subject, setSubject] = useState('')
+  const [message, setMessage] = useState('')
+  const [response, setResponse] = useState('')
+  const [loading, setLoading] = useState(false)
+  const submit = async () => {
+    setLoading(true)
+    try {
+      let x = await axios.post(
+        process.env.REACT_APP_APIURL + 'contactus',
+        encryptJSON({
+          email,
+          name,
+          subject,
+          message,
+        })
+      )
+      let o = decryptJSON(x.data.data)
+      if (o.sent) setResponse('Successful')
+      else setResponse('Failed')
+    } catch {}
+    setLoading(false)
+  }
+  return (
+    <section className="profile-section">
+      <h1 className="text-center">CONTACT US</h1>
+      <div className="con-container">
+        <div className="contact-row">
+          <h3 className="con-h3">We would love to hear from you!</h3>
         </div>
-        <div className="con-row input-container">
-        <section class="mb-4">
-
-
-<h2 class="h1-responsive font-weight-bold text-center my-4">Contact us</h2>
-
-<p class="text-center w-responsive mx-auto mb-5">Do you have any questions? Please do not hesitate to contact us directly. Our team will come back to you within
-    a matter of hours to help you.</p>
-
-<div class="row">
-
-    
-    <div class="col-md-9 mb-md-0 mb-5">
-        <form id="contact-form" name="contact-form" action="mail.php" method="POST">
-
-           
-            <div class="row">
-
-                
-                <div class="col-md-6">
-                    <div class="md-form mb-0">
-                        <input type="text" id="name" name="name" class="form-control"></input>
-                        <label for="name" class="">Your name</label>
-                    </div>
-                </div>
-               
-
-               
-                <div class="col-md-6">
-                    <div class="md-form mb-0">
-                        <input type="text" id="email" name="email" class="form-control"></input>
-                        <label for="email" class="">Your email</label>
-                    </div>
-                </div>
-                
-
+        <div className="contact-row input-container">
+          <div className="col-xs-12">
+            <label className="cu-labels">Name:</label>
+            <div className="styled-input wide">
+              <input
+                className="Con-Name"
+                type="text"
+                required={true}
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+              <label className="cu-placeholder">Your Name</label>
             </div>
-            
-
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="md-form mb-0">
-                        <input type="text" id="subject" name="subject" class="form-control"></input>
-                        <label for="subject" class="">Subject</label>
-                    </div>
-                </div>
+          </div>
+          <div className="col-xs-12">
+            <label className="cu-labels">Email:</label>
+            <div className="styled-input wide">
+              <input
+                className="Con-Email"
+                type="text"
+                required={true}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <label>Your Email</label>
             </div>
-          
-
-           
-            <div class="row">
-
-               
-                <div class="col-md-12">
-
-                    <div class="md-form">
-                        <textarea type="text" id="message" name="message" rows="2" class="form-control md-textarea"></textarea>
-                        <label for="message">Your message</label>
-                    </div>
-
-                </div>
+          </div>
+          <div className="col-xs-12">
+            <label className="cu-labels">Subject</label>
+            <div className="styled-input wide">
+              <input
+                className="Con-Name"
+                type="text"
+                required={true}
+                value={subject}
+                onChange={(e) => setSubject(e.target.value)}
+              />
+              <label>Subject</label>
             </div>
-            
+          </div>
+          <div className="col-xs-12">
+            <label className="cu-labels">Message:</label>
+            <div className="styled-input wide">
+              <textarea
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                required={true}
+              ></textarea>
+              <label>Your Message</label>
+            </div>
+          </div>
+          {response.length > 0 ? (
+            <div className="col-xs-12">
+              <div className="styled-input wide">
+                <h6 style={{ color: 'blue' }}>{response}</h6>
+              </div>
+            </div>
+          ) : null}
 
-        </form>
-
-        <div class="text-center text-md-left">
-            <a class="btn btn-primary" onclick="document.getElementById('contact-form').submit();">Send</a>
+          {!loading ? (
+            message.length > 0 &&
+            email.length > 0 &&
+            message.length > 0 &&
+            subject.length > 0 ? (
+              <div className="col-md-6 col-sm-12">
+                <div
+                  className="submit btn-lrg submit-btn"
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => submit()}
+                >
+                  Submit
+                </div>
+              </div>
+            ) : (
+              <div className="col-xs-12">
+                <div className="styled-input wide">
+                  <h6>Please fill up all blank fields</h6>
+                </div>
+              </div>
+            )
+          ) : (
+            <div className="col-xs-12">
+              <div className="styled-input wide">
+                <h6>Loading...</h6>
+              </div>
+            </div>
+          )}
         </div>
-        <div class="status"></div>
-    </div>
-    
-
-    
-    <div class="col-md-3 text-center">
-        <ul class="list-unstyled mb-0">
-            <li><i class="fas fa-map-marker-alt fa-2x"></i>
-                <p>San Francisco, CA 94126, USA</p>
-            </li>
-
-            <li><i class="fas fa-phone mt-4 fa-2x"></i>
-                <p>+ 01 234 567 89</p>
-            </li>
-
-            <li><i class="fas fa-envelope mt-4 fa-2x"></i>
-                <p>contact@mdbootstrap.com</p>
-            </li>
-        </ul>
-    </div>
-    
-
-</div>
-
-</section>
-        </div>
-
-        
-    </div>
-
-    
-    );
+      </div>
+    </section>
+  )
 }
-export default ContactUs;
+export default ContactUs

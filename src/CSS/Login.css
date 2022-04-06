@@ -1,3 +1,7 @@
+.formBX div h1{
+  font-size: 24px;
+}
+
 section#section1 {
   position: relative;
   min-height: 100vh;
@@ -90,22 +94,31 @@ section#section1 .container3 .user .formBx div form input::placeholder{
 }
 
 section#section1 .container3 .user .formBx div form input[type='submit'] {
-  max-width: 100px;
-  border-radius: 50px;
+  max-width: 120px;
+  border-radius: 100px;
   background: #206b8a;
   color: #fff;
-  font-weight: 400;
-  border: 2px solid #fff;
+  font-weight: bold;
+  border: 2px solid #0d6efd;
   cursor: pointer;
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 18px;
+  font-weight: bold;
   letter-spacing: 1px;
-  transition: 0.5s;
+  transition: .05s;
+  /* padding: 8px 50px; */
+  text-align: center;
+  margin-bottom: 30px;
 }
 section#section1 .container3 .user .formBx div form input[type='submit']:hover{
     background: #28aac7;
-    color: #fff;
+    color: #f2f36b;
     border: 2px solid #10505e;
+}
+
+.homehome:hover{
+  background: #28aac7;
+  color: #f2f36b;
+  border: 2px solid #10505e;
 }
 
 section#section1 .container3 .user .formBx div form .signup {

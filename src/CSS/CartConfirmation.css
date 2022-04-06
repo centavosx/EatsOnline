@@ -1,37 +1,38 @@
 /* div left and right */
-.outerDiv
-	{
-		color: #fff;
-		height: 700px;
-		width: 100%;
-		/* margin: 0px 20px; */
-		padding: 5px;
+.confirm-wrapper { 
+	overflow: hidden;
 	}
-	.leftDiv1
-	{
-        border-radius: 2%;
-        padding: 20px 10px;
-		background-color: #efefef;
-		color: #000;
-		width: 48%;
-		float: left;
+	
+	.confirmwrapper div {
+	   padding: 2px 10px;
 	}
-	.rightDiv2
-	{   
-        border-radius: 2%;
-        padding: 20px 10px;
-		background-color: #efefef;
-		color: #000;
-		width: 50%;
-		height: 690px;
-		float: right;
+	#three {
+    margin-bottom: 10px;
+	  background-color: #ffffff;
+	  float:left; 
+	  margin-right:20px;
+	  padding: 20px;
+	  width:50%;
+	  /* height: 100%; */
+	  border-right:2px solid #000;
+	  border-radius: 10px;
+	}
+	#four { 
+	  padding: 10px;
+	  background-color: white;
+	  overflow:hidden;
+	  min-height:50%;
+	  border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 35px;
 	}	
     .form-check-input{
-        margin: 0px 20px;
+        margin: 0px 10px;
     }
     .hr-line{
         border-top: 5px solid #000;
     }
+    
 	/* pos */
 	    ::selection {
 		background: #f31544;
@@ -47,7 +48,8 @@
 			font-size: 20px;
     		margin-top: 20px;
     		margin-bottom: 20px;
-			color: #1d7d92;
+			color: #000;
+      font-weight: bold;
 		}
 	    .title {
 		float: right;
@@ -55,10 +57,21 @@
 	    .title p {
 		text-align: right;
 	  }
-	    table {
+    .info-customer{
+      font-size: 18px;
+      color: #000;
+    }
+    .info p{
+      font-size: 18px;
+      color: #000;
+    }
+	  .tble {
 		width: 100%;
-		border-collapse: collapse;
+		/* border-collapse: collapse; */
 	  }
+    .tble .cart-table tr{
+      border: 1px solid #fff;
+    }
 	    .tabletitle {
 		font-size: 0.5em;
 		background: #EEE;
@@ -97,37 +110,27 @@
 		height: 100%;
 		margin: auto;
 		padding: 1px 2px;
-		color: black;
+		color: white;
 		background-color: #28AAC7;
 	  }
 	  .up-btn{
-	border-radius: 100px;
   	text-transform: uppercase;
 	margin-top: 30px;
 	font-size: 18px;
-	color: #ffffff;
-	padding: 7px 20px;
-	font-weight: 600;
+  line-height: 20px;
+  font-weight: bold;
+	padding: 7px 25px;
 	overflow: hidden;
 	letter-spacing: 0.02em;
 	border-radius: 25px;
-	border: solid #10505E;
-	background-color: #10505E;
+  color:#fff;
+  background-color: #10505E;
+  border: 2px solid #0d6efd;
 	  }
 
 	  .up-btn:hover{
-		border-radius: 100px;
-		text-transform: uppercase;
-		margin-top: 30px;
-		font-size: 18px;
-		color: #ffffff;
-		padding: 7px 20px;
-		font-weight: 600;
-		overflow: hidden;
-		letter-spacing: 0.02em;
-		border-radius: 25px;
-		border: solid #0794c9;
-		background-color: #0794c9;
+    background-color: #28aac7;
+    color: #f2f36b;
 		}
 
 
@@ -154,18 +157,25 @@
 	vertical-align:middle;
 	margin-left:20px;
   }
-  
+  .title-h4{
+    font-size:24px;
+    font-weight: bold;
+  }
 .sum-h4{
 	display: flex;
 	justify-content: center;
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 30px;
 }
 
 .pay{
 	display: flex;
 	justify-content: center;
-	font-size: 16px;
+	font-size: 20px;
 	font-weight: bold;
 	text-transform: uppercase;
+  /* margin-top: 10px; */
 }
 
 .pay > select{
@@ -199,9 +209,18 @@
 .Pay-bank , .Pay-gcash {
 	display: flex;
 	justify-content: center;
-	font-size: 16px;
+	font-size: 18px;
 	font-weight: bold;
 	text-transform: uppercase;
+  margin-top: 10px;
+}
+
+/* BANK DETAILS */
+
+.four .info p {
+  color: black;
+  font-size: 16px;
+  
 }
 
 
@@ -248,4 +267,257 @@
   .cart-btn:hover {
     background-color: #28AAC7;
     color: #fff;
+  }
+  /* qr code */
+  .img-thumbnail{
+	  height: 15%;
+	  width: 40%;
+  }
+  /* table */
+/* .tableFixHead .table-main-heading th {
+  position: sticky;
+  top: 0;
+  height: 42px;
+}
+.tableFixHead .sub-heading-table th {
+  position: sticky;
+  top: 56px;
+  height: 42px;
+} */
+td {
+  word-wrap: break-word
+}
+ /* .tableFixHead {
+        overflow-y: auto;
+        max-height: 511px;
+    }
+
+    .tableFixHead th {
+        position: sticky;
+        top: 0;
+        height: 42px;
+        font-size: 10px;
+    }
+
+    .tableFixHead thead th {
+        z-index: 9999;
+    } */
+    .cartcon-thead{
+      position: sticky;
+        top: 0;
+        height: 42px;
+        font-size: 10px;
+    }
+    .cart-tr tr{
+      border: none !important;
+    }
+    .cartcon-thead th{
+      z-index: 9999;
+      background-color: #10505E;
+      color: #fff;
+    }
+
+    .alterationTypeSelect {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th,
+    td {
+        padding: 8px 16px;
+        font-size: 10px;
+    }
+
+    .dashboard-sidebar .sidebar-select>div:last-child::-webkit-scrollbar,
+    .tbody-scroll::-webkit-scrollbar {
+        width: 6px;
+        background-color: #F5F5F5;
+    }
+
+    .dashboard-sidebar .sidebar-select>div:last-child::-webkit-scrollbar-thumb,
+    .tbody-scroll::-webkit-scrollbar-thumb {
+        background-color: #4B6D79;
+        border-radius: 10px;
+    }
+
+    .tbody-scroll {
+        position: relative;
+        max-height: 397px;
+        overflow-y: scroll;
+        bottom: 17px;
+        overflow-x: hidden;
+        /* profile */
+        border: 2px solid #000;
+    }
+    
+    .tble {
+      /* height: 100%; */
+        border: 2px solid #000;
+        border-collapse: initial;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        table-layout: fixed;
+        margin-bottom: 20px;
+    }
+    
+    /* table caption {
+      font-size: 1.5em;
+      margin: .5em 0 .75em;
+    } */
+    
+    /* .tble tr {
+      /* background-color: #f8f8f8; 
+      border: 1px solid #ddd;
+      padding: .35em;
+    } */
+    
+    .tble th,
+    .tble td {
+      padding: .625em;
+      text-align: center;
+      font-size: 15px;
+    }
+    
+    .tble th {
+      font-size: .85em;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    
+    
+  .top-head {
+    background-color: #10505e;
+    color: #fff;
+    position: sticky;
+    top: 0px;
+  }
+  @media screen and (max-width: 600px) {
+    .tble {
+      border: 0;
+    }
+  }
+  @media screen and (max-width: 400px){
+     #three { 
+      float: none;
+      margin: 5px;
+      width: 95%;
+    }
+    #four{
+      margin: 5px;
+      width: 95%;
+    }
+  }
+  @media screen and (max-width: 425px){
+    #three { 
+     float: none;
+     margin: 5px;
+     width: 95%;
+   }
+   #four{
+     margin: 5px;
+     width: 95%;
+   }
+   .tbody-scroll {
+    position: relative;
+    max-height: 90vw;
+    overflow-y: scroll;
+    bottom: 17px;
+    overflow-x: hidden
+ }
+}
+@media (max-width: 320px){
+  .wrapper{
+      width: 93vw;
+  }
+  .c-msg{
+    width: 73vw;
+  }
+.logo{
+width: 10%;
+height: 10%;
+  vertical-align: middle;
+  margin-left: 105px;
+}
+.title h4{
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 24px;
+}
+  .alterationTypeSelect{
+    width: 60vw;
+  }
+  .tbody-scroll {
+    position: relative;
+    max-height: 120vw;
+    overflow-y: scroll;
+    bottom: 17px;
+    overflow-x: hidden
+ }
+}
+@media (min-width:375px) {
+  .c-msg {
+    width: 75vw;
+  }
+}
+@media (min-width:425px) {
+    .c-msg {
+      width: 320px;
+    }
+}
+  @media(min-width: 768px){
+    .c-msg{
+      width: 38vw;
+    }
+    .alterationTypeSelect{
+      width: 30vw;
+    }
+    .tble td{
+      text-align: center;
+      font-size: 12px;
+    }
+  }
+ 
+  @media screen and (max-width: 600px) {
+    .tble {
+      border: 0;
+    }
+    
+    .tble thead {
+      border: none;
+      clip: rect(0 0 0 0);
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      padding: 0;
+      position: absolute;
+      width: 1px;
+      display: none;
+    }
+    
+    .tble tr {
+      border-bottom: 3px solid #ddd;
+      display: block;
+      margin-bottom: .625em;
+    }
+    
+    .tble td {
+      width: auto;
+      border-bottom: 1px solid #ddd;
+      display: block;
+      font-size: .8em;
+      text-align: right;
+    }
+    
+    .tble td::before {
+      content: attr(data-label);
+      float: left;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+    
+    .tble td:last-child {
+      border-bottom: 0;
+    }
   }

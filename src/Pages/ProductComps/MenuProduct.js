@@ -1,8 +1,6 @@
-import React, {useSteate} from 'react'
+import React from 'react'
 
 const MenuProduct = () => {
-    return(
-        <></>
-    )
+  return <></>
 }
-export default MenuProduct;
+export default MenuProduct

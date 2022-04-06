@@ -64,7 +64,7 @@
     background: #F2F36B;
     width: 50px;
     height: 50px;
-    display: block;
+    display: flex;
     text-decoration: none;
     -webkit-border-radius: 35px;
     -moz-border-radius: 35px;
@@ -78,13 +78,13 @@
 
 .messenger_dd{
     position: fixed;
-    bottom: 30px;
+    bottom: 20px;
     right: 70px;
     background-color: #fff;
-    width: 350px;
+    width: 310px;
     height: auto;
     border: 1px solid #c7d8e2;
-    border-radius: 3px;
+    border-radius: 20px;
     box-shadow: 10px 10px 30px rgba(0,0,0,0,125),
     -10px -10px 30px rgba(0,0,0,0,125);
     z-index: 100;
@@ -93,8 +93,8 @@
 .messenger_dd:before{
     content: "";
     position: absolute;
-    bottom: 10px;
-    left: 348px;
+    bottom: 15px;
+    left: 308px;
     border: 10px solid;
     border-color:  transparent transparent  transparent #fff;
 }
@@ -146,12 +146,17 @@
     background: #6593e4;
 }
 
+/*===========ChatBox===========*/
+
 .msgcontainer {
     width: 500 !important;
     margin: auto;
     margin-top: 2%;
     font-family: sans-serif;
     letter-spacing: 0.5px;
+}
+.msgIcon {
+    width: 100%;
 }
 .msgheader {
     border: 1px solid #ccc;
@@ -212,7 +217,8 @@
 }
 
 .msg-page {
-    height: 450px;
+    height: 285px;
+    width: 260px;;
     overflow-y: auto;
 }
 
@@ -277,5 +283,27 @@
     float: right;
 }
 
+.msg-input-group {
 
+    outline: none !important;
+    border-radius: 20px;
+    width: 100% !important;
+    background-color: #fff;
+    display: flex;
+}
 
+.msg-form-control {
+    height: 30px;
+    width: 250px;
+}
+
+.input-group-append {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid;
+    width: 30px;
+}
+.msgBtn {
+    display: contents;
+}

@@ -2,14 +2,45 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito);
 
 .navbar{
-  background-color: #10505e;
+  background-color: #196b7d;
   color: #CEFBF6;
   padding: 0px, 0px, 0px, 5px;
   font-family: 'Nunito';
   list-style: none;
 }
+.navbar-dark .navbar-nav .nav-link{
+  font-size: 20px;
+  color: #fff;
+}
+.navbar-dark .navbar-nav .nav-link:focus
+{
+  color: #F2F36B;
+}
+/* btn */
+.btn-login{
+  position: relative;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size:14px;
+  overflow: hidden;
+  border-radius: 100px;
+  background-color: #F2F36B;
+  border: 2px solid #ffffff;
+}
+.btn-login a{
+  color: #000 !important;
+}
 
-
+.btn-login a:hover {
+  position: relative;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size:14px;
+  overflow: hidden;
+  border-radius: 100px;
+  background-color: #fbfb02;
+  color: #10505e !important;
+}
 
 /*Carousel*/
 /* .carousel__img {
@@ -33,32 +64,24 @@
   font-style: oblique;
 }
 .btn-lg{
+  /* border-radius: 100px; */
+  /* text-transform: uppercase;
+  background-color: #10505e;
+  color: #fff; */
   border-radius: 100px;
   text-transform: uppercase;
   background-color: #10505e;
   color: #fff;
+  font-size: 18px;
+  padding: 5px 30px;
+  font-weight: bold;
 }
+
 .btn-lg:hover{
   background-color: #28aac7;
+  color: #f2f36b;
 }
-/* GLOBAL STYLES
--------------------------------------------------- */
-/* Padding below the footer and lighter body text */
 
-/* body {
-  padding-top: 3rem;
-  padding-bottom: 3rem;
-  color: #5a5a5a;
-} */
-
-
-/* CUSTOMIZE THE CAROUSEL
--------------------------------------------------- */
-
-/* Carousel base class */
-/* .carousel {
-  margin-bottom: 4rem;
-} */
 /* Since positioning the image, we need to help out the caption */
 .carousel-caption {
   bottom: 3rem;
@@ -123,6 +146,8 @@
     margin-bottom: 1.25rem;
     font-size: 1.25rem;
     line-height: 1.4;
+
+    color: black;
   }
 
   .featurette-heading {

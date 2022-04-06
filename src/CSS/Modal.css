@@ -1,0 +1,44 @@
+.modal {
+    display: contents;
+}
+.modal-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    pointer-events: auto;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: 1.3rem;
+    outline: 0;
+}
+.close{
+    border-radius: 25px;
+    padding: 2px 5px;
+    color: #F2F36B;
+    background-color: #000;
+    border: none;
+    border-radius: 100px;
+    text-transform: uppercase;
+    background-color: #10505e;
+    float: right;
+}
+.y-btn{
+    border-radius: 100px;
+    text-transform: uppercase;
+    background-color: #10505e;
+    color: #fff;
+    font-size: 15px;
+    float: right;
+    padding: 4px 15px;
+}
+.n-btn{
+    border-radius: 100px;
+    text-transform: uppercase;
+    background-color: #6c757d;
+    color: #fff;
+    font-size: 15px;
+    float: right;
+    padding: 4px 15px;
+}
