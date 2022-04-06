@@ -78,7 +78,7 @@
 
 .messenger_dd{
     position: fixed;
-    bottom: 30px;
+    bottom: 20px;
     right: 70px;
     background-color: #fff;
     width: 310px;
@@ -93,8 +93,8 @@
 .messenger_dd:before{
     content: "";
     position: absolute;
-    bottom: 10px;
-    left: 348px;
+    bottom: 15px;
+    left: 308px;
     border: 10px solid;
     border-color:  transparent transparent  transparent #fff;
 }
@@ -146,12 +146,17 @@
     background: #6593e4;
 }
 
+/*===========ChatBox===========*/
+
 .msgcontainer {
     width: 500 !important;
     margin: auto;
     margin-top: 2%;
     font-family: sans-serif;
     letter-spacing: 0.5px;
+}
+.msgIcon {
+    width: 100%;
 }
 .msgheader {
     border: 1px solid #ccc;
@@ -278,5 +283,27 @@
     float: right;
 }
 
+.msg-input-group {
 
+    outline: none !important;
+    border-radius: 20px;
+    width: 100% !important;
+    background-color: #fff;
+    display: flex;
+}
 
+.msg-form-control {
+    height: 30px;
+    width: 250px;
+}
+
+.input-group-append {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid;
+    width: 30px;
+}
+.msgBtn {
+    display: contents;
+}

@@ -1,15 +1,15 @@
 import React, { useState } from 'react'
 import Carousel from './HomeComps/Carousel.js'
-import SingleProduct from './ProductComps/SingleProduct.js'
+import ContactUs from './HomeComps/ContactUs.js'
 import Goback from './HomeComps/Goback.js'
 
-const ProdDetails = () => {
+const ContactPage = () => {
   return (
     <main>
       <Carousel />
-      <SingleProduct />
+      <ContactUs />
       <Goback />
     </main>
   )
 }
-export default ProdDetails
+export default ContactPage

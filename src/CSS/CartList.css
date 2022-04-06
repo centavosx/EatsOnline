@@ -2,7 +2,7 @@
   .form {
     margin: 0;
     display: grid;
-    min-height: 100vh;
+    /* min-height: 100vh; */
     width: 90%;
     margin: 0 auto;
     border-radius: 0.35rem;
@@ -32,9 +32,84 @@
       transform: scale(1, 1);
       opacity: 1;
     }
+    
   }
-  
+  /* 2divs */
+  .div-price {
+    height:5%;
+    float: right;
+    padding: 0px 10px;
+    width:50%;
+    font-size: 0.5rem;
+    display: contents;
+  }
+
+  /* please edit */
+  .cart-discount{
+    display: none;
+  }
+  .div-price .p-price{
+    color: #10505e;
+    text-transform: capitalize;
+    font-weight: bold;
+    font-size: 16px;
+    /* margin-left: 78px; */
+  }
+  .div-sell{
+    height:5%;
+    width:60%;
+    float:left;
+    text-align: start;
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+  /* end 2 div */
   /* Button */
+  /* btn */
+/* .sp */
+ .incart {
+  width: 30px;
+  height:20px;
+  font-size: 0.9rem;
+  /* margin: 0 10px; */
+  /* padding: 10px; */
+  justify-content: center;
+  align-items: center;
+}
+
+/* address dropdown */
+.form-select option{
+  color: #909090;
+}
+
+/* quantity button-products page */
+/* .sp */
+
+ .minus {
+  color: #fff;
+  align-content: center;
+  font-size: 13px;
+  border-radius: 5px;
+  margin: 2px;
+  padding: 3px;
+  background: #28AAC7;
+  border: 1px #28aac7;
+}
+.plus {
+  color: #fff;
+  align-content: center;
+  font-size: 13px;
+  border-radius: 5px;
+  margin: 2px;
+  padding: 3px;
+  background: #28AAC7;
+  border: 1px #28aac7;
+}
+.incart{
+  text-align: center;
+  height:20px;
+  font-size: 0.9rem;
+}
   .btn-group {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -43,26 +118,53 @@
   }
 
   .prev-btn {
+    color:#fff;
+    background-color: #10505E;
+    border: 2px solid #0d6efd;
+    border-radius: 25px;
+    text-transform: uppercase;
+    position: relative;
+    font-size: 18px;
+    line-height: 20px;
+    padding: 7px 25px;
+    font-weight: bold;
+    float: left;
+    margin-bottom: 20px;  
+}
+.prev-btn:hover{
+  background-color: #28aac7;
+  color: #f2f36b;
+}
+  .cart-order-btn{
     padding: 0.20rem;
     display: block;
     text-decoration: none;
-    background-color: #cefbf5;
-    color: #10505e;
-    font-size: 20px;
+    color:#fff;
+    background-color: #10505E;
+    border: 2px solid #0d6efd;
+    font-size: 18px;
+    line-height: 20px;
+    padding: 7px 20px;
+    font-weight: bold;
     text-align: center;
     border-radius: 100px;
     cursor: pointer;
     transition: 0.3s;
     margin-left: auto;
-
-}
-  
-  .cart-btn {
-    padding: 0.20rem;
+    width: 90px;
+  }
+  .cart-order-btn:hover{
+    background-color: #28aac7;
+  color: #f2f36b;
+  }
+  .cart1-btn {
+    padding: 5px 15px;
     display: block;
     text-decoration: none;
-    background-color: #cefbf5;
-    color: #10505e;
+    font-weight: bold;
+    color:#fff;
+    background-color: #10505E;
+    border: 2px solid #0d6efd;
     font-size: 20px;
     text-align: center;
     border-radius: 100px;
@@ -70,13 +172,11 @@
     transition: 0.3s;
     margin-left: auto;
     width: 90px;
-   /* margin-right: auto;
-    padding-left: 10px;
-    padding-right: 10px; */
+    margin-bottom: 35px;
   }
-  .cart-btn:hover {
-    background-color: #28AAC7;
-    color: #fff;
+  .cart1-btn:hover {
+    background-color: #28aac7;
+    color: #f2f36b;
   }
   /* scrollable div */
   .scroll-bg{
@@ -93,7 +193,7 @@
   }
 #style-4::-webkit-scrollbar-track
 {
-	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	-webkit-box-shadow: inset 0 0 6px #777;
 	background-color: #F5F5F5;
 }
 
@@ -105,7 +205,7 @@
 
 #style-4::-webkit-scrollbar-thumb
 {
-	background-color: #000000;
+	background-color: #777;
 	border: 2px solid #555555;
 }
   .scroll-object{
@@ -114,7 +214,7 @@
       padding: 10px 20px;
   }
   /* cart products */
-  .cart-container{
+  .cart-container {
       width: 100%;
       /* height: 250px; */
       display: -webkit-inline-box;
@@ -129,17 +229,21 @@
     display: flex;
     flex-grow: 0.5;
     flex-direction: column;
-    border: 1px solid #f7f7f7;
+    border: 1px solid #a6a6a6;
     border-radius: 10px;
     margin: 10px;
   }
   /* check box */
+  .check1{
+  color: #fff;
+}
   .main-cart{
     background-color:'transparent';
   }
-  .allcheckbox{
+  .allcheckbox strong{
     display: 'inline';
     color: #fff;
+    /* width: 100%; */
   }
   .checkbox{
     justify-content: start;
@@ -154,7 +258,7 @@
 .total{
   font-size: 1.5rem;
   text-align: end;
-  font-size: 18px;
+  font-size: 20px;
   text-transform: uppercase;
   color: #fff;
 }
@@ -221,5 +325,8 @@
   .cart-img a img{
     width: 48vw;
     height: 30vh;
+  }
+  .form-step-active{
+    width: 91vw;
   }
 }

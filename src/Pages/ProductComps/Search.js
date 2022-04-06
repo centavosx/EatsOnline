@@ -1,17 +1,29 @@
-import axios from "axios";
-import { useState } from "react";
-import "../../CSS/Search.css";
-import { decryptJSON, encryptJSON} from "../EncryptionDecryption";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-const Search = (props) =>{
-    const [v, setV] = useState("");
-   
-    const history = useHistory();
-    return(
-        <div class="right-menu inputWithIcon">
-                <input type="text" class="search-click" name=""  onChange={(e)=>props.search(e.target.value, "title")} placeholder="search here..." />
-            <i class="fas fa-search"></i>
-        </div>
+import axios from 'axios'
+import { useState } from 'react'
+import '../../CSS/Search.css'
+import { decryptJSON, encryptJSON } from '../EncryptionDecryption'
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'
+const Search = (props) => {
+  const [v, setV] = useState('')
+
+  const history = useHistory()
+  return (
+    <div class="right-menu inputWithIcon">
+      <input
+        type="text"
+        class="search-click"
+        name=""
+        onKeyDown={(e) =>
+          e.key === 'Enter'
+            ? window.location.replace(
+                `/products?search=title&value=${e.target.value}`
+              )
+            : null
+        }
+        placeholder="search here..."
+      />
+      <i class="fas fa-search"></i>
+    </div>
     //     <div className="right-menu">
     //     {/* <div className="s-container"> */}
     //         <div className="search-box">
@@ -22,7 +34,7 @@ const Search = (props) =>{
     //         </div>
     //     {/* </div> */}
     // </div>
-    )
+  )
 }
 
-export default Search;
+export default Search

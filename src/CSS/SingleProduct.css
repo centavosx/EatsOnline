@@ -8,16 +8,41 @@
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  font-family: 'Nunito';
+  font-family: 'Poppins', sans-serif;
+  /* height: 1000px; */
 }
 .single-sec{
   background-color: #ffffff;
   border-radius:10px;
   margin: 20px;
 }
-.ss-btn{
-  margin: 0px 18px;
+.col-lg-5{
+  margin-top: 20px;
 }
+.ss-btn {
+    display: flex;
+    width: 86px;
+    margin: 10px 30px;
+    position: absolute;
+    line-height: 30px;
+    color: #ffffff;
+    padding: 4px 20px;
+    text-transform: uppercase;
+    font-weight: bold;
+    overflow: hidden;
+    letter-spacing: 0.02em;
+    border-radius: 25px;
+    background-color: #10505E;
+    border: 2px solid #0d6efd;
+}
+
+.ss-btn:hover {
+ 
+  color: #f2f36b;
+  background-color: #0794c9;
+  border: 2px solid #0794c9;
+}
+
 .product-right-slick{
   width: 50%;
   margin-left: auto;
@@ -75,13 +100,13 @@
   padding-left: 0;
   margin-bottom: 0; }
 
-li {
-  display: inline-block; }
+/* li {
+  display: inline-block; } */
 
 p {
-  font-size: 14px;
+  font-size: 16px;
   color: #777777;
-  line-height: 1; }
+  /* line-height: 1;  */}
 
 .qty-box .input-group {
   -webkit-box-pack: center;
@@ -110,7 +135,94 @@ p {
       color: #222222; }
   .qty-box .input-group .icon {
     padding-right: 0; }
+/* btn */
+.q-btn .input{
+  width: 30px;
+  height:20px;
+  font-size: 0.9rem;
+  /* margin: 0 10px; */
+  /* padding: 10px; */
+  justify-content: center;
+  align-items: center;
+}
 
+/* quantity button-products page */
+.qty-box .m-btn, .p-btn{
+  color: #fff;
+  align-content: center;
+  /* width: 15px; */
+  font-size: 13px;
+  border-radius: 5px;
+  margin: 3px;
+  padding: 3.5px;
+  background: #28AAC7;
+  border: 1px #28aac7;
+}
+.single-add{
+  height: 5%;
+  float: right;
+  padding: 0px 10px;
+  width: 50%;
+  font-size: 0.5rem;
+  display: contents;
+}
+
+.single-add-btn{
+  margin-left: 100px;
+  position: absolute;
+  border-radius: 25px;
+  text-transform: uppercase;
+  color: #fff;
+  padding: 10px 15px;
+  float: right;
+  background-color: #10505E;
+  border: 1px solid #0d6efd;
+}
+
+.single-add-btn:hover{
+  margin-left: 100px;
+  position: absolute;
+  border-radius: 25px;
+  text-transform: uppercase;
+  padding: 10px 15px;
+  float: right;
+  border: 1px solid #0d6efd;
+  background-color: #0794c9;
+  color: #f2f36b;
+}
+
+.single-add-to{
+  font-size: 18px;
+    text-transform: uppercase;
+    color: #fff;
+    width: 150px;
+    align-content: center;
+    margin: auto;
+    /* margin-top: 5px; */
+    /* margin-right: 5px; */
+    /* margin-left: 0px; */
+    font-weight: bold;
+    text-align: center;
+}
+
+.single-add-to:hover{
+  font-size: 18px;
+    text-transform: uppercase;
+    color: #f2f36b;
+    width: 150px;
+    align-content: center;
+    margin: auto;
+    /* margin-top: 5px; */
+    /* margin-right: 5px; */
+    /* margin-left: 0px; */
+    font-weight: bold;
+    text-align: center;
+}
+.s-option{
+  text-align: center;
+  height:20px;
+  font-size: 0.9rem;
+}
 
 .product-right p {
   margin-bottom: 0;
@@ -118,7 +230,8 @@ p {
 
 .product-right .product-title {
   color: #222222;
-  text-transform: capitalize;
+  font-size: 18px;
+  text-transform: uppercase;
   font-weight: 700;
   margin-bottom: 0; }
 
@@ -128,9 +241,11 @@ p {
   border-top: 1px dashed #dddddd; }
 
 .product-right h2 {
+  color: #000;
   text-transform: uppercase;
   margin-bottom: 15px;
-  font-size: 25px;
+  font-size: 24px;
+  font-weight: bold;
   line-height: 1.2em; }
 
 .product-right h3 {
@@ -144,11 +259,15 @@ p {
   .product-right h4 del {
     color: #777777; }
   .product-right h4 span {
-    padding-left: 5px;
-    color: var(--theme-deafult); }
+    /* padding-left: 5px; */
+    font-weight: bold;
+    text-decoration: line-through;
+    color: red;
+    /* color: var(--theme-deafult); */}
 
 .product-right .color-variant {
-  margin-bottom: 10px; }
+  margin-top: -21px;
+}
   .product-right .color-variant li {
     height: 30px;
     width: 30px;
@@ -166,11 +285,14 @@ p {
 
 .product-right .product-description h6 span {
   float: right; }
+  .product-right{
+    color: #777777;
+  }
 
 .product-right .product-description .qty-box {
   display: -webkit-box;
   display: -ms-flexbox;
-  display: flex;
+  float: left;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -209,6 +331,13 @@ p {
       height: 100%; }
     .product-right .size-box ul li.active {
       background-color: #f7f7f7; }
+      .s-current{
+        font-weight: Bold;
+        color: #10505e;
+      }
+      .comment-box .comment{
+      font-size: 18px;
+      }
 /*=====================
     29.Responsive CSS start
 ==========================*/
@@ -219,7 +348,15 @@ p {
   .container {
     max-width: 1400px; } 
   }
-
+  @media (min-width: 1024px) {
+    .container {
+      max-width: 1400px; } 
+    }
+    .col-lg-6 {
+    flex: 0 0 auto;
+    width: 50%;
+    margin-top: 20px;
+}
 @media (max-width: 991px) {
   h2 {
     font-size: 28px; }
@@ -259,32 +396,116 @@ p {
             order: -1; }
   }
 
-@media (max-width: 420px) {
+@media (max-width: 425px) {
   .comment-area textarea{
     width: fit-content;
   }
-  .sendP{
+  .Single-pic{
+    width: 200px ;
+  }
+  .comment-area{
+    margin-left: 54px;
+  }
+  .s-rate {
+    height: 55px;
+    /* padding: 0 80px; */
+    margin-top: 5px;
+    margin-right: 66px;
+}
+}
+@media (max-width: 320px){
+  .Single-pic{
+    width: 145px;
+  }
+  .rounded-circle{
+    height: 50px;
+  }
+  .ss-btn {
+    margin: 0px 18px;
+    position: relative;
+    /* font-size: 23px; */
+    line-height: 30px;
+    color: #ffffff;
+    padding: 1px 20px;
+    font-weight: 600;
+    overflow: hidden;
+    letter-spacing: 0.02em;
+    border-radius: 25px;
+    background-color: #10505E;
+}
+.product-right .color-variant {
+  margin-top: auto;
+  display: inline-flex;
+  margin-left: auto;
+  margin-right: auto;
+}
+.single-add{
+  margin-right: 135px;
+}
+.single-add-btn{
+  margin: 10px;
+  margin-left: 100px;
+  position: absolute;
+  border-radius: 25px;
+  text-transform: uppercase;
+  color: #fff;
+  padding: 8px 14px;
+  align-content: center;
+  display: flex;
+  background-color: #10505E;
+  border: 2px solid #0d6efd;
 
-}}
+}
+.single-add-to{
+  font-size: 18px;
+    text-transform: uppercase;
+    color: #fff;
+    width: 150px;
+    align-content: center;
+    margin: auto;
+    /* margin-top: 5px; */
+    /* margin-right: 5px; */
+    /* margin-left: 0px; */
+    font-weight: bold;
+    text-align: center;
+
+}
+}
+
   
 
     /* comments/ reviews */
 
 /* comment */
 .s-review{
-  margin-top: 20px;
+  margin-top: 50px;
+  margin-bottom: 20px;
   background-color: #5B5B5B;
   text-align: center;
   color: #cefbf5;
   padding: 5px;
   width: 95%;
+  font-size: 20px;
+  font-weight: bold;
 }
-
+.card-p-3{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: 0.25rem;
+    margin-bottom: 10px;
+    padding: 10px;
+}
 .review-card {
     width: 92%;
     font-size: 24px;
-    font-weight: bold;
-    font-family: 'Nunito';
+    font-weight: bold; 
+    font-family: 'Poppins', sans-serif;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -300,8 +521,12 @@ p {
   align-items: center;
   display: flex;
   margin-top: 25px;
+  width:100px;
 }
-
+.col-2{
+  display: flex;
+    align-items: center;
+}
 .comment-box {
     padding: 5px
 }
@@ -309,6 +534,7 @@ p {
 .comment-area textarea {
     /* resize: none; */
     border: 1px solid #ad9f9f;
+    font-weight: normal;
     font-size: 14px;
     width: 90%;
 }
@@ -342,15 +568,19 @@ p {
 .send {
   border-radius: 100px;
   text-transform: uppercase;
-  background-color: #10505e;
+  font-weight: bold;
+  font-size: 18px;
   color: #fff;
-  border: 1px solid #10505e;
-  width: 30%;
+  width: 100px;
+  background-color: #10505E;
+  border: 1px solid #0d6efd;
+  letter-spacing: 0.5px;
 }
 
 .send:hover {
   background-color: #0794c9;
   border: 1px solid #0794c9;
+  color: #f2f36b;
     /* color: #fff;
     background-color: #f50202;
     border-color: #f50202 */
@@ -445,6 +675,8 @@ p {
 .scroll-div1{
     width: 90%;
     height: 350px;
+    margin-top: 50px;
+    margin-bottom: 50px;
     overflow: hidden;
     overflow-y: scroll;
     background-color: #fff;
@@ -457,4 +689,7 @@ p {
   color: #cefbf5;
   padding: 5px;
   width: 95%;
+  font-size: 20px;
+  font-weight: bold;
 }
+

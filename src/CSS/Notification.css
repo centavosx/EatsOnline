@@ -1,3 +1,18 @@
+.navbar-item {
+    position: relative;
+    right: 20px;
+}
+@media(min-width:320px)
+{
+    .navbar-item{
+        right: 0px;
+    }
+}
+@media(max-width:425px) {
+    .navbar-item{
+        right: 0px;
+    }
+}
 .notifications .icon_wrap{
     margin-right: 15px;
     cursor: pointer;
@@ -11,8 +26,9 @@
 
 .notification_dd{
     position: absolute;
-    top: 65px;
-    right: 230px;
+    top: 50px;
+    /* right: 230px; */
+    right: 0px;
     background-color: #fff;
     width: 380px;
     height: auto;
@@ -31,6 +47,17 @@
     border: 10px solid;
     border-color: transparent transparent #fff transparent;
 }
+.fa-bell{
+    color: #fff;
+}
+.fa-bell:hover{
+    color: #F2F36B;
+}
+.fa-bell:active{
+    color: #F2F36B;
+    transition: all 1s linear;
+}
+
 
 .notifications li .notify_icon{
     display: flex;
@@ -51,8 +78,9 @@
 
 .notifications li .notify_data .notif_title{
     color: #000;
-    font-weight: 600;
-    font-size: 18px;
+    font-weight: normal;
+    font-size: 16px;
+    width: 200px;
 }
 
 .notifications li .notify_data .sub_title{
@@ -83,8 +111,11 @@
 }
 
 .notifications li.pending .notify_status p{
-    color: #ffff00;
+    color: #d9d90b;
     font-weight: bold;
+    margin-left: 10px;
+    align-self: center;
+    text-transform: uppercase;
 }
 
 .notifications li.show_all{
@@ -98,14 +129,19 @@
 }
 
 .notifications li.show_all p{
-    font-weight: 700;
-    color: #3b80f9;
+    font-weight: bold;
+    color: #10505e;
     cursor: pointer;
-    margin-top: 10px;
+    margin-top: 20px;
+    font-size: 18px;
+    text-transform: uppercase;
 }
 
 .notifications li.show_all p:hover{
+    color: #28aac7;
     text-decoration: underline;
+    text-transform: uppercase;
+    font-weight: bold;
 }
 
 .notify_icon .icon{
