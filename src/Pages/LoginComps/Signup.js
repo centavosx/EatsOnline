@@ -23,9 +23,6 @@ const Signup = () => {
     const container3 = document.querySelector('.container3')
     container3.classList.toggle('active')
   }
-  const goHome = () => {
-    history.push('/')
-  }
 
   const signup = (e) => {
     e.preventDefault()

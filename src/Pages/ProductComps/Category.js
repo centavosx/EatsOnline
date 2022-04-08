@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
 import '../../CSS/Category.css'
 import '../../CSS/Search.css'
@@ -7,8 +7,10 @@ import Search from '../ProductComps/Search.js'
 import { decryptJSON } from '../EncryptionDecryption'
 function Category(props) {
   const [cat, setCat] = useState([])
-  const history = useHistory()
+  const ref = useRef()
+
   React.useEffect(() => {
+    ref.current.scrollIntoView({ behavior: 'smooth' })
     axios.get(process.env.REACT_APP_APIURL + 'category').then((resp) => {
       resp.data = decryptJSON(resp.data.data)
       setCat(resp.data.data)
@@ -18,7 +20,7 @@ function Category(props) {
   return (
     <nav>
       {/* <!-- heading --> */}
-      <div className="heading">
+      <div className="heading" ref={ref}>
         <h3>MENU</h3>
       </div>
       <nav>

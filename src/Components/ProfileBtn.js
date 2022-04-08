@@ -6,8 +6,7 @@ const ProfileBtn = (props) => {
   const history = useHistory()
   const logout = () => {
     localStorage.removeItem('id')
-    history.push('/')
-    window.location.reload(false)
+    window.location.replace('/')
   }
   // $(".profile .icon_wrap").click(function(){
   //     $(this).parent().toggleClass("active");

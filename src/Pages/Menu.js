@@ -5,16 +5,48 @@ import Products from './HomeComps/Products.js'
 import Category from './ProductComps/Category.js'
 import Goback from './HomeComps/Goback.js'
 import SingleProduct from './ProductComps/SingleProduct.js'
+import axios from 'axios'
+import { encryptJSON, decryptJSON } from './EncryptionDecryption.js'
 const Menu = (props) => {
   const [values, setValues] = useState([])
   const [params, setParams] = useState(null)
   const [search, setSearch] = useState(null)
   const [loading, setLoading] = useState(false)
+  const [login, setLoggedin] = useState(null)
+  React.useEffect(() => {
+    if (
+      localStorage.getItem('id') !== null &&
+      localStorage.getItem('id').length > 0
+    ) {
+      axios
+        .post(
+          process.env.REACT_APP_APIURL + 'profileData',
+          encryptJSON({
+            id: localStorage.getItem('id'),
+            data: ['name', 'link'],
+          })
+        )
+        .then((response) => {
+          response.data = decryptJSON(response.data.data)
+          if (!response.data.error) {
+            setLoggedin(response.name.length > 0)
+          } else {
+            setLoggedin(false)
+          }
+        })
+        .catch(() => {
+          setLoggedin(false)
+        })
+    } else {
+      setLoggedin(false)
+    }
+  }, [localStorage.getItem('id')])
+
   React.useEffect(() => {
     let val = new URLSearchParams(window.location.search).get('id')
     let searchv = new URLSearchParams(window.location.search).get('search')
     let value = new URLSearchParams(window.location.search).get('value')
-    console.log(searchv, value)
+
     if (val !== null) {
       setParams(val.replaceAll(' ', '+'))
     } else {
@@ -25,7 +57,6 @@ const Menu = (props) => {
     } else {
       setSearch([])
     }
-    localStorage.setItem('page', 'menu')
   }, [])
   return (
     <main>
@@ -33,7 +64,7 @@ const Menu = (props) => {
       <Category setValues={setValues} setLoading={setLoading} />
       <div style={{ width: '90%', margin: 'auto' }}>
         {params !== null ? (
-          <SingleProduct />
+          <SingleProduct login={login} />
         ) : search !== null ? (
           <Products
             featured={false}
@@ -43,6 +74,7 @@ const Menu = (props) => {
             loading={loading}
             search={search}
             setValues={setValues}
+            login={login}
           />
         ) : null}
 

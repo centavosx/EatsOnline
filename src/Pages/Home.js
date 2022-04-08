@@ -8,9 +8,8 @@ import axios from 'axios'
 
 const Home = (props) => {
   React.useEffect(() => {
-    localStorage.setItem('page', 'home')
-  }, [])
-
+    props.setPage('/')
+  })
   return (
     <main>
       <Carousel />

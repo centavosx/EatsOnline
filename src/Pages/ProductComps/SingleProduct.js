@@ -6,11 +6,13 @@ import { decryptJSON, encryptJSON } from '../EncryptionDecryption'
 import Reviews from './Reviews'
 import Recommended from './Recommended'
 import { Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 const SingleProduct = (props) => {
   const [data, setData] = useState({})
   const [idParam, setParams] = useState(
     new URLSearchParams(window.location.search).get('id')
   )
+  const history = useHistory()
   const [qty, setQty] = useState(1)
   const [message, setMessage] = useState({ added: false, message: '' })
   React.useEffect(() => {
@@ -75,9 +77,16 @@ const SingleProduct = (props) => {
         <div class="Single-container">
           <div class="row">
             {/* <div> */}
-            <Link to="/products">
-              <a className="ss-btn">BACK</a>
-            </Link>
+            <div>
+              <a
+                className="ss-btn"
+                style={{ cursor: 'pointer' }}
+                href={void 0}
+                onClick={() => history.goBack()}
+              >
+                BACK
+              </a>
+            </div>
             {/* </div> */}
             <div className="col-lg-5 col-sm-10 col-xs-12">
               <div class="product-right-slick">

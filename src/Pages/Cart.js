@@ -20,9 +20,6 @@ const Cart = (props) => {
   ])
   const [output, setOutput] = useState({})
   React.useEffect(() => {
-    localStorage.setItem('page', 'cartlist')
-  }, [])
-  React.useEffect(() => {
     let val = new URLSearchParams(window.location.search).get('id')
     let what = new URLSearchParams(window.location.search).get('what')
     if (val !== null) {
@@ -32,7 +29,6 @@ const Cart = (props) => {
       setParams(null)
       setWhat(null)
     }
-    localStorage.setItem('page', 'menu')
   }, [])
   const [loading, setLoading] = useState(false)
   React.useEffect(async () => {

@@ -7,7 +7,7 @@ const Notification = (props) => {
   const [show, setShow] = useState(false)
   const [data, setData] = useState([])
   React.useEffect(async () => {
-    if (localStorage.getItem('id') !== null) {
+    if (props.loggedin) {
       let req = await axios.post(
         process.env.REACT_APP_APIURL + 'notif',
         encryptJSON({

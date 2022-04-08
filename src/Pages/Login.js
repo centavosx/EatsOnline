@@ -3,11 +3,10 @@ import '../CSS/Login.css'
 import { useHistory, Link } from 'react-router-dom'
 import Log from './LoginComps/Log.js'
 import Signup from './LoginComps/Signup.js'
-const Login = () => {
+const Login = (props) => {
   React.useEffect(() => {
-    localStorage.setItem('page', 'login')
+    props.setPage('login')
   }, [])
-
   return (
     // <div >
     //     <div style={{backgroundImage: "url('/assets/img/BACKGROUND IMAGE 2.png')", height: '100%', position: 'absolute', width: '100%'}}></div>

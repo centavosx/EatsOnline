@@ -62,8 +62,7 @@ const Log = () => {
         if (!response.data.error) {
           if (response.data.verified) {
             localStorage.setItem('id', idn)
-            history.push('/')
-            window.location.reload(false)
+            window.location.href = '/'
           } else {
             setColor({ color: 'red' })
           }
@@ -84,8 +83,7 @@ const Log = () => {
       if (!response.data.error) {
         if (response.data.registered) {
           localStorage.setItem('id', response.data.id)
-          history.push('/')
-          window.location.reload(false)
+          window.location.href = '/'
         }
       }
     })
@@ -186,7 +184,6 @@ const Log = () => {
                   id="homeLog"
                   onClick={() => {
                     history.push('/')
-                    window.location.reload(false)
                   }}
                   className="homehome"
                   value="HOME"

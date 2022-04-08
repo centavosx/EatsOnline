@@ -1,5 +1,4 @@
-
-footer{
+footer {
   /* position: relative; */
   bottom: 0;
   left: 0;
@@ -8,10 +7,10 @@ footer{
   width: 100vw;
   color: #fff;
 }
-.text-white{
-  color:#000 !important; 
+.text-white {
+  color: #000 !important;
 }
-.footer-content{
+.footer-content {
   background-color: #10505e;
   padding-top: 27px;
   display: flex;
@@ -20,13 +19,13 @@ footer{
   flex-direction: column;
   text-align: center;
 }
-.footer-content .footerh2{
+.footer-content .footerh2 {
   /* font-size: 2.1rem; */
   font-size: 24px;
   font-weight: bold;
   text-transform: uppercase;
   /* line-height: 3rem; */
-  color: #F2F36B;
+  color: #f2f36b;
   margin-top: 10px;
 }
 
@@ -45,7 +44,7 @@ bottom: -1128px;
 display: flex;
 } */
 
-.footer-content .footer-p{
+.footer-content .footer-p {
   max-width: 487vw;
   margin: 10px auto;
   line-height: 28px;
@@ -53,89 +52,85 @@ display: flex;
   margin-top: 30px;
 }
 
-
-.socials{
+.socials {
   list-style: none;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 1rem 0 3rem 0;
 }
-.socials li{
+.socials li {
   margin: 0 10px;
 }
-.socials a{
+.socials a {
   text-decoration: none;
   color: #fff;
   border: 1.1px solid white;
   padding: 10px;
   border-radius: 50%;
-
 }
-.socials a i{
+.socials a i {
   font-size: 1.1rem;
   width: 20px;
   color: white;
 
-  transition: color .4s ease;
-
+  transition: color 0.4s ease;
 }
-.socials a:hover i{
-  color: #F2F36B;
+.socials a:hover i {
+  color: #f2f36b;
 }
 
-.footer-bottom{
+.footer-bottom {
   background-color: #f2f36b;
   font-size: 15px;
   width: 100vw;
   padding: 14px;
-/* padding-bottom: 40px; */
+  /* padding-bottom: 40px; */
   color: #000;
   text-align: center;
 }
-.footer-bottom p{
-float: left;
+.footer-bottom p {
+  float: left;
   font-size: 14px;
   word-spacing: 2px;
   text-transform: capitalize;
 }
-.footer-bottom p a{
-color:#44bae8;
-font-size: 16px;
-text-decoration: none;
+.footer-bottom p a {
+  color: #44bae8;
+  font-size: 16px;
+  text-decoration: none;
 }
-.footer-bottom span{
+.footer-bottom span {
   text-transform: uppercase;
-  opacity: .4;
+  opacity: 0.4;
   font-weight: 200;
 }
-.footer-menu{
-float: right;
-
+.footer-menu {
+  float: right;
 }
-.footer-menu ul{
-display: flex;
+.footer-menu ul {
+  display: flex;
 }
-.footer-menu ul li{
-padding-right: 10px;
-display: block;
+.footer-menu ul li {
+  padding-right: 10px;
+  display: block;
 }
-.footer-menu ul li a{
-color: #cfd2d6;
-text-decoration: none;
+.footer-menu ul li a {
+  color: #cfd2d6;
+  text-decoration: none;
 }
-.footer-menu ul li a:hover{
-color: #27bcda;
-}
-
-@media (max-width:500px) {
-.footer-menu ul{
-display: flex;
-margin-top: 10px;
-margin-bottom: 20px;
+.footer-menu ul li a:hover {
+  color: #27bcda;
 }
 
-/* .footerh2:before{
+@media (max-width: 500px) {
+  .footer-menu ul {
+    display: flex;
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+
+  /* .footerh2:before{
   font-weight: bold;
 /* content:" ";
 font-family:"FontAwesome"; 
@@ -149,4 +144,14 @@ left: 650px;
 bottom: -1128px;
 display: flex;
 } */
+}
+
+@media (max-width: 425px) {
+  .footer-content .footer-p {
+    max-width: 487vw;
+    margin: 10px auto;
+    line-height: 28px;
+    font-size: 15px;
+    margin-top: 30px;
+  }
 }
