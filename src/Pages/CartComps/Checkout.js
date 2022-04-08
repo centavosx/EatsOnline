@@ -8,6 +8,7 @@ const Checkout = (props) => {
   const [adminData, setAdminData] = useState({})
   const [val, setVal] = useState('bank')
   const [imgurl, setImgurl] = useState(null)
+  const [loading, setLoading] = useState(false)
   React.useEffect(() => {
     axios
       .post(
@@ -36,27 +37,27 @@ const Checkout = (props) => {
 
   const uploadReceipt = async (e) => {
     e.preventDefault()
-    const form = new FormData()
-
-    form.append('image', image)
-    form.append(
-      'data',
-      encryptJSON({
-        imagename: image.name,
-        id: props.output.iditem,
-        what: props.output.what,
-      }).data
-    )
-    let x = await axios.post(
-      process.env.REACT_APP_APIURL + 'uploadreceipt',
-      form,
-      {
+    setLoading(true)
+    try {
+      const form = new FormData()
+      form.append('image', image)
+      form.append(
+        'data',
+        encryptJSON({
+          imagename: image.name,
+          id: props.output.iditem,
+          what: props.output.what,
+        }).data
+      )
+      await axios.post(process.env.REACT_APP_APIURL + 'uploadreceipt', form, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
-      }
-    )
-    x.data = decryptJSON(x.data.data)
+      })
+      setLoading(true)
+    } catch {
+      setLoading(false)
+    }
   }
 
   return (
@@ -217,12 +218,16 @@ const Checkout = (props) => {
           />
         </form>
         {image !== null ? (
-          <input
-            className="up-btn"
-            value="UPLOAD"
-            type="submit"
-            onClick={(e) => uploadReceipt(e)}
-          />
+          loading ? (
+            <h5 className="pay">Uploading...</h5>
+          ) : (
+            <input
+              className="up-btn"
+              value="UPLOAD"
+              type="submit"
+              onClick={(e) => uploadReceipt(e)}
+            />
+          )
         ) : null}
       </div>
     </div>
