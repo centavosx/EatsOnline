@@ -6,6 +6,7 @@ import axios from 'axios'
 import Notification from './Notification'
 import ProfileBtn from './ProfileBtn'
 import Chat from './Chat.js'
+
 const Header = (props) => {
   const [page, setPage] = useState(window.location.pathname)
   const [name, setName] = useState(null)
@@ -53,6 +54,7 @@ const Header = (props) => {
           />
           &nbsp;Eats Online
         </a>
+
         <button
           className="navbar-toggler"
           type="button"
@@ -105,9 +107,9 @@ const Header = (props) => {
           </ul>
 
           <li className="navbar-item">
-            {name === null ? null : name.name.length > 0 ? (
-              <Notification loggedin={name.name.length > 0} />
-            ) : null}
+            <Notification
+              loggedin={name === null ? false : name.name.length > 0}
+            />
           </li>
           <li className="navbar-item">
             {name === null ? null : name.name.length > 0 ? (

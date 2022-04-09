@@ -1,152 +1,164 @@
 .navbar-item {
-    position: relative;
-    right: 20px;
+  position: relative;
+  right: 20px;
 }
-@media(min-width:320px)
-{
-    .navbar-item{
-        right: 0px;
-    }
-}
-@media(max-width:425px) {
-    .navbar-item{
-        right: 0px;
-    }
-}
-.notifications .icon_wrap{
-    margin-right: 15px;
-    cursor: pointer;
-    font-size: 28px;
-}
-
-.notifications .icon_wrap:hover,
-.notifications .icon_wrap.active{
-    color: rgba(255,255,255,.75);
-}
-
-.notification_dd{
-    position: absolute;
-    top: 50px;
-    /* right: 230px; */
+@media (min-width: 320px) {
+  .navbar-item {
     right: 0px;
+  }
+  /* .notification_dd {
+    position: absolute;
+    top: 73px;
+    /* right: 230px; 
+    right: 15px;
     background-color: #fff;
-    width: 380px;
+    width: 279px;
     height: auto;
     border: 1px solid #c7d8e2;
     border-radius: 3px;
-    box-shadow: 10px 10px 30px rgba(0,0,0,0,125),
-    -10px -10px 30px rgba(0,0,0,0,125);
+    box-shadow: 10px 10px 30px rgba(0, 0, 0, 0, 125),
+      -10px -10px 30px rgba(0, 0, 0, 0, 125);
     display: none;
+  } */
+}
+@media (max-width: 425px) {
+  .navbar-item {
+    right: 0px;
+  }
+}
+.notifications .icon_wrap {
+  margin-right: 15px;
+  cursor: pointer;
+  font-size: 28px;
 }
 
-.notification_dd:before{
-    content: "";
-    position: absolute;
-    top: -20px;
-    right: 18px;
-    border: 10px solid;
-    border-color: transparent transparent #fff transparent;
-}
-.fa-bell{
-    color: #fff;
-}
-.fa-bell:hover{
-    color: #F2F36B;
-}
-.fa-bell:active{
-    color: #F2F36B;
-    transition: all 1s linear;
+.notifications .icon_wrap:hover,
+.notifications .icon_wrap.active {
+  color: rgba(255, 255, 255, 0.75);
 }
 
+.notification_dd {
+  position: absolute;
+  top: 50px;
+  /* right: 230px; */
+  right: 0px;
+  background-color: #fff;
+  width: 380px;
+  height: auto;
+  border: 1px solid #c7d8e2;
+  border-radius: 3px;
+  box-shadow: 10px 10px 30px rgba(0, 0, 0, 0, 125),
+    -10px -10px 30px rgba(0, 0, 0, 0, 125);
+  display: none;
+}
 
-.notifications li .notify_icon{
-    display: flex;
+.notification_dd:before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  right: 18px;
+  border: 10px solid;
+  border-color: transparent transparent #fff transparent;
+}
+.fa-bell {
+  color: #fff;
+}
+.fa-bell:hover {
+  color: #f2f36b;
+}
+.fa-bell:active {
+  color: #f2f36b;
+  transition: all 1s linear;
+}
+
+.notifications li .notify_icon {
+  display: flex;
 }
 
 .notifications li {
-    border-bottom: 1px solid #f1f2f4;
-    padding: 10px 20px;
-    display: flex;
-    align-items: center;
-    margin-right: 5px;
+  border-bottom: 1px solid #f1f2f4;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  margin-right: 5px;
 }
 
-.notifications li .notify_data{
-    margin: 0 15px;
-    width: 185px;
+.notifications li .notify_data {
+  margin: 0 15px;
+  width: 185px;
 }
 
-.notifications li .notify_data .notif_title{
-    color: #000;
-    font-weight: normal;
-    font-size: 16px;
-    width: 200px;
+.notifications li .notify_data .notif_title {
+  color: #000;
+  font-weight: normal;
+  font-size: 16px;
+  width: 200px;
 }
 
-.notifications li .notify_data .sub_title{
-    font-size: 15px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    margin-top: 5px;
+.notifications li .notify_data .sub_title {
+  font-size: 15px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 5px;
 }
 
 .notifications li .notify_status p {
-    font-size: 16px;
+  font-size: 16px;
 }
 
-.notifications li.success .notify_status p{
-    color: #47da89;
-    font-weight: bold;
+.notifications li.success .notify_status p {
+  color: #47da89;
+  font-weight: bold;
 }
 
-.notifications li.failed .notify_status p{
-    color: #fb0001;
-    font-weight: bold;
+.notifications li.failed .notify_status p {
+  color: #fb0001;
+  font-weight: bold;
 }
 
-.notifications li.delivery .notify_status p{
-    color: #ffa500;
-    font-weight: bold;
+.notifications li.delivery .notify_status p {
+  color: #ffa500;
+  font-weight: bold;
 }
 
-.notifications li.pending .notify_status p{
-    color: #d9d90b;
-    font-weight: bold;
-    margin-left: 10px;
-    align-self: center;
-    text-transform: uppercase;
+.notifications li.pending .notify_status p {
+  color: #d9d90b;
+  font-weight: bold;
+  margin-left: 10px;
+  align-self: center;
+  text-transform: uppercase;
 }
 
-.notifications li.show_all{
-    padding: 5px;
-    display: flex;
-    justify-content: center;
+.notifications li.show_all {
+  padding: 5px;
+  display: flex;
+  justify-content: center;
 }
 
-.notifications li:last-child{
-    border-bottom: 0;
+.notifications li:last-child {
+  border-bottom: 0;
 }
 
-.notifications li.show_all p{
-    font-weight: bold;
-    color: #10505e;
-    cursor: pointer;
-    margin-top: 20px;
-    font-size: 18px;
-    text-transform: uppercase;
+.notifications li.show_all p {
+  font-weight: bold;
+  color: #10505e;
+  cursor: pointer;
+  margin-top: 20px;
+  font-size: 18px;
+  text-transform: uppercase;
 }
 
-.notifications li.show_all p:hover{
-    color: #28aac7;
-    text-decoration: underline;
-    text-transform: uppercase;
-    font-weight: bold;
+.notifications li.show_all p:hover {
+  color: #28aac7;
+  text-decoration: underline;
+  text-transform: uppercase;
+  font-weight: bold;
 }
 
-.notify_icon .icon{
-    background-image: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.v8mdQOv5h96Ro5uidJVpbAHaEc%26pid%3DApi&f=1');
-    width: 40px;
-    height: 40px;
-    margin-right: 10px;
+.notify_icon .icon {
+  background-image: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.v8mdQOv5h96Ro5uidJVpbAHaEc%26pid%3DApi&f=1');
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
 }

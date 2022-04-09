@@ -3,9 +3,13 @@ import '../CSS/Notification.css'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import { decryptJSON, encryptJSON } from '../Pages/EncryptionDecryption.js'
+import socket from '../socket'
 const Notification = (props) => {
   const [show, setShow] = useState(false)
   const [data, setData] = useState([])
+  const [advanced, setAdvanced] = useState([])
+  const [order, setOrder] = useState([])
+  const [notif, setNotif] = useState(0)
   React.useEffect(async () => {
     if (props.loggedin) {
       let req = await axios.post(
@@ -15,8 +19,23 @@ const Notification = (props) => {
         })
       )
       setData(decryptJSON(req.data.data))
+      socket.emit('notifications', localStorage.getItem('id'))
+      socket.on(`transact/${localStorage.getItem('id')}`, (data) => {
+        setOrder(data)
+      })
+      socket.on(`advanced/${localStorage.getItem('id')}`, (data) => {
+        setAdvanced(data)
+      })
+      socket.on(`notifcount/${localStorage.getItem('id')}`, (count) => {
+        setNotif(notif + count)
+      })
     }
-  }, [data])
+  }, [props.loggedin])
+
+  React.useEffect(() => {
+    setData([...order, ...advanced])
+  }, [order, advanced])
+
   return (
     <div className="notifications">
       <div className="icon_wrap">

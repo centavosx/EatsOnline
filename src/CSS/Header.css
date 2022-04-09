@@ -1,33 +1,32 @@
 /*Header*/
 @import url(https://fonts.googleapis.com/css?family=Nunito);
 
-.navbar{
+.navbar {
   background-color: #196b7d;
-  color: #CEFBF6;
+  color: #cefbf6;
   padding: 0px, 0px, 0px, 5px;
   font-family: 'Nunito';
   list-style: none;
 }
-.navbar-dark .navbar-nav .nav-link{
+.navbar-dark .navbar-nav .nav-link {
   font-size: 20px;
   color: #fff;
 }
-.navbar-dark .navbar-nav .nav-link:focus
-{
-  color: #F2F36B;
+.navbar-dark .navbar-nav .nav-link:focus {
+  color: #f2f36b;
 }
 /* btn */
-.btn-login{
+.btn-login {
   position: relative;
   text-transform: uppercase;
   font-weight: bold;
-  font-size:14px;
+  font-size: 14px;
   overflow: hidden;
   border-radius: 100px;
-  background-color: #F2F36B;
+  background-color: #f2f36b;
   border: 2px solid #ffffff;
 }
-.btn-login a{
+.btn-login a {
   color: #000 !important;
 }
 
@@ -35,7 +34,7 @@
   position: relative;
   text-transform: uppercase;
   font-weight: bold;
-  font-size:14px;
+  font-size: 14px;
   overflow: hidden;
   border-radius: 100px;
   background-color: #fbfb02;
@@ -48,22 +47,22 @@
   height: 80vh;
   object-fit: cover;
 } */
-.carousel-item .carousel__caption h1{
+.carousel-item .carousel__caption h1 {
   font-family: 'Nunito';
   font-size: 90px;
-  Color: #10505e;
+  color: #10505e;
   text-shadow: 0 0 6px #e9ec00;
   font-weight: bolder;
   padding-bottom: 50px;
   padding-right: 50px;
 }
-.carousel__caption p{
+.carousel__caption p {
   font-family: 'Nunito';
   font-size: 20px;
-  Color: #10505e;
+  color: #10505e;
   font-style: oblique;
 }
-.btn-lg{
+.btn-lg {
   /* border-radius: 100px; */
   /* text-transform: uppercase;
   background-color: #10505e;
@@ -77,7 +76,7 @@
   font-weight: bold;
 }
 
-.btn-lg:hover{
+.btn-lg:hover {
   background-color: #28aac7;
   color: #f2f36b;
 }
@@ -101,7 +100,6 @@
   height: 38rem;
 }
 
-
 /* MARKETING CONTENT
 -------------------------------------------------- */
 
@@ -115,11 +113,10 @@
 }
 /* rtl:begin:ignore */
 .marketing .col-lg-4 p {
-  margin-right: .75rem;
-  margin-left: .75rem;
+  margin-right: 0.75rem;
+  margin-left: 0.75rem;
 }
 /* rtl:end:ignore */
-
 
 /* Featurettes
 ------------------------- */
@@ -133,9 +130,8 @@
   font-weight: 300;
   line-height: 1;
   /* rtl:remove */
-  letter-spacing: -.05rem;
+  letter-spacing: -0.05rem;
 }
-
 
 /* RESPONSIVE CSS
 -------------------------------------------------- */
@@ -158,5 +154,26 @@
 @media (min-width: 62em) {
   .featurette-heading {
     margin-top: 7rem;
+  }
+}
+
+@media (min-width: 320px) {
+  .navbar-brand {
+    margin-right: 4.6rem;
+  }
+  @media (min-width: 375px) {
+    .navbar-brand {
+      margin-right: 8.05rem;
+    }
+  }
+  @media (min-width: 425px) {
+    .navbar-brand {
+      margin-right: 11.2rem;
+    }
+  }
+  @media (min-width: 768px) and (max-width: 2560px) {
+    .navbar-brand {
+      margin-right: 1rem;
+    }
   }
 }

@@ -1,9 +1,18 @@
 import React, { useState } from 'react'
+import socket from '../socket.js'
 import ShowChat from './ShowChat.js'
 import '../CSS/Goback.css'
-
-const Chat = (props) => {
+const Chat = () => {
   const [show, setShow] = useState(false)
+  const [unread, setUnread] = useState(0)
+  React.useEffect(async () => {
+    socket.emit('user', localStorage.getItem('id'))
+    socket.emit('chat', localStorage.getItem('id'))
+    socket.on(`unread/${localStorage.getItem('id')}`, (unread) => {
+      setUnread(unread)
+    })
+  }, [])
+
   return (
     <div>
       <button
@@ -13,6 +22,7 @@ const Chat = (props) => {
         title="Chat feature"
       >
         <a href={void 0} id="messenger">
+          {unread}
           <img src={'../../assets/EOLogo_TransparentBG.png'}></img>
         </a>
       </button>

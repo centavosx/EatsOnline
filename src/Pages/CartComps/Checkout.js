@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useState } from 'react'
 import '../../CSS/CartConfirmation.css'
 import { decryptJSON, encryptJSON } from '../EncryptionDecryption'
+import socket from '../../socket'
 const Checkout = (props) => {
   const [value, setValue] = useState(true)
   const [image, setImage] = useState(null)
@@ -10,6 +11,17 @@ const Checkout = (props) => {
   const [imgurl, setImgurl] = useState(null)
   const [loading, setLoading] = useState(false)
   React.useEffect(() => {
+    socket.emit('qrcodes')
+    socket.on('gcash', (data) => {
+      if (val === 'gcash') {
+        setVal(data)
+      }
+    })
+    socket.on('bank', (data) => {
+      if (val === 'bank') {
+        setVal(data)
+      }
+    })
     axios
       .post(
         process.env.REACT_APP_APIURL + 'toPay',
@@ -21,7 +33,7 @@ const Checkout = (props) => {
         resp.data = decryptJSON(resp.data.data)
         setAdminData(resp.data.data)
       })
-  }, [adminData])
+  }, [])
 
   const filechange = (e) => {
     if (e.target.files[0]) {
@@ -68,7 +80,7 @@ const Checkout = (props) => {
           src="../assets/EOLogo_TransparentBG.png"
           alt="Logo"
         />
-        <div id="title">
+        <div className="title-h4">
           <h4>EATS ONLINE</h4>
         </div>
         <div id="mid">

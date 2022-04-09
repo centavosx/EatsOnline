@@ -1,14 +1,24 @@
 import axios from 'axios'
 import React, { useState } from 'react'
 import '../../CSS/CartConfirmation.css'
+import socket from '../../socket'
 import { decryptJSON, encryptJSON } from '../EncryptionDecryption'
 const CartConfirmation = (props) => {
   const [value, setValue] = useState(true)
-
-  const [image, setImage] = useState(null)
   const [adminData, setAdminData] = useState({})
   const [val, setVal] = useState('bank')
   React.useEffect(() => {
+    socket.emit('qrcodes')
+    socket.on('gcash', (data) => {
+      if (val === 'gcash') {
+        setVal(data)
+      }
+    })
+    socket.on('bank', (data) => {
+      if (val === 'bank') {
+        setVal(data)
+      }
+    })
     axios
       .post(
         process.env.REACT_APP_APIURL + 'toPay',
@@ -20,20 +30,7 @@ const CartConfirmation = (props) => {
         resp.data = decryptJSON(resp.data.data)
         setAdminData(resp.data.data)
       })
-  }, [adminData])
-
-  const filechange = (e) => {
-    if (e.target.files[0]) {
-      // setImage(e.target.files[0]);
-      var file = e.target.files[0]
-      var reader = new FileReader()
-      // reader.onload = function(e)  {
-      //     document.getElementById("image").src = e.target.result;
-      //  }
-      console.log(e.target.files[0])
-      reader.readAsDataURL(file)
-    }
-  }
+  }, [])
 
   return (
     <div className="confirm-wrapper">

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios'
+import '../../CSS/Recommended.css'
 import { decryptJSON, encryptJSON } from '../EncryptionDecryption'
 const Recommended = (props) => {
   const [recommended, setRecommended] = useState([])
@@ -51,8 +52,8 @@ const Recommended = (props) => {
     }
   }
   return (
-    <div className="s-recommended">
-      RECOMMENDED ITEMS
+    <>
+      <div className="s-recommended">RECOMMENDED ITEMS</div>
       <section className="p-slider">
         <div className="slider-btns">
           <button aria-label="Previous" className="glider-prev">
@@ -67,22 +68,22 @@ const Recommended = (props) => {
             {recommended.map((data, i) => {
               return (
                 <div key={i} className="reco-product-box">
-                  <span className="p-discount">-{data[1].discount}%</span>
+                  <span className="reco-discount">-{data[1].discount}%</span>
 
-                  <div className="p-img-container">
-                    <div className="p-img">
+                  <div className="reco-img-container">
+                    <div className="reco-img">
                       <a href={'/products?id=' + data[0]}>
                         <img
                           src={data[1].link}
-                          className="p-img-front"
+                          className="reco-img-front"
                           alt={data[1].imgname}
                         />
                       </a>
                     </div>
                   </div>
 
-                  <div className="p-box-text">
-                    <a href={void 0} className="product-title">
+                  <div className="reco-box-text">
+                    <a href={void 0} className="reco-title">
                       {data[1].title}
                     </a>
 
@@ -105,11 +106,11 @@ const Recommended = (props) => {
                         <p></p>
                       )}
                     </div>
-                    <div className="price">
-                      <span className="p-price">₱ {data[1].price}</span>
+                    <div className="reco-price">
+                      <span className="reco-price">₱ {data[1].price}</span>
                       <a
                         href={void 0}
-                        className="p-buy-btn"
+                        className="reco-buy-btn"
                         onClick={() => addCart(data[0])}
                       >
                         ADD TO CART
@@ -122,7 +123,8 @@ const Recommended = (props) => {
           </div>
         </div>
       </section>
-    </div>
+      {/* </div> */}
+    </>
   )
 }
 export default Recommended

@@ -1,12 +1,11 @@
 .prof_pic {
-    height: 50px;
-    width: 50px;
+  height: 50px;
+  width: 50px;
 }
 
-.profilecontainer{
-    /* display: flex; */
+.profilecontainer {
+  /* display: flex; */
 }
-
 
 /* @media only screen and (max-width: 575px) {
     .profilecontainer {
@@ -14,171 +13,162 @@
     }
 } */
 
-.profilecontainer .icon_prof{
-    display: flex;
-    align-items: center;
-    font-size: 22px;
-    cursor: pointer;
+.profilecontainer .icon_prof {
+  display: flex;
+  align-items: center;
+  font-size: 22px;
+  cursor: pointer;
 }
 
-.profilecontainer .name{
-    display: inline-block;
-    margin: 0 15px;
-    /* margin-bottom: 40px; */
-    font-size: 20px;
-    color: #fff;
-    width: 100%;
+.profilecontainer .name {
+  display: inline-block;
+  margin: 0 15px;
+  /* margin-bottom: 40px; */
+  font-size: 20px;
+  color: #fff;
+  width: 100%;
 }
 
 .profilecontainer .icon_prof:hover,
-.profilecontainer .icon_prof.active{
-    color: #f2f36b;
+.profilecontainer .icon_prof.active {
+  color: #f2f36b;
 }
 
-.profile_dd{
-    
-    right: 6px;
-    background-color: #fff;
-    height: auto;
-    border: 1px solid #c7d8e2;
-    border-radius: 3px;
-    box-shadow: 10px 10px 30px rgba(0,0,0,0,125),
-    -10px -10px 30px rgba(0,0,0,0,125);
-    /* display: block; */
-    
+.profile_dd {
+  right: 6px;
+  background-color: #fff;
+  height: auto;
+  border: 1px solid #c7d8e2;
+  border-radius: 3px;
+  box-shadow: 10px 10px 30px rgba(0, 0, 0, 0, 125),
+    -10px -10px 30px rgba(0, 0, 0, 0, 125);
+  /* display: block; */
 }
-.fa-chevron-down:hover{
-    color: #F2F36B;
+.fa-chevron-down:hover {
+  color: #f2f36b;
 }
-.fa-chevron-down:after{
-    color: #fff;
+.fa-chevron-down:after {
+  color: #fff;
 }
 
-@media (min-width: 576px){
-    .profile_dd:before{
-        content: "";
-        position: absolute;
-        top: -20px;
-        right: 10px;
-        border: 10px solid;
-        border-color: transparent transparent #fff transparent;
-    }
-    .profile_dd{
-        top: 65px;
-        position: absolute;
-        width: 225px;
-        right: -10px
-        /* display: none; */
-        
-    }
+@media (min-width: 576px) {
+  .profile_dd:before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    right: 10px;
+    border: 10px solid;
+    border-color: transparent transparent #fff transparent;
+  }
+  .profile_dd {
+    top: 65px;
+    position: absolute;
+    width: 225px;
+    right: -10px;
+    /* display: none; */
+  }
 }
 
 @media (max-width: 575px) {
-    .profile_dd {
-        position: relative;
-        width: 100%;
-    }
-}
-
-
-
-
-
-.profile_dd ul li{
-    border-bottom: 1px solid #f1f2f4;
-}
-
-.profile_dd ul li:last-child{
-    border-bottom: 0px;
-}
-
-.profile_dd .pb-profile{
-    display: block;
-    padding: 15px 35px;
+  .profile_dd {
     position: relative;
-    /* width: 300px; */
-    font-size: 18px;
-    color:#000;
-    /* background-color: #10505E;
+    width: 100%;
+  }
+}
+
+.profile_dd ul li {
+  border-bottom: 1px solid #f1f2f4;
+}
+
+.profile_dd ul li:last-child {
+  border-bottom: 0px;
+}
+
+.profile_dd .pb-profile {
+  display: block;
+  padding: 15px 35px;
+  position: relative;
+  /* width: 300px; */
+  font-size: 18px;
+  color: #000;
+  /* background-color: #10505E;
     border: 2px solid #0d6efd; */
 }
 
-.profile_dd ul li a{
-    display: block;
-    padding: 15px 35px;
-    position: relative;
-    color: #000;
-    /* width: 300px; */
-    font-size: 18px;
+.profile_dd ul li a {
+  display: block;
+  padding: 15px 35px;
+  position: relative;
+  color: #000;
+  /* width: 300px; */
+  font-size: 18px;
 }
 
-.profile_dd ul li a .picon{
-    width: 30px;
-    display: inline-block;
+.profile_dd ul li a .picon {
+  width: 30px;
+  display: inline-block;
 }
 
-.profile_dd ul li a:hover{
-    display: block;
-    position: relative;
-    background-color: #28aac7;
-    color: #f2f36b;
-    font-size: 18px;
+.profile_dd ul li a:hover {
+  display: block;
+  position: relative;
+  background-color: #28aac7;
+  color: #f2f36b;
+  font-size: 18px;
 }
 
-.profile_dd .pb-profile:hover{
-    display: block;
-    padding: 15px 35px;
-    position: relative;
-    background-color: #28aac7;
-    color: #f2f36b;
-    width: 300px;
-    font-size: 18px;
+.profile_dd .pb-profile:hover {
+  display: block;
+  padding: 15px 35px;
+  position: relative;
+  background-color: #28aac7;
+  color: #f2f36b;
+  /* width: 300px; */
+  font-size: 18px;
 }
 
-.profile_dd ul li a .profile_li a:hover{
-    cursor: default;
-    border: 2px solid #f2f36b;
-    background-color: #28aac7;
-    color: #f2f36b;
+.profile_dd ul li a .profile_li a:hover {
+  cursor: default;
+  border: 2px solid #f2f36b;
+  background-color: #28aac7;
+  color: #f2f36b;
 }
 
-.profile_dd ul li .prof_btn{
-    height: 32px;
-    width: 170px;
-    align-content: center;
-    cursor: pointer;  
-    background: #10505e;
+.profile_dd ul li .prof_btn {
+  height: 32px;
+  width: 170px;
+  align-content: center;
+  cursor: pointer;
+  background: #10505e;
   border: 2px solid #0d6efd;
   color: #fff;
   border-radius: 25px;
   text-transform: uppercase;
   position: relative;
   font-size: 18px;
-line-height: 16px;
+  line-height: 16px;
   padding: 7px 20px;
   font-weight: bold;
   overflow: hidden;
   letter-spacing: 0.02em;
   /* float: right; */
-  transition: all 300ms ease;  
+  transition: all 300ms ease;
 }
 
-
-@media (min-width: 576px){
-    .profile_dd ul li .prof_btn{
-        text-align: start;
-        margin: 5px auto 15px;
-    }
+@media (min-width: 576px) {
+  .profile_dd ul li .prof_btn {
+    text-align: start;
+    margin: 5px auto 15px;
+  }
 }
-@media (max-width:575.9px ){
-    .profile_dd ul li .prof_btn{
-        text-align: start;
-        margin: 0px 0px 15px 35px;
-    }
+@media (max-width: 575.9px) {
+  .profile_dd ul li .prof_btn {
+    text-align: start;
+    margin: 0px 0px 15px 35px;
+  }
 }
 
-.profile_dd ul li .prof_btn:hover{
-    background-color: #28aac7;
-    color: #f2f36b;
-    
+.profile_dd ul li .prof_btn:hover {
+  background-color: #28aac7;
+  color: #f2f36b;
 }

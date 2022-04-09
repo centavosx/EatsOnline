@@ -9,7 +9,7 @@
 
 .progressbar::before,
 .progress {
-  content: "";
+  content: '';
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -20,7 +20,7 @@
 }
 
 .progress {
-  background-color:#F2F36B;
+  background-color: #f2f36b;
   width: 0%;
   transition: 0.3s;
 }
@@ -47,38 +47,47 @@
   position: absolute;
   top: calc(100% + 0.5rem);
   font-size: 15px;
-  color: #F2F36B;
+  color: #f2f36b;
 }
 
 .progress-step-active {
-  background-color: #F2F36B;
+  background-color: #f2f36b;
   color: #10505e;
 }
-.text-center{
+.text-center {
   margin-top: 30px;
   margin-bottom: 35px;
-  color: #F2F36B;
+  color: #f2f36b;
   font-size: 24px;
   font-weight: bold;
 }
 
-.cartlist .h6{
+.cartlist .h6 {
   text-align: center;
   color: #fff;
 }
-@media screen and (max-width: 320px){
+@media (min-width: 320px) {
   .progressbar {
     position: relative;
     display: flex;
     justify-content: space-between;
     counter-reset: step;
     margin: 1.5rem 1rem;
-}
+  }
   .progress-step::after {
     content: attr(data-title);
     position: absolute;
     top: calc(100% + 0.5rem);
     font-size: 10px;
-    color: #F2F36B;
-}
+    color: #f2f36b;
+  }
+  @media (max-width: 425px) {
+    .progressbar {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      counter-reset: step;
+      margin: 1.5rem 1rem;
+    }
+  }
 }

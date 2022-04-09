@@ -7,25 +7,29 @@ import {
   encrypt,
   encryptJSON,
 } from '../Pages/EncryptionDecryption.js'
-
+import socket from '../socket'
 const ShowChat = (props) => {
   const [chat, setChat] = useState([])
   const [message, setMessage] = useState('')
   const [sending, setSending] = useState(false)
-  React.useEffect(() => {
-    axios
-      .post(
-        process.env.REACT_APP_APIURL + 'chat',
-        encryptJSON({
-          id: localStorage.getItem('id'),
-          what: 'get',
-        })
-      )
-      .then((response) => {
-        response.data = decryptJSON(response.data.data)
-        setChat(response.data.data)
+  React.useEffect(async () => {
+    let response = await axios.post(
+      process.env.REACT_APP_APIURL + 'chat',
+      encryptJSON({
+        id: localStorage.getItem('id'),
+        what: 'get',
       })
-  }, [chat])
+    )
+    response.data = decryptJSON(response.data.data)
+    setChat(response.data.data)
+
+    socket.on(`newchat/${localStorage.getItem('id')}`, (newchat) => {
+      setChat((data) => [...data, newchat])
+    })
+    socket.on(`chatchanged/${localStorage.getItem('id')}`, (newchat) => {
+      setChat(newchat)
+    })
+  }, [])
 
   const send = () => {
     setSending(true)

@@ -12,6 +12,7 @@ import Chat from './Components/Chat'
 import ContactPage from './Pages/ContactPage'
 import axios from 'axios'
 import { encryptJSON, decryptJSON } from './Pages/EncryptionDecryption'
+
 function App() {
   const [loggedin, setLoggedin] = useState(null)
   const [page, setPage] = useState('')

@@ -1,0 +1,62 @@
+.reco-product-box {
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* flex-grow: 0.5; */
+  /* width: 250px; */
+  /* width: 220px; */
+  width: 300px;
+  /* height: 45vh; */
+  padding: 15px;
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  border-radius: 10px;
+  margin: 5px 5px;
+  position: relative;
+}
+.reco-product-category {
+  color: #acacac;
+  font-size: 16px;
+  margin: 5px 0px;
+  font-weight: 300;
+}
+
+.reco-box-text {
+  padding: 10px;
+}
+
+.reco-title {
+  color: black;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all ease 0.3s;
+  text-transform: uppercase;
+  font-size: 16px;
+}
+.reco-buy-btn {
+  border-radius: 100px;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 18px;
+  color: #fff;
+  width: 100px;
+  background-color: #10505e;
+  border: 1px solid #0d6efd;
+  letter-spacing: 0.5px;
+}
+.reco-discount {
+  position: absolute;
+  /* left: 86px; */
+  top: 20px;
+  width: 65px;
+  height: 24px;
+  color: #ffffff;
+  background-color: #e63b3b;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  letter-spacing: 1px;
+  z-index: 100;
+  border-radius: 3px;
+}
