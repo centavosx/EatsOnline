@@ -85,12 +85,13 @@ const Header = (props) => {
               </Link>
             </li>
           </ul>
-
-          <li className="navbar-item">
-            <Notification
-              loggedin={name === null ? false : name.name.length > 0}
-            />
-          </li>
+          {name === null ? null : name.name.length > 0 ? (
+            <li className="navbar-item">
+              <Notification
+                loggedin={name === null ? false : name.name.length > 0}
+              />
+            </li>
+          ) : null}
           <li className="navbar-item">
             {name === null ? null : name.name.length > 0 ? (
               <ProfileBtn data={name} />
