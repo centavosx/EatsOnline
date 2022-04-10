@@ -1,5 +1,6 @@
 .reco-product-box {
-  background-color: #fff;
+  /* background-color: #fff; */
+  background-color: #e2e5de;
   display: flex;
   flex-direction: column;
   align-items: center;

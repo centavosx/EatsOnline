@@ -179,6 +179,7 @@ table th {
 }
 .row {
   justify-content: center;
+  margin-bottom: 35px;
 }
 .my-4 {
   color: #10505e;

@@ -22,7 +22,7 @@ const ShowChat = (props) => {
     )
     response.data = decryptJSON(response.data.data)
     setChat(response.data.data)
-
+    socket.emit('updateChat', localStorage.getItem('id'))
     socket.on(`newchat/${localStorage.getItem('id')}`, (newchat) => {
       setChat((data) => [...data, newchat])
     })
@@ -132,6 +132,9 @@ const ShowChat = (props) => {
                     placeholder="Write a message..."
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
+                    onClick={() =>
+                      socket.emit('updateChat', localStorage.getItem('id'))
+                    }
                   />
                   <div className="input-group-append">
                     {!sending ? (
