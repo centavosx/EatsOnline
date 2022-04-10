@@ -10,30 +10,43 @@ const Checkout = (props) => {
   const [val, setVal] = useState('bank')
   const [imgurl, setImgurl] = useState(null)
   const [loading, setLoading] = useState(false)
+  const [gcash, setGcash] = useState({})
+  const [bank, setBank] = useState({})
   React.useEffect(() => {
     socket.emit('qrcodes')
     socket.on('gcash', (data) => {
-      if (val === 'gcash') {
-        setVal(data)
-      }
+      console.log('HELLO')
+      setGcash(data)
     })
     socket.on('bank', (data) => {
-      if (val === 'bank') {
-        setVal(data)
-      }
+      setBank(data)
     })
     axios
       .post(
         process.env.REACT_APP_APIURL + 'toPay',
         encryptJSON({
-          data: val,
+          data: 'bank',
         })
       )
       .then((resp) => {
         resp.data = decryptJSON(resp.data.data)
-        setAdminData(resp.data.data)
+        setBank(resp.data.data)
+      })
+    axios
+      .post(
+        process.env.REACT_APP_APIURL + 'toPay',
+        encryptJSON({
+          data: 'gcash',
+        })
+      )
+      .then((resp) => {
+        resp.data = decryptJSON(resp.data.data)
+        setGcash(resp.data.data)
       })
   }, [])
+  React.useEffect(() => {
+    setAdminData(val === 'bank' ? bank : gcash)
+  }, [val, gcash, bank])
 
   const filechange = (e) => {
     if (e.target.files[0]) {
@@ -164,7 +177,7 @@ const Checkout = (props) => {
           defaultValue={true}
           onChange={(e) => {
             setValue(e.target.value === 'true')
-            value ? setVal('bank') : setVal('gcash')
+            e.target.value === 'true' ? setVal('bank') : setVal('gcash')
           }}
         >
           <option value={true}>Bank Detail</option>

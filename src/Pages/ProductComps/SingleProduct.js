@@ -15,6 +15,7 @@ const SingleProduct = (props) => {
   const history = useHistory()
   const [qty, setQty] = useState(1)
   const [message, setMessage] = useState({ added: false, message: '' })
+
   React.useEffect(() => {
     axios
       .post(
@@ -82,7 +83,7 @@ const SingleProduct = (props) => {
                 className="ss-btn"
                 style={{ cursor: 'pointer' }}
                 href={void 0}
-                onClick={() => history.goBack()}
+                onClick={() => (window.location.href = '/products')}
               >
                 BACK
               </a>
@@ -208,20 +209,24 @@ const SingleProduct = (props) => {
                       +
                     </button>
                   </div>
-                  <div id="single-add">
-                    <a
-                      style={{ cursor: 'pointer' }}
-                      className="single-add-btn"
-                      onClick={() => addCart(data[0])}
-                    >
-                      <h6 className="single-add-to">add to cart</h6>
-                    </a>
-                  </div>
+                  <div>{message.message}</div>
+                  {props.login ? (
+                    <div id="single-add">
+                      <a
+                        style={{ cursor: 'pointer' }}
+                        className="single-add-btn"
+                        onClick={() => addCart(data[0])}
+                      >
+                        <h6 className="single-add-to">add to cart</h6>
+                      </a>
+                    </div>
+                  ) : null}
                 </div>
               </div>
             </div>
             {/*comments*/}
-            <Reviews id={idParam} />
+
+            <Reviews id={idParam} login={props.login} />
             {'title' in data ? (
               <Recommended
                 title={data.title}

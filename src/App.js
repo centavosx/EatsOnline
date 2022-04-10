@@ -21,6 +21,7 @@ function App() {
       localStorage.getItem('id') !== null &&
       localStorage.getItem('id').length > 0
     ) {
+      console.log('hello')
       await axios
         .post(
           process.env.REACT_APP_APIURL + 'profileData',
@@ -32,7 +33,7 @@ function App() {
         .then((response) => {
           response.data = decryptJSON(response.data.data)
           if (!response.data.error) {
-            setLoggedin(response.name.length > 0)
+            setLoggedin(response.data.name.length > 0)
           } else {
             setLoggedin(false)
           }
@@ -58,7 +59,7 @@ function App() {
             path="/products?search=:search&value=:value"
             render={(props) => <Menu {...props} />}
           />
-          {loggedin === null ? null : loggedin === false ? (
+          {loggedin === null ? null : !loggedin ? (
             <Route
               path="/login"
               render={(props) => <Login {...props} setPage={setPage} />}
@@ -73,7 +74,7 @@ function App() {
             path="/cartlist?id=:id&what=:what"
             render={(props) => <Cart {...props} />}
           />
-          {localStorage.getItem('id') !== null ? (
+          {loggedin === null ? null : loggedin ? (
             <Route path="/profile" render={(props) => <Profile {...props} />} />
           ) : null}
           <Route

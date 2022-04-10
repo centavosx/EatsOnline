@@ -6,9 +6,10 @@ import axios from 'axios'
 import Notification from './Notification'
 import ProfileBtn from './ProfileBtn'
 import Chat from './Chat.js'
+import { useLocation } from 'react-router-dom'
 
 const Header = (props) => {
-  const [page, setPage] = useState(window.location.pathname)
+  const location = useLocation()
   const [name, setName] = useState(null)
   const history = useHistory()
   React.useEffect(async () => {
@@ -70,39 +71,18 @@ const Header = (props) => {
         <div className="collapse navbar-collapse" id="navbarsExample03">
           <ul className="navbar-nav me-auto mb-2 mb-sm-0">
             <li className="nav-item">
-              {page !== '/' ? (
-                <Link className="nav-link" to="/" onClick={() => setPage('/')}>
-                  Home
-                </Link>
-              ) : (
-                <a
-                  className="nav-link"
-                  href={void 0}
-                  style={{ color: 'yellow' }}
-                >
-                  Home
-                </a>
-              )}
+              <Link
+                className="nav-link"
+                to={location.pathname === '/' ? null : '/'}
+              >
+                Home
+              </Link>
             </li>
 
             <li className="nav-item">
-              {page !== '/products' ? (
-                <Link
-                  className="nav-link"
-                  to="/products"
-                  onClick={() => setPage('/products')}
-                >
-                  Products
-                </Link>
-              ) : (
-                <a
-                  className="nav-link"
-                  href={void 0}
-                  style={{ color: 'yellow' }}
-                >
-                  Products
-                </a>
-              )}
+              <Link className="nav-link" to="/products">
+                Products
+              </Link>
             </li>
           </ul>
 

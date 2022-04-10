@@ -62,7 +62,7 @@ const Log = () => {
         if (!response.data.error) {
           if (response.data.verified) {
             localStorage.setItem('id', idn)
-            window.location.href = '/'
+            window.location.reload(false)
           } else {
             setColor({ color: 'red' })
           }
@@ -83,7 +83,7 @@ const Log = () => {
       if (!response.data.error) {
         if (response.data.registered) {
           localStorage.setItem('id', response.data.id)
-          window.location.href = '/'
+          window.location.reload(false)
         }
       }
     })

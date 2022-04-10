@@ -282,15 +282,17 @@ function Products(props) {
                     </div>
 
                     {/* right */}
-                    <div id="div2">
-                      <a
-                        style={{ cursor: 'pointer' }}
-                        className="prd-btn"
-                        onClick={() => addCart(data[0])}
-                      >
-                        <h6 className="add-to">add to cart</h6>
-                      </a>
-                    </div>
+                    {props.login ? (
+                      <div id="div2">
+                        <a
+                          style={{ cursor: 'pointer' }}
+                          className="prd-btn"
+                          onClick={() => addCart(data[0])}
+                        >
+                          <h6 className="add-to">add to cart</h6>
+                        </a>
+                      </div>
+                    ) : null}
                   </div>
                 </div>
               )
@@ -386,16 +388,18 @@ function Products(props) {
                           <p></p>
                         )}
                       </div>
-                      <div className="btn-price">
-                        {/* <span className="p-price" >₱ {data[1].price}</span> */}
-                        <a
-                          href={void 0}
-                          className="p-buy-btn"
-                          onClick={() => addCart(data[0])}
-                        >
-                          ADD TO CART
-                        </a>
-                      </div>
+                      {props.login ? (
+                        <div className="btn-price">
+                          {/* <span className="p-price" >₱ {data[1].price}</span> */}
+                          <a
+                            href={void 0}
+                            className="p-buy-btn"
+                            onClick={() => addCart(data[0])}
+                          >
+                            ADD TO CART
+                          </a>
+                        </div>
+                      ) : null}
                     </div>
                   </div>
                 )

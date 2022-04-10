@@ -12,7 +12,7 @@ const Menu = (props) => {
   const [params, setParams] = useState(null)
   const [search, setSearch] = useState(null)
   const [loading, setLoading] = useState(false)
-  const [login, setLoggedin] = useState(null)
+  const [login, setLoggedin] = useState(false)
   React.useEffect(() => {
     if (
       localStorage.getItem('id') !== null &&
@@ -29,7 +29,7 @@ const Menu = (props) => {
         .then((response) => {
           response.data = decryptJSON(response.data.data)
           if (!response.data.error) {
-            setLoggedin(response.name.length > 0)
+            setLoggedin(response.data.name.length > 0)
           } else {
             setLoggedin(false)
           }

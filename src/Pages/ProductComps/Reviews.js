@@ -1,28 +1,35 @@
 import axios from 'axios'
 import React, { useState } from 'react'
 import { decryptJSON, encryptJSON } from '../EncryptionDecryption'
-
+import socket from '../../socket'
 const Reviews = (props) => {
   const [comments, setComments] = useState([])
   const [message, setMessage] = useState('')
   const [rate, setRate] = useState(0)
   const [submitted, setSubmitted] = useState({ success: false, message: '' })
   React.useEffect(() => {
-    axios
-      .post(
-        process.env.REACT_APP_APIURL + 'comment',
-        encryptJSON({
-          id: props.id.replaceAll(' ', '+'),
-          get: true,
+    console.log(props)
+    if (props.id.length > 0) {
+      axios
+        .post(
+          process.env.REACT_APP_APIURL + 'comment',
+          encryptJSON({
+            id: props.id.replaceAll(' ', '+'),
+            get: true,
+          })
+        )
+        .then((response) => {
+          response.data = decryptJSON(response.data.data)
+          if (!response.data.error) {
+            setComments(response.data.data)
+          }
         })
-      )
-      .then((response) => {
-        response.data = decryptJSON(response.data.data)
-        if (!response.data.error) {
-          setComments(response.data.data)
-        }
+      socket.emit('comments', props.id.replaceAll(' ', '+'))
+      socket.on(`productcomment/${props.id.replaceAll(' ', '+')}`, (data) => {
+        setComments(data)
       })
-  }, [comments])
+    }
+  }, [])
 
   const sendComment = () => {
     if (rate > 0 && message.length > 0) {
@@ -164,13 +171,15 @@ const Reviews = (props) => {
                     </div>
                   ) : null}
                   {/* </div> */}
-                  <button
-                    className="btn btn-success send btn-sm"
-                    onClick={() => sendComment()}
-                  >
-                    SEND
-                    {/* <i className="fa fa-long-arrow-right ml-1"></i> */}
-                  </button>
+                  {props.login ? (
+                    <button
+                      className="btn btn-success send btn-sm"
+                      onClick={() => sendComment()}
+                    >
+                      SEND
+                      {/* <i className="fa fa-long-arrow-right ml-1"></i> */}
+                    </button>
+                  ) : null}
                 </div>
               </div>
             </div>
