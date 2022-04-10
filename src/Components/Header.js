@@ -13,30 +13,34 @@ const Header = (props) => {
   const [name, setName] = useState(null)
   const history = useHistory()
   React.useEffect(async () => {
-    if (
-      localStorage.getItem('id') !== null &&
-      localStorage.getItem('id').length > 0
-    ) {
-      await axios
-        .post(
-          process.env.REACT_APP_APIURL + 'profileData',
-          encryptJSON({
-            id: localStorage.getItem('id'),
-            data: ['name', 'link'],
+    try {
+      if (
+        localStorage.getItem('id') !== null &&
+        localStorage.getItem('id').length > 0
+      ) {
+        await axios
+          .post(
+            process.env.REACT_APP_APIURL + 'profileData',
+            encryptJSON({
+              id: localStorage.getItem('id'),
+              data: ['name', 'link'],
+            })
+          )
+          .then((response) => {
+            response.data = decryptJSON(response.data.data)
+            if (!response.data.error) {
+              setName(response.data)
+            } else {
+              setName({ name: '' })
+            }
           })
-        )
-        .then((response) => {
-          response.data = decryptJSON(response.data.data)
-          if (!response.data.error) {
-            setName(response.data)
-          } else {
-            setName({ name: '' })
-          }
-        })
-        .catch(() => {
-          setName(false)
-        })
-    } else {
+          .catch(() => {
+            setName(false)
+          })
+      } else {
+        setName({ name: '' })
+      }
+    } catch {
       setName({ name: '' })
     }
   }, [localStorage.getItem('id')])
@@ -85,7 +89,7 @@ const Header = (props) => {
               </Link>
             </li>
           </ul>
-          {name === null ? null : name.name.length > 0 ? (
+          {!name || name === null ? null : name.name.length > 0 ? (
             <li className="navbar-item">
               <Notification
                 loggedin={name === null ? false : name.name.length > 0}
@@ -93,7 +97,7 @@ const Header = (props) => {
             </li>
           ) : null}
           <li className="navbar-item">
-            {name === null ? null : name.name.length > 0 ? (
+            {!name || name === null ? null : name.name.length > 0 ? (
               <ProfileBtn data={name} />
             ) : (
               <button className="btn-login">
@@ -110,7 +114,7 @@ const Header = (props) => {
             )}
           </li>
         </div>
-        {name === null ? null : name.name.length > 0 ? <Chat /> : null}
+        {!name || name === null ? null : name.name.length > 0 ? <Chat /> : null}
       </div>
     </nav>
   )

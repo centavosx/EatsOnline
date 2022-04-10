@@ -62,6 +62,32 @@ const Address = (props) => {
         props.setProfileData(response.data)
       })
   }
+  const deleteAddress = (addressId) => {
+    axios
+      .delete(
+        process.env.REACT_APP_APIURL + 'address',
+        encryptJSON({
+          id: localStorage.getItem('id'),
+          data: [
+            'name',
+            'address',
+            'email',
+            'phoneNumber',
+            'addresses',
+            'guest',
+          ],
+          addressId: addressId,
+        })
+      )
+      .then((response) => {
+        response.data = decryptJSON(response.data.data)
+        if (response.data.addresses == null) {
+          response.data.addresses = []
+        }
+        response.data.password = ''
+        props.setProfileData(response.data)
+      })
+  }
   return (
     <div className="col-md-4">
       <div className="p-3 py-5">
@@ -111,7 +137,10 @@ const Address = (props) => {
                     >
                       Set to Primary
                     </button>
-                    <button className="Del btn-lrg" onclick="">
+                    <button
+                      className="Del btn-lrg"
+                      onClick={() => deleteAddress(data[0])}
+                    >
                       Delete
                     </button>
                   </div>

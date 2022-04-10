@@ -14,30 +14,34 @@ const Menu = (props) => {
   const [loading, setLoading] = useState(false)
   const [login, setLoggedin] = useState(false)
   React.useEffect(() => {
-    if (
-      localStorage.getItem('id') !== null &&
-      localStorage.getItem('id').length > 0
-    ) {
-      axios
-        .post(
-          process.env.REACT_APP_APIURL + 'profileData',
-          encryptJSON({
-            id: localStorage.getItem('id'),
-            data: ['name', 'link'],
+    try {
+      if (
+        localStorage.getItem('id') !== null &&
+        localStorage.getItem('id').length > 0
+      ) {
+        axios
+          .post(
+            process.env.REACT_APP_APIURL + 'profileData',
+            encryptJSON({
+              id: localStorage.getItem('id'),
+              data: ['name', 'link'],
+            })
+          )
+          .then((response) => {
+            response.data = decryptJSON(response.data.data)
+            if (!response.data.error) {
+              setLoggedin(response.data.name.length > 0)
+            } else {
+              setLoggedin(false)
+            }
           })
-        )
-        .then((response) => {
-          response.data = decryptJSON(response.data.data)
-          if (!response.data.error) {
-            setLoggedin(response.data.name.length > 0)
-          } else {
+          .catch(() => {
             setLoggedin(false)
-          }
-        })
-        .catch(() => {
-          setLoggedin(false)
-        })
-    } else {
+          })
+      } else {
+        setLoggedin(false)
+      }
+    } catch {
       setLoggedin(false)
     }
   }, [localStorage.getItem('id')])

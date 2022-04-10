@@ -17,31 +17,34 @@ function App() {
   const [loggedin, setLoggedin] = useState(null)
   const [page, setPage] = useState('')
   React.useEffect(async () => {
-    if (
-      localStorage.getItem('id') !== null &&
-      localStorage.getItem('id').length > 0
-    ) {
-      console.log('hello')
-      await axios
-        .post(
-          process.env.REACT_APP_APIURL + 'profileData',
-          encryptJSON({
-            id: localStorage.getItem('id'),
-            data: ['name', 'link'],
+    try {
+      if (
+        localStorage.getItem('id') !== null &&
+        localStorage.getItem('id').length > 0
+      ) {
+        await axios
+          .post(
+            process.env.REACT_APP_APIURL + 'profileData',
+            encryptJSON({
+              id: localStorage.getItem('id'),
+              data: ['name', 'link'],
+            })
+          )
+          .then((response) => {
+            response.data = decryptJSON(response.data.data)
+            if (!response.data.error) {
+              setLoggedin(response.data.name.length > 0)
+            } else {
+              setLoggedin(false)
+            }
           })
-        )
-        .then((response) => {
-          response.data = decryptJSON(response.data.data)
-          if (!response.data.error) {
-            setLoggedin(response.data.name.length > 0)
-          } else {
+          .catch(() => {
             setLoggedin(false)
-          }
-        })
-        .catch(() => {
-          setLoggedin(false)
-        })
-    } else {
+          })
+      } else {
+        setLoggedin(false)
+      }
+    } catch {
       setLoggedin(false)
     }
   }, [localStorage.getItem('id')])
@@ -70,10 +73,12 @@ function App() {
             render={(props) => <ContactPage {...props} />}
           />
           <Route path="/cartlist" render={(props) => <Cart {...props} />} />
-          <Route
-            path="/cartlist?id=:id&what=:what"
-            render={(props) => <Cart {...props} />}
-          />
+          {loggedin === null ? null : !loggedin ? (
+            <Route
+              path="/cartlist?id=:id&what=:what"
+              render={(props) => <Cart {...props} />}
+            />
+          ) : null}
           {loggedin === null ? null : loggedin ? (
             <Route path="/profile" render={(props) => <Profile {...props} />} />
           ) : null}
