@@ -79,7 +79,7 @@ const Checkout = (props) => {
           'Content-Type': 'multipart/form-data',
         },
       })
-      setLoading(true)
+      setLoading(false)
     } catch {
       setLoading(false)
     }
