@@ -81,7 +81,6 @@ const Recommended = (props) => {
                       </a>
                     </div>
                   </div>
-
                   <div className="reco-box-text">
                     <a href={void 0} className="reco-title">
                       {data[1].title}
@@ -108,13 +107,15 @@ const Recommended = (props) => {
                     </div>
                     <div className="reco-price">
                       <span className="reco-price">₱ {data[1].price}</span>
-                      <a
-                        href={void 0}
-                        className="reco-buy-btn"
-                        onClick={() => addCart(data[0])}
-                      >
-                        ADD TO CART
-                      </a>
+                      {props.login && data[1].numberofitems > 0 ? (
+                        <a
+                          href={void 0}
+                          className="reco-buy-btn"
+                          onClick={() => addCart(data[0])}
+                        >
+                          ADD TO CART
+                        </a>
+                      ) : null}
                     </div>
                   </div>
                 </div>

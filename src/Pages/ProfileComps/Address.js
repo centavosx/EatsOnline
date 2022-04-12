@@ -89,9 +89,9 @@ const Address = (props) => {
       })
   }
   return (
-    <div className="col-md-4">
-      <div className="p-3 py-5">
-        <div className=" justify-content-between align-items-center experience">
+    <div>
+      <div>
+        <div className="justify-content-between align-items-center experience">
           <span className="address-es">ADDRESS/ES</span>
           <span
             className="border px-3 p-1 add-experience"
@@ -110,6 +110,7 @@ const Address = (props) => {
               className="form-control"
               placeholder="Address"
               value={address}
+              style={{ width: '100%' }}
               onChange={(e) => setAddress(e.target.value)}
             />
             {address.length > 0 ? (
@@ -135,10 +136,10 @@ const Address = (props) => {
                         update(false, data[1].address, data[0], true)
                       }
                     >
-                      Set to Primary
+                      Primary
                     </button>
                     <button
-                      className="Del btn-lrg"
+                      className="Del"
                       onClick={() => deleteAddress(data[0])}
                     >
                       Delete
@@ -154,5 +155,4 @@ const Address = (props) => {
     </div>
   )
 }
-
 export default Address

@@ -12,6 +12,7 @@ const Header = (props) => {
   const location = useLocation()
   const [name, setName] = useState(null)
   const history = useHistory()
+  const [clicked, setClicked] = useState(false)
   React.useEffect(async () => {
     try {
       if (
@@ -23,7 +24,7 @@ const Header = (props) => {
             process.env.REACT_APP_APIURL + 'profileData',
             encryptJSON({
               id: localStorage.getItem('id'),
-              data: ['name', 'link'],
+              data: ['name', 'img'],
             })
           )
           .then((response) => {
@@ -68,6 +69,13 @@ const Header = (props) => {
           aria-controls="navbarsExample03"
           aria-expanded="false"
           aria-label="Toggle navigation"
+          style={!clicked ? { position: 'relative' } : {}}
+          onClick={(e) => {
+            console.log(e.currentTarget.ariaExpanded)
+            e.currentTarget.ariaExpanded === 'true'
+              ? setClicked(true)
+              : setClicked(false)
+          }}
         >
           <span className="navbar-toggler-icon"></span>
         </button>
@@ -114,8 +122,8 @@ const Header = (props) => {
             )}
           </li>
         </div>
-        {!name || name === null ? null : name.name.length > 0 ? <Chat /> : null}
       </div>
+      {!name || name === null ? null : name.name.length > 0 ? <Chat /> : null}
     </nav>
   )
 }

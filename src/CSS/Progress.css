@@ -81,13 +81,4 @@
     font-size: 10px;
     color: #f2f36b;
   }
-  @media (max-width: 425px) {
-    .progressbar {
-      position: relative;
-      display: flex;
-      justify-content: space-between;
-      counter-reset: step;
-      margin: 1.5rem 1rem;
-    }
-  }
 }

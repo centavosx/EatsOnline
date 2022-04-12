@@ -1,33 +1,33 @@
 .con-container {
-    background-color: #fff;
-    border-radius: 25px;
-    display: flow-root;
-    justify-content: center;
-    text-align: center;
-    align-items: center;
-    padding: 10px;
-    margin: auto;
-    width: 50vw;
-    padding-bottom: 20px;
-    margin-bottom: 35px;
+  background-color: #fff;
+  border-radius: 25px;
+  display: flow-root;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  padding: 10px;
+  margin: auto;
+  width: 50vw;
+  padding-bottom: 20px;
+  margin-bottom: 35px;
 }
-.con-h3{
+.con-h3 {
   font-family: 'Poppins', 'sans-serif';
-    font-weight: bolder;
-    font-size: 20px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+  font-weight: bolder;
+  font-size: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 /* labels */
 .con-container .cu-labels {
-    font-size: 18px;
-    color: black;
-    font-weight: 500;
-    float: left;
-    margin-left: 20px;
+  font-size: 18px;
+  color: black;
+  font-weight: 500;
+  float: left;
+  margin-left: 20px;
 }
-    /* .con-container .cu-placeholder {
+/* .con-container .cu-placeholder {
       font-size: 16px;
       color: #777;
       font-weight: normal;
@@ -35,10 +35,7 @@
       margin-left: 25px;
       margin-bottom: 200px;} */
 
-
-
 /* ///// inputs /////*/
-
 
 .Con-Name:focus ~ label,
 .Con-Email:focus ~ label,
@@ -51,20 +48,20 @@ textarea:valid ~ label {
   top: -5px;
   -webkit-transition: all 0.225s ease;
   transition: all 0.225s ease; */
-  display:none;
+  display: none;
 }
 
 .styled-input {
   float: left;
   width: 100%;
-  margin: 1rem 0; 
+  margin: 1rem 0;
   position: relative;
   /* border-radius: 4px; */
 }
 
-@media only screen and (max-width: 768px){
+@media only screen and (max-width: 768px) {
   .styled-input {
-      width:100%;
+    width: 100%;
   }
 }
 
@@ -78,26 +75,29 @@ textarea:valid ~ label {
   pointer-events: none;
 }
 
-.styled-input.wide { 
+.styled-input.wide {
   width: 600px;
   max-width: 100%;
 }
 
-.Con-Name,.Con-Email,
+.Con-Name,
+.Con-Email,
 textarea {
-    margin-left: 20px;
-    margin-right:20px;
-    padding: 13px;
-    border: 1px solid #4ebad3;
-    width: 100%;
-    font-size: 1rem;  
-    color: #000;
-    border-radius: 10px;
+  margin-left: 20px;
+  margin-right: 20px;
+  padding: 13px;
+  border: 1px solid #4ebad3;
+  width: 100%;
+  font-size: 1rem;
+  color: #000;
+  border-radius: 10px;
 }
 
 .Con-Name:focus,
 .Con-Email:focus,
-textarea:focus { outline: 0; }
+textarea:focus {
+  outline: 0;
+}
 
 .Con-Name:focus ~ span,
 .Con-Email:focus ~ span,
@@ -137,7 +137,7 @@ textarea {
 
 .submit-btn:hover {
   background-color: #28aac7;
-   color: #f2f36b;
+  color: #f2f36b;
 }
 .reset-btn {
   background: #cc5252;
@@ -164,33 +164,47 @@ textarea {
   flex: 0 0 auto;
   width: 100%;
 }
+@media (min-width: 320px) {
+  .Con-Name,
+  .Con-Email,
+  textarea {
+    margin-left: 20px;
+    margin-right: 20px;
+    padding: 13px;
+    border: 1px solid #4ebad3;
+    width: 90%;
+    font-size: 1rem;
+    color: #000;
+    border-radius: 10px;
+  }
+}
 @media (max-width: 768px) {
   .submit-btn {
-      float: right;
-      text-align:center;
+    float: right;
+    text-align: center;
   }
   .reset-btn {
     float: left;
     text-align: center;
+  }
+  .con-container {
+    background-color: #fff;
+    border-radius: 25px;
+    display: flow-root;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    padding: 10px;
+    margin: 10px 20px;
+    width: auto;
+  }
 }
-.con-container {
-  background-color: #fff;
-  border-radius: 25px;
-  display: flow-root;
-  justify-content: center;
-  text-align: center;
-  align-items: center;
-  padding: 10px;
-  margin: 10px 20px;
-  width: auto;
+.Con-Name[type='checkbox'] + label {
+  color: #ccc;
+  font-style: italic;
 }
-}
-.Con-Name[type=checkbox] + label {
-color: #ccc;
-font-style: italic;
-} 
 
-.Con-Email[type=checkbox]:checked + label {
-color: #f00;
-font-style: normal;
+.Con-Email[type='checkbox']:checked + label {
+  color: #f00;
+  font-style: normal;
 }

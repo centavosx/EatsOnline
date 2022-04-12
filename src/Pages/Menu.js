@@ -13,6 +13,7 @@ const Menu = (props) => {
   const [search, setSearch] = useState(null)
   const [loading, setLoading] = useState(false)
   const [login, setLoggedin] = useState(false)
+  const [data, setData] = useState({})
   React.useEffect(() => {
     try {
       if (
@@ -24,13 +25,14 @@ const Menu = (props) => {
             process.env.REACT_APP_APIURL + 'profileData',
             encryptJSON({
               id: localStorage.getItem('id'),
-              data: ['name', 'link'],
+              data: ['name', 'img'],
             })
           )
           .then((response) => {
             response.data = decryptJSON(response.data.data)
             if (!response.data.error) {
               setLoggedin(response.data.name.length > 0)
+              setData(response.data)
             } else {
               setLoggedin(false)
             }
@@ -52,7 +54,7 @@ const Menu = (props) => {
     let value = new URLSearchParams(window.location.search).get('value')
 
     if (val !== null) {
-      setParams(val.replaceAll(' ', '+'))
+      setParams([val.replaceAll(' ', '+')])
     } else {
       setParams(null)
     }
@@ -68,7 +70,7 @@ const Menu = (props) => {
       <Category setValues={setValues} setLoading={setLoading} />
       <div style={{ width: '90%', margin: 'auto' }}>
         {params !== null ? (
-          <SingleProduct login={login} />
+          <SingleProduct login={login} data={data} />
         ) : search !== null ? (
           <Products
             featured={false}

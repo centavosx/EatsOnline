@@ -44,7 +44,7 @@ const Transactions = (props) => {
 
   return (
     <div
-      className="tab-pane tab-paneph fade shadow bg-white show active p-3"
+      className="tab-pane fade shadow bg-white show active p-3"
       id="v-pills-profile"
       role="tabpanel"
       aria-labelledby="v-pills-profile-tab"
@@ -83,19 +83,29 @@ const Transactions = (props) => {
                 <td data-label="View Order">
                   <button
                     className="v-button button-small button-round"
-                    onClick={() => props.setData(d[1])}
+                    onClick={() =>
+                      props.setData([
+                        d[1],
+                        props.transaction ? 'transaction' : 'reservation',
+                        d[0],
+                      ])
+                    }
                   >
                     View
                   </button>
                 </td>
                 <td data-label="Cancel Order">
                   {d[1].status !== 'Cancelled' ? (
-                    <button
-                      className="c-button button-small button-round"
-                      onClick={() => Cancel(d[0])}
-                    >
-                      Cancel
-                    </button>
+                    d[1].status === 'Completed' ? (
+                      'Completed'
+                    ) : (
+                      <button
+                        className="c-button button-small button-round"
+                        onClick={() => Cancel(d[0])}
+                      >
+                        Cancel
+                      </button>
+                    )
                   ) : (
                     'Cancelled'
                   )}

@@ -11,3 +11,21 @@
       font-size: 3.5rem;
     }
   } */
+.responsive-image {
+  position: relative;
+  top: -100px;
+  width: 100%;
+  height: auto;
+}
+@media (max-width: 699.9px) {
+  .responsive-image {
+    height: 100%;
+    width: auto;
+  }
+}
+
+@media screen and (max-width: 570px) {
+  .carousel-caption {
+    top: 100px;
+  }
+}

@@ -1,6 +1,24 @@
 /*Header*/
 @import url(https://fonts.googleapis.com/css?family=Nunito);
 
+/* .navbar-toggler {
+  left: 27%;
+}
+@media screen and (max-width: 470px) {
+  .navbar-toggler {
+    left: 20%;
+  }
+}
+@media screen and (max-width: 400px) {
+  .navbar-toggler {
+    left: 15%;
+  }
+}
+@media screen and (max-width: 300px) {
+  .navbar-toggler {
+    left: 0;
+  }
+} */
 .navbar {
   background-color: #196b7d;
   color: #cefbf6;
@@ -157,7 +175,7 @@
   }
 }
 
-@media (min-width: 320px) {
+/* @media (min-width: 320px) {
   .navbar-brand {
     margin-right: 4.6rem;
   }
@@ -176,4 +194,4 @@
       margin-right: 1rem;
     }
   }
-}
+} */

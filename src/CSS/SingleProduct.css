@@ -491,15 +491,16 @@ p {
     margin-right: 135px;
   }
   .single-add-btn {
-    margin: 5px;
-    margin-left: 75px;
-    position: absolute;
+    margin: 4px 5px 0px 5px;
+    font-weight: 600;
+    position: relative;
+    display: inline-block;
+    font-size: 14px;
+    color: #000;
+    padding: 7px 4px;
+    overflow: hidden;
+    letter-spacing: 0.02em;
     border-radius: 25px;
-    text-transform: uppercase;
-    color: #fff;
-    padding: 8px 8px;
-    align-content: center;
-    display: flex;
     background-color: #10505e;
     border: 2px solid #0d6efd;
   }
@@ -624,13 +625,13 @@ p {
   color: #fff;
   width: 100px;
   background-color: #10505e;
-  border: 1px solid #0d6efd;
+  border: 2px solid #0d6efd;
   letter-spacing: 0.5px;
 }
 
 .send:hover {
   background-color: #0794c9;
-  border: 1px solid #0794c9;
+  border: 2px solid #0794c9;
   color: #f2f36b;
   /* color: #fff;
     background-color: #f50202;
@@ -723,7 +724,8 @@ p {
 }
 .scroll-div1 {
   width: 90%;
-  height: 350px;
+  height: auto;
+  max-height: 350px;
   margin-top: 50px;
   margin-bottom: 50px;
   overflow: hidden;

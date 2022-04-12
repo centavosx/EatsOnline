@@ -336,7 +336,7 @@ td {
 
 .tbody-scroll {
   position: relative;
-  max-height: 397px;
+  max-height: 515px;
   overflow-y: scroll;
   bottom: 17px;
   overflow-x: hidden;

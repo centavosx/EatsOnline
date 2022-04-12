@@ -116,7 +116,7 @@ const CartList = (props) => {
       if (x[0] in select && x[1].numberofitems > 0) {
         totalvalue +=
           'discount' in x[1]
-            ? (x[1].discount / 100) * x[1].price * dataAmt[x[0]]
+            ? (x[1].price - (x[1].discount * x[1].price) / 100) * dataAmt[x[0]]
             : x[1].price * dataAmt[x[0]]
         f[x[0]] = x[1]
       }
@@ -161,7 +161,7 @@ const CartList = (props) => {
         setTotalAmount(
           totalamount +
             ('discount' in data
-              ? (data.discount / 100) * data.price * data.amount
+              ? data.price - (data.discount * data.price) / 100
               : data.price * data.amount)
         )
       } else {
@@ -169,18 +169,27 @@ const CartList = (props) => {
         setTotalAmount(
           totalamount -
             ('discount' in data
-              ? (data.discount / 100) * data.price * data.amount
+              ? data.price - (data.discount * data.price) / 100
               : data.price * data.amount)
         )
       }
     let totalvalue = 0
+    let count = 0
     for (let x of cart) {
       if (x[0] in select && x[1].numberofitems > 0) {
+        //
         totalvalue +=
           'discount' in x[1]
-            ? (x[1].discount / 100) * x[1].price * dataAmt[x[0]]
+            ? (x[1].price - (x[1].discount * x[1].price) / 100) * dataAmt[x[0]]
             : x[1].price * dataAmt[x[0]]
+        count++
       }
+    }
+
+    if (count >= cart.length) {
+      document.getElementById('allcheck').checked = true
+    } else {
+      document.getElementById('allcheck').checked = false
     }
     setSelect(select)
     setTotalAmount(totalvalue)
@@ -196,11 +205,13 @@ const CartList = (props) => {
         if (index > 0) {
           v.checked = e.target.checked
           if (v.checked && cart[index - 1][1].numberofitems > 0) {
+            //
             arr[cart[index - 1][0]] = cart[index - 1][1]
             totalvalue +=
               'discount' in cart[index - 1][1]
-                ? (cart[index - 1][1].discount / 100) *
-                  cart[index - 1][1].price *
+                ? (cart[index - 1][1].price -
+                    (cart[index - 1][1].discount * cart[index - 1][1].price) /
+                      100) *
                   dataAmt[cart[index - 1][0]]
                 : cart[index - 1][1].price * dataAmt[cart[index - 1][0]]
           }
@@ -208,6 +219,7 @@ const CartList = (props) => {
         index += 1
       }
     }
+
     setTotalAmount(totalvalue)
     setSelect(arr)
   }
@@ -237,13 +249,41 @@ const CartList = (props) => {
         }
       })
   }
-
+  const deleteReq = async (keys) => {
+    let resp = await axios.delete(
+      process.env.REACT_APP_APIURL +
+        `cart?data=${JSON.stringify(
+          encryptJSON({
+            id: localStorage.getItem('id'),
+            keys,
+          })
+        )}`
+    )
+    const val = decryptJSON(resp.data.data)
+    if (val.success) return val.data
+    else return []
+  }
+  const deleteItem = async (id) => {
+    let x = []
+    x.push(id)
+    let data = await deleteReq(x)
+    let obj = {}
+    for (let x of data) {
+      obj[x[0]] = x[1].amount
+    }
+    setSelect({})
+    setTotalAmount(0)
+    setdataAmt(obj)
+    setCart(data)
+    document.getElementById('allcheck').checked = false
+  }
   return (
     <form action={void 0} className="form">
       {/* <!-- Steps --> */}
       {props.width.width === '0%' ? (
         <div className="form-step form-step-active">
           <div className="main_cart">
+            {/* {openModal && <Modal closeModal={setOpenModal} />} */}
             <label>
               <input
                 type="checkbox"
@@ -257,127 +297,146 @@ const CartList = (props) => {
           {/* <!-- <div class="scroll-bg"> --> */}
           <div className="scroll-div" id="style-4">
             <div className="scroll-object">
-              <div className="cart-container">
-                {cart.map((data, index) => (
-                  <div className="cart-box" key={index}>
-                    <input
-                      type="checkbox"
-                      className="checkbox"
-                      onClick={(e) => check(e, data[0], data[1])}
-                      checked={data[0] in select}
-                    />
-                    {/* <!-- img container --> */}
-                    <div className="c-img-container">
-                      <div className="cart-img">
-                        <a href={void 0}>
-                          <img
-                            src={data[1].link}
-                            className="p-img-front"
-                            alt="Front"
-                          />
+              {cart.length > 0 ? (
+                <div className="cart-container">
+                  {cart.map((data, index) => (
+                    <div className="cart-box" key={index}>
+                      <div style={{ display: 'flex' }}>
+                        <input
+                          type="checkbox"
+                          className="checkbox"
+                          onClick={(e) => check(e, data[0], data[1])}
+                          checked={data[0] in select}
+                        />
+                        {data[1].numberofitems < 1 ? (
+                          <p style={{ marginLeft: '5px' }}>
+                            This item is out of stock{' '}
+                          </p>
+                        ) : null}
+                      </div>
+                      {/* <!-- img container --> */}
+                      <div className="c-img-container">
+                        <div className="cart-img">
+                          <a href={void 0}>
+                            <img
+                              src={data[1].link}
+                              className="p-img-front"
+                              alt="Front"
+                            />
+                          </a>
+                        </div>
+                      </div>
+                      {/* <!-- text --> */}
+                      <div className="p-box-text">
+                        {/* <!-- title --> */}
+                        <a href={void 0} className="product-title">
+                          {data[1].title}
                         </a>
-                      </div>
-                    </div>
-                    {/* <!-- text --> */}
-                    <div className="p-box-text">
-                      {/* <!-- title --> */}
-                      <a href={void 0} className="product-title">
-                        {data[1].title}
-                      </a>
-                      {/* fist 2 div */}
-                      <div className="rate">
-                        {/* left */}
-                        <div className="div-sell">
-                          <span>{data[1].seller}</span>
+                        {/* fist 2 div */}
+                        <div className="rate">
+                          {/* left */}
+                          <div className="div-sell">
+                            <span>{data[1].seller}</span>
+                          </div>
+                          {/* right */}
+                          <div className="div-price">
+                            <span className="p-price">
+                              ₱{data[1].price.toFixed(2)}
+                            </span>
+                            <span className="cart-discount">
+                              {data[1].discount}%
+                            </span>
+                          </div>
+                          {/* end 2 div */}
                         </div>
-                        {/* right */}
-                        <div className="div-price">
-                          <span className="p-price">
-                            ₱{data[1].price.toFixed(2)}
-                          </span>
-                          <span className="cart-discount">
-                            {data[1].discount}%
-                          </span>
-                        </div>
-                        {/* end 2 div */}
-                      </div>
-                      {/* rating */}
-                      <div className="products-btn">
-                        <div className="menu-star">
-                          <div className="star-rating">
-                            {data[1].comments == 0 ? (
-                              <label for={'star-1'}>No Ratings</label>
-                            ) : (
-                              showStar(data[1].comments)
-                            )}
+                        {/* rating */}
+                        <div className="products-btn">
+                          <div className="menu-star">
+                            <div className="star-rating">
+                              {data[1].comments == 0 ? (
+                                <label for={'star-1'}>No Ratings</label>
+                              ) : (
+                                showStar(data[1].comments)
+                              )}
+                            </div>
+                          </div>
+                          <div className="menu-sold">
+                            <span className="total-sold">
+                              {data[1].totalsold} Sold
+                            </span>
                           </div>
                         </div>
-                        <div className="menu-sold">
-                          <span className="total-sold">
-                            {data[1].totalsold} Sold
-                          </span>
-                        </div>
-                      </div>
 
-                      <div className="price-buy">
-                        {/* quantity adjustment experiment*/}
+                        <div className="price-buy">
+                          {/* quantity adjustment experiment*/}
 
-                        <div>
-                          <p className="q-btn">
-                            {/* value={"-"} */}
-                            <button
-                              className="qtyminus"
-                              onClick={(e) =>
-                                update(e, data[0], dataAmt[data[0]] - 1)
-                              }
-                            >
-                              -
-                            </button>
-                            <input
-                              type="number"
-                              className="qty-int"
-                              name="qty"
-                              value={
-                                data[1].numberofitems > 0 ? dataAmt[data[0]] : 0
-                              }
-                              onChange={(e) =>
-                                data[1].numberofitems >= dataAmt[data[0]]
-                                  ? update(e, data[0], parseInt(e.target.value))
-                                  : (e.target.value = parseInt(
-                                      data[1].numberofitems
-                                    ))
-                              }
-                            />
-                            {/* value={"+"} */}
-                            <button
-                              className="qtyplus"
-                              onClick={(e) =>
-                                data[1].numberofitems >= dataAmt[data[0]]
-                                  ? update(e, data[0], dataAmt[data[0]] + 1)
-                                  : e.preventDefault()
-                              }
-                            >
-                              +
-                            </button>
-                          </p>
-                        </div>
+                          <div>
+                            <p className="q-btn">
+                              {/* value={"-"} */}
+                              <button
+                                className="qtyminus"
+                                onClick={(e) =>
+                                  update(e, data[0], dataAmt[data[0]] - 1)
+                                }
+                              >
+                                -
+                              </button>
+                              <input
+                                type="number"
+                                className="qty-int"
+                                name="qty"
+                                value={
+                                  data[1].numberofitems > 0
+                                    ? dataAmt[data[0]]
+                                    : 0
+                                }
+                                readOnly={true}
+                              />
+                              {/* value={"+"} */}
+                              <button
+                                className="qtyplus"
+                                onClick={(e) =>
+                                  data[1].numberofitems > dataAmt[data[0]]
+                                    ? update(e, data[0], dataAmt[data[0]] + 1)
+                                    : e.preventDefault()
+                                }
+                              >
+                                +
+                              </button>
+                            </p>
+                          </div>
 
-                        {/* right */}
-                        <div id="div2">
-                          <div className="items-qty">
-                            <div className="itm-q">
-                              <span className="quantity-items">
-                                Quantity:{' '}
-                                <strong>{data[1].numberofitems}</strong>
-                              </span>
+                          {/* right */}
+                          <div id="div2">
+                            <div className="items-qty">
+                              <div className="itm-q">
+                                <span className="quantity-items">
+                                  Quantity:{' '}
+                                  <strong>{data[1].numberofitems}</strong>
+                                  <br />
+                                  <button
+                                    className="cartDel"
+                                    onClick={(e) => {
+                                      e.preventDefault()
+                                      deleteItem(data[0])
+                                    }}
+                                  >
+                                    <i className="fa fa-trash"></i>
+                                    Delete
+                                  </button>
+                                </span>
+                              </div>
                             </div>
                           </div>
                         </div>
+                        {/* delete */}
                       </div>
                     </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              ) : (
+                <h3>NO ITEMS</h3>
+              )}
             </div>
           </div>
           <hr size="5" width="100%" color="black" />
@@ -386,23 +445,24 @@ const CartList = (props) => {
             <span id="price">{totalamount.toFixed(2)}</span>
           </p>
           <div className="">
-            <a
-              href={void 0}
-              className="cart1-btn"
-              onClick={() => {
-                props.setWidth({ width: '33.33%' })
-                props.setProgress([
-                  'progress-step progress-step-active',
-                  'progress-step progress-step-active',
-                  'progress-step',
-                  'progress-step',
-                ])
-                setOpenModal(true)
-              }}
-            >
-              NEXT
-            </a>
-            {openModal && <Modal closeModal={setOpenModal} />}
+            {Object.keys(select).length > 0 ? (
+              <a
+                href={void 0}
+                className="cart1-btn"
+                onClick={() => {
+                  props.setWidth({ width: '33.33%' })
+                  props.setProgress([
+                    'progress-step progress-step-active',
+                    'progress-step progress-step-active',
+                    'progress-step',
+                    'progress-step',
+                  ])
+                  setOpenModal(true)
+                }}
+              >
+                NEXT
+              </a>
+            ) : null}
           </div>
         </div>
       ) : props.width.width === '33.33%' ? (

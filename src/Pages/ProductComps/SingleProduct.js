@@ -1,38 +1,49 @@
 import axios from 'axios'
 import React, { useState } from 'react'
-import { withRouter } from 'react-router-dom'
 import '../../CSS/SingleProduct.css'
 import { decryptJSON, encryptJSON } from '../EncryptionDecryption'
 import Reviews from './Reviews'
 import Recommended from './Recommended'
-import { Link } from 'react-router-dom'
-import { useHistory } from 'react-router-dom'
+
 const SingleProduct = (props) => {
   const [data, setData] = useState({})
   const [idParam, setParams] = useState(
     new URLSearchParams(window.location.search).get('id')
   )
-  const history = useHistory()
+
   const [qty, setQty] = useState(1)
   const [message, setMessage] = useState({ added: false, message: '' })
+  const [checkB, setCheckB] = useState(false)
+  React.useEffect(async () => {
+    const resp = await axios.post(
+      process.env.REACT_APP_APIURL + 'singleproduct',
+      encryptJSON({
+        id: idParam,
+      })
+    )
 
-  React.useEffect(() => {
-    axios
-      .post(
-        process.env.REACT_APP_APIURL + 'singleproduct',
+    resp.data = decryptJSON(resp.data.data)
+    if (!resp.data.error) {
+      // console.log(resp.data)
+      setData(resp.data.data)
+      console.log(resp.data.data)
+    }
+  }, [idParam])
+  React.useEffect(async () => {
+    if (props.login) {
+      console.log('eh')
+      const resp2 = await axios.post(
+        process.env.REACT_APP_APIURL + 'checkIfBought',
         encryptJSON({
-          id: idParam,
+          id: localStorage.getItem('id'),
+          pid: idParam,
         })
       )
-      .then((resp) => {
-        resp.data = decryptJSON(resp.data.data)
-        if (!resp.data.error) {
-          // console.log(resp.data)
-          setData(resp.data.data)
-          console.log(resp.data.data)
-        }
-      })
-  }, [idParam])
+
+      const check = decryptJSON(resp2.data.data)
+      setCheckB(check.check)
+    }
+  }, [data])
   React.useEffect(() => {
     let param = new URLSearchParams(window.location.search).get('id')
     if (param !== null) {
@@ -109,7 +120,9 @@ const SingleProduct = (props) => {
                 <span className="s-current">
                   P
                   {data.discount !== undefined
-                    ? (data.discount / 100) * data.price
+                    ? (data.price - (data.discount * data.price) / 100).toFixed(
+                        2
+                      )
                     : data.price}
                 </span>
                 <ul class="color-variant s-rate">
@@ -193,18 +206,16 @@ const SingleProduct = (props) => {
                       type="number"
                       className="s-option"
                       value={qty}
-                      onChange={(e) =>
-                        e.target.value <= 0
-                          ? setQty(1)
-                          : e.target.value > 100
-                          ? 100
-                          : setQty(parseInt(e.target.value))
-                      }
+                      readOnly={true}
                     />
                     <button
                       className="p-btn"
                       type="button"
-                      onClick={() => editQty(parseInt(qty) + 1)}
+                      onClick={() =>
+                        qty < data.numberofitems
+                          ? editQty(parseInt(qty) + 1)
+                          : null
+                      }
                     >
                       +
                     </button>
@@ -212,13 +223,17 @@ const SingleProduct = (props) => {
                   <div>{message.message}</div>
                   {props.login ? (
                     <div id="single-add">
-                      <a
-                        style={{ cursor: 'pointer' }}
-                        className="single-add-btn"
-                        onClick={() => addCart(data[0])}
-                      >
-                        <h6 className="single-add-to">add to cart</h6>
-                      </a>
+                      {data.numberofitems ? (
+                        <a
+                          style={{ cursor: 'pointer' }}
+                          className="single-add-btn"
+                          onClick={() => addCart(data[0])}
+                        >
+                          <h6 className="single-add-to">add to cart</h6>
+                        </a>
+                      ) : (
+                        <p className="single-add-btn"> OUT OF STOCK</p>
+                      )}
                     </div>
                   ) : null}
                 </div>
@@ -226,12 +241,18 @@ const SingleProduct = (props) => {
             </div>
             {/*comments*/}
 
-            <Reviews id={idParam} login={props.login} />
+            <Reviews
+              id={idParam}
+              login={props.login}
+              check={checkB}
+              data={props.data}
+            />
             {'title' in data ? (
               <Recommended
                 title={data.title}
                 seller={data.seller}
                 type={data.type}
+                login={props.login}
               />
             ) : null}
           </div>

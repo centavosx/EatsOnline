@@ -22,7 +22,19 @@ const Chat = () => {
         title="Chat feature"
       >
         <a href={void 0} id="messenger">
-          {unread}
+          {unread > 0 ? (
+            <p
+              style={{
+                position: 'absolute',
+                color: 'red',
+                top: '-5px',
+                left: '-5px',
+                fontWeight: 'bold',
+              }}
+            >
+              {unread}
+            </p>
+          ) : null}
           <img src={'../../assets/EOLogo_TransparentBG.png'}></img>
         </a>
       </button>

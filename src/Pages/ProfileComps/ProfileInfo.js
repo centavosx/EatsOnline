@@ -9,13 +9,16 @@ function ProfileInfo(props) {
   const [phoneNumber, setPhoneNumber] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirm] = useState('')
-
+  const [image, setImage] = useState(null)
+  const [imgurl, setImgurl] = useState(null)
+  const [loading, setLoading] = useState(false)
   const [profileData, setProfileData] = useState({
     name: '',
     phoneNumber: '',
     addresses: [],
     password: '',
     guest: false,
+    img: './assets/eatsonlinelogo.png',
   })
 
   const [show, setShow] = useState([true, false, false, false])
@@ -33,6 +36,7 @@ function ProfileInfo(props) {
             'phoneNumber',
             'addresses',
             'guest',
+            'img',
           ],
         })
       )
@@ -42,6 +46,9 @@ function ProfileInfo(props) {
           response.data.addresses = []
         }
         response.data.password = ''
+        if (!response.data.img) {
+          response.data.img = './assets/eatsonlinelogo.png'
+        }
         setProfileData(response.data)
       })
   }, [])
@@ -115,12 +122,52 @@ function ProfileInfo(props) {
         window.location.reload(false)
       })
   }
+
+  const filechange = (e) => {
+    if (e.target.files[0]) {
+      setImage(e.target.files[0])
+      var file = e.target.files[0]
+      var reader = new FileReader()
+      reader.onload = function (e) {
+        setImgurl(e.target.result)
+      }
+      reader.readAsDataURL(file)
+    }
+  }
+  const uploadPIC = async (e) => {
+    e.preventDefault()
+    setLoading(true)
+    try {
+      const form = new FormData()
+      form.append('image', image)
+      form.append(
+        'data',
+        encryptJSON({
+          imagename: image.name,
+          id: localStorage.getItem('id'),
+        }).data
+      )
+      await axios.post(
+        process.env.REACT_APP_APIURL + 'uploadprofileimage',
+        form,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      )
+      setLoading(false)
+    } catch {
+      setLoading(false)
+    }
+  }
+
   return (
     <div>
       {/* // <!-- Demo header--> */}
       <section class="profile-section">
         <h1 className="text-center">MY ACCOUNT</h1>
-        <div class="container py-4">
+        <div class="container3 py-4">
           <div class="row">
             <div class="col-md-3">
               {/* <!-- Tabs nav --> */}
@@ -188,79 +235,129 @@ function ProfileInfo(props) {
                     role="tabpanel"
                     aria-labelledby="v-pills-home-tab"
                   >
-                    <div className="p-title">PROFILE INFORMATION</div>
-                    <img
-                      src="../assets/Home Slider.png"
-                      className="p-c-img"
-                      alt="Profile Image"
-                    />
-                    <div className="p-3 py-5">
-                      <div className="row mt-2">
-                        <label className="labels">Name</label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          placeholder={profileData.name}
-                          value={name}
-                          onChange={(e) => setName(e.target.value)}
-                        />
-                        <label className="labels">Email</label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          placeholder={profileData.email}
-                        />
-                        <label className="labels">Phone Number</label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          placeholder={profileData.phoneNumber}
-                          value={phoneNumber}
-                          onChange={(e) => setPhoneNumber(e.target.value)}
-                        />
-
-                        {!profileData.guest ? (
-                          <>
-                            <h4>
-                              {' '}
-                              &nbsp; &nbsp;
-                              <br />
-                              Change pass
-                            </h4>
-                            <label className="labels">Password</label>
+                    <div className="display-flex">
+                      <div className="display-left">
+                        <div className="center-div">
+                          <div className="p-title">PROFILE INFORMATION</div>
+                        </div>
+                      </div>
+                      <div className="display-right">
+                        <div style={{ padding: '40px' }}>
+                          <img
+                            src={imgurl !== null ? imgurl : profileData.img}
+                            alt="Profile Image"
+                            style={{
+                              width: '100%',
+                              borderRadius: '20px',
+                              marginBottom: '10px',
+                            }}
+                          />
+                        </div>
+                        <div className="display-flex">
+                          <div className="display-left-btn">
                             <input
-                              type="password"
+                              type="file"
                               className="form-control"
-                              placeholder={profileData.password}
-                              value={password}
-                              onChange={(e) => setPassword(e.target.value)}
+                              style={{ width: '80%', height: '35px' }}
+                              onChange={(e) => filechange(e)}
+                              accept="image/*"
                             />
-                            {password.length > 0 ? (
+                          </div>
+
+                          <div className="display-right-btn">
+                            {!loading ? (
+                              <button
+                                className="Add-add"
+                                onClick={(e) => uploadPIC(e)}
+                              >
+                                Save
+                              </button>
+                            ) : (
+                              <p>Uploading...</p>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="p-3">
+                      <div className="display-flex">
+                        <div className="display-left-div">
+                          <div className="row mt-2">
+                            <label className="labels">Name</label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              placeholder={profileData.name}
+                              value={name}
+                              style={{ width: '100%' }}
+                              onChange={(e) => setName(e.target.value)}
+                            />
+                            <label className="labels">Email</label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              style={{ width: '100%' }}
+                              placeholder={profileData.email}
+                            />
+                            <label className="labels">Phone Number</label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              placeholder={profileData.phoneNumber}
+                              value={phoneNumber}
+                              style={{ width: '100%' }}
+                              onChange={(e) => setPhoneNumber(e.target.value)}
+                            />
+
+                            {!profileData.guest ? (
                               <>
-                                <label className="labels">
-                                  Confirm Password
-                                </label>
+                                <h4>
+                                  {' '}
+                                  &nbsp; &nbsp;
+                                  <br />
+                                  Change pass
+                                </h4>
+                                <label className="labels">Password</label>
                                 <input
                                   type="password"
                                   className="form-control"
-                                  placeholder={profileData.confirmPassword}
-                                  value={confirmPassword}
-                                  onChange={(e) => setConfirm(e.target.value)}
+                                  placeholder={profileData.password}
+                                  value={password}
+                                  onChange={(e) => setPassword(e.target.value)}
                                 />
+                                {password.length > 0 ? (
+                                  <>
+                                    <label className="labels">
+                                      Confirm Password
+                                    </label>
+                                    <input
+                                      type="password"
+                                      className="form-control"
+                                      placeholder={profileData.confirmPassword}
+                                      value={confirmPassword}
+                                      onChange={(e) =>
+                                        setConfirm(e.target.value)
+                                      }
+                                    />
+                                  </>
+                                ) : null}
                               </>
                             ) : null}
-                          </>
-                        ) : null}
+                          </div>
+                        </div>
+                        <div className="display-right-div">
+                          <Address
+                            setProfileData={setProfileData}
+                            addresses={profileData.addresses}
+                          />
+                        </div>
                       </div>
-                      <Address
-                        setProfileData={setProfileData}
-                        addresses={profileData.addresses}
-                      />
                       <div id="col">
                         {checkP() || checkName() || checkNumber() ? (
                           <button
                             type="button"
-                            className="btn-pf btn btn-primary btn-block"
+                            className="btn btn-primary btn-block"
                             onClick={() => updateData()}
                           >
                             Save

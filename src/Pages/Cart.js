@@ -39,6 +39,7 @@ const Cart = (props) => {
           process.env.REACT_APP_APIURL + 'opennotif',
           encryptJSON({
             id: params,
+            uid: localStorage.getItem('id'),
             what: what,
           })
         )

@@ -1,22 +1,44 @@
 import React, { useState } from 'react'
 import '../../CSS/ViewOrder.css'
-
+import socket from '../../socket'
+import { encrypt } from '../EncryptionDecryption'
 const ViewOrder = (props) => {
-  return (
+  const [data, setData] = useState({})
+  React.useEffect(() => {
+    setData(props.data[0])
+    socket.on(
+      `currtransact/${localStorage.getItem('id')}/${props.data[2]}`,
+      (data) => {
+        if (props.data[1] === 'transaction') {
+          setData(data)
+        }
+      }
+    )
+
+    socket.on(
+      `currreserve/${localStorage.getItem('id')}/${props.data[2]}`,
+      (data) => {
+        if (props.data[1] === 'reservation') {
+          setData(data)
+        }
+      }
+    )
+  }, [])
+  return Object.keys(data).length > 0 ? (
     <div class="v-container">
-      <a className="v-btn" onClick={() => props.setData({})}>
+      <a className="v-btn" onClick={() => props.setData([])}>
         BACK
       </a>
 
       <div class="v-card">
         <div class="v-card-header">
           <strong>
-            {new Date(props.data.dateBought).toDateString()}{' '}
-            {new Date(props.data.dateBought).toLocaleTimeString()}
+            {new Date(data.dateBought).toDateString()}{' '}
+            {new Date(data.dateBought).toLocaleTimeString()}
           </strong>
           <span class="float-right">
             {' '}
-            <strong>Status of Order:</strong> {props.data.status}
+            <strong>Status of Order:</strong> {data.status}
           </span>
         </div>
         <div class="v-card-body">
@@ -25,16 +47,16 @@ const ViewOrder = (props) => {
               <div>
                 <strong>
                   {' '}
-                  {props.data.name.substring(0, 20)}
-                  {props.data.name.length > 20 ? '...' : null}
+                  {data.name.substring(0, 20)}
+                  {data.name.length > 20 ? '...' : null}
                 </strong>
               </div>
               <div>
-                <strong>Address: </strong> {props.data.address}
+                <strong>Address: </strong> {data.address}
               </div>
               <div>
                 <strong>Phone: </strong>
-                {props.data.phone}
+                {data.phone}
               </div>
             </div>
 
@@ -43,18 +65,18 @@ const ViewOrder = (props) => {
                 <strong>STATUS</strong>
               </h6>
               <strong> ORDER STATUS: </strong>
-              {props.data.status}
+              {data.status}
               <br />
               <strong> PAYMENT STATUS: </strong>
-              {props.data.pstatus}
+              {data.pstatus}
               <br />
               <strong> PAYMENT MODE: </strong>
-              {props.data.payment}
+              {data.payment}
               <br />
               <strong>*</strong>Delivered in{' '}
               <strong>
-                {new Date(props.data.dateBought).toDateString()}{' '}
-                {new Date(props.data.dateBought).toLocaleTimeString()}
+                {new Date(data.dateBought).toDateString()}{' '}
+                {new Date(data.dateBought).toLocaleTimeString()}
               </strong>
             </div>
           </div>
@@ -72,7 +94,7 @@ const ViewOrder = (props) => {
                 </tr>
               </thead>
               <tbody className="tbodyy">
-                {props.data.items.map((data, index) => (
+                {data.items.map((data, index) => (
                   <tr>
                     <td data-label="No.">{index + 1}</td>
                     <td data-label="Item">{data[1].title}</td>
@@ -91,14 +113,14 @@ const ViewOrder = (props) => {
             <div class="ttl-amts">
               <h4>
                 {' '}
-                <strong>TOTAL : </strong> {props.data.totalprice}
+                <strong>TOTAL : </strong> {data.totalprice}
               </h4>
             </div>
           </div>
         </div>
       </div>
     </div>
-  )
+  ) : null
 }
 
 export default ViewOrder

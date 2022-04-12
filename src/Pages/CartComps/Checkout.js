@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, { useState } from 'react'
 import '../../CSS/CartConfirmation.css'
-import { decryptJSON, encryptJSON } from '../EncryptionDecryption'
+import { decrypt, decryptJSON, encryptJSON } from '../EncryptionDecryption'
 import socket from '../../socket'
 const Checkout = (props) => {
   const [value, setValue] = useState(true)
@@ -12,7 +12,10 @@ const Checkout = (props) => {
   const [loading, setLoading] = useState(false)
   const [gcash, setGcash] = useState({})
   const [bank, setBank] = useState({})
+  const [output, setOutput] = useState({})
   React.useEffect(() => {
+    setOutput(props.output)
+    console.log(props.output)
     socket.emit('qrcodes')
     socket.on('gcash', (data) => {
       console.log('HELLO')
@@ -21,6 +24,26 @@ const Checkout = (props) => {
     socket.on('bank', (data) => {
       setBank(data)
     })
+    socket.on(
+      `currtransact/${localStorage.getItem('id')}/${decrypt(
+        props.output.iditem
+      )}`,
+      (data) => {
+        if (props.output.what === 'transaction') {
+          setOutput(data)
+        }
+      }
+    )
+    socket.on(
+      `currreserve/${localStorage.getItem('id')}/${decrypt(
+        props.output.iditem
+      )}`,
+      (data) => {
+        if (props.output.what === 'reservation') {
+          setOutput(data)
+        }
+      }
+    )
     axios
       .post(
         process.env.REACT_APP_APIURL + 'toPay',
@@ -70,8 +93,8 @@ const Checkout = (props) => {
         'data',
         encryptJSON({
           imagename: image.name,
-          id: props.output.iditem,
-          what: props.output.what,
+          id: output.iditem,
+          what: output.what,
         }).data
       )
       await axios.post(process.env.REACT_APP_APIURL + 'uploadreceipt', form, {
@@ -85,7 +108,7 @@ const Checkout = (props) => {
     }
   }
 
-  return (
+  return Object.keys(output).length > 0 ? (
     <div className="confirm-wrapper">
       <div id="three">
         <img
@@ -98,24 +121,24 @@ const Checkout = (props) => {
         </div>
         <div id="mid">
           <div className="info">
-            <h4 className="h4">ORDER CONFIRMATION</h4>
+            <h4 className="h4">ORDER SUMMARY</h4>
             <p>
               <strong>ORDER ID: </strong>
-              {props.output.id}
+              {output.id}
               <br />
               <strong>ORDER DATE: </strong>
-              {new Date(props.output.dateBought).toLocaleDateString('en-US', {
+              {new Date(output.dateBought).toLocaleDateString('en-US', {
                 year: 'numeric',
                 month: '2-digit',
                 day: '2-digit',
               })}
               <br />
               <strong>NAME: </strong>
-              {props.output.name.substring(0, 20)}
-              {props.output.name.length > 20 ? '...' : null}
+              {output.name.substring(0, 20)}
+              {output.name.length > 20 ? '...' : null}
               <br />
               <strong>ADDRESS: </strong>
-              {props.output.address}
+              {output.address}
               <br />
             </p>
             <hr classNameName="hr-line" />
@@ -138,7 +161,7 @@ const Checkout = (props) => {
                 <td colSpan="3">
                   <div className="scrollit">
                     <table className="cart-table">
-                      {props.output.items.map((data, index) => {
+                      {output.items.map((data, index) => {
                         return (
                           <tr className="cart-tr" key={index}>
                             <td data-label="Name">{data[1].title}</td>
@@ -161,12 +184,12 @@ const Checkout = (props) => {
         <div className="info">
           <p>
             <strong>ORDER STATUS: </strong>
-            {props.output.status} <br />
+            {output.status} <br />
             <strong>PAYMENT STATUS: </strong>
-            {props.output.pstatus}
+            {output.pstatus}
             <br />
             <strong>PAYMENT MODE: </strong>
-            {props.output.payment}
+            {output.payment}
             <br />
           </p>
           <hr classNameName="hr-line" />
@@ -222,10 +245,10 @@ const Checkout = (props) => {
           </div>
         )}
         <hr className="hr-line" />
-        {imgurl !== null || props.output.receipt ? (
+        {imgurl !== null || output.receipt ? (
           <center>
             <img
-              src={imgurl === null ? props.output.receipt : imgurl}
+              src={imgurl === null ? output.receipt : imgurl}
               className="img-thumbnail img-responsive"
               data-output="qrcode"
             />
@@ -256,6 +279,6 @@ const Checkout = (props) => {
         ) : null}
       </div>
     </div>
-  )
+  ) : null
 }
 export default Checkout

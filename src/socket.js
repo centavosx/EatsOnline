@@ -1,5 +1,5 @@
 import io from 'socket.io-client'
-const socket = io(process.env.REACT_APP_APIU, {
+const socket = io('ws://localhost:8001', {
   transports: ['websocket', 'polling'],
 })
 

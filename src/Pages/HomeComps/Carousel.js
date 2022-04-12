@@ -1,4 +1,5 @@
-import '../../CSS/Header.css'
+import '../../CSS/carousel.css'
+import { Link } from 'react-router-dom'
 
 function Carousel() {
   return (
@@ -26,20 +27,20 @@ function Carousel() {
         ></button>
       </div>
       <div className="carousel-inner" style={{ color: '#10505e' }}>
-        <div className="carousel-item active">
+        <div className="carousel-item active" style={{ width: '100vw' }}>
           <svg
             className="bd-placeholder-img"
-            width="100%"
+            width="100vw"
             height="100%"
             xmlns="http://www.w3.org/2000/svg"
             aria-hidden="true"
             preserveAspectRatio="xMidYMid slice"
             focusable="false"
+            style={{ position: 'relative' }}
           >
             <image
               href="../assets/Home Slider.png"
-              width="1440px"
-              height="1024px"
+              className="responsive-image"
             />
           </svg>
 
@@ -49,9 +50,9 @@ function Carousel() {
               <p>Your One-Stop Shop for Regional Delicacies.</p>
               <p></p>
               <p>
-                <a className="btn btn-lg btn-primary" href={void 0}>
+                <Link className="btn btn-lg btn-primary" to="/products">
                   SHOP NOW
-                </a>
+                </Link>
               </p>
             </div>
           </div>
@@ -69,13 +70,12 @@ function Carousel() {
             <rect width="100%" height="100%" fill="#777" />
             <image
               href="../assets/Home Slider.png"
-              width="1440px"
-              height="1024px"
+              className="responsive-image"
             />
           </svg>
 
           <div className="container">
-            <div className="carousel-caption">
+            <div className="carousel-caption text-start">
               <h1>Another example headline.</h1>
               <p>
                 Some representative placeholder content for the second slide of
@@ -102,18 +102,17 @@ function Carousel() {
             <rect width="100%" height="100%" fill="#777" />
             <image
               href="../assets/Home Slider.png"
-              width="1440px"
-              height="1024px"
+              className="responsive-image"
             />
           </svg>
 
           <div className="container">
-            <div className="carousel-caption text-end">
+            <div className="carousel-caption text-start">
               <h1>Don't have an account?</h1>
               <p>
-                <a className="btn btn-lg btn-primary" href={void 0}>
+                <Link className="btn btn-lg btn-primary" to="/login">
                   Sign up today
-                </a>
+                </Link>
               </p>
             </div>
           </div>

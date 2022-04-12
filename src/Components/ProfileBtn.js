@@ -21,11 +21,7 @@ const ProfileBtn = (props) => {
       >
         <img
           className="prof_pic"
-          src={
-            props.link === undefined
-              ? 'https://oliver-andersen.se/wp-content/uploads/2018/03/cropped-Profile-Picture-Round-Color-300x300.png'
-              : props.link
-          }
+          src={!props.data.img ? './assets/eatsonlinelogo.png' : props.data.img}
           alt="profile_pic"
         />
         <span className="name">
