@@ -419,12 +419,36 @@ td {
     overflow-x: hidden;
   }
 }
+@media (min-width: 1024px) {
+  .logo {
+    display: inline-block;
+    height: 10%;
+    width: 10%;
+    vertical-align: middle;
+    margin-left: 100px;
+  }
+}
+@media (min-width: 2560px) {
+  .logo {
+    display: inline-block;
+    height: 10%;
+    width: 10%;
+    vertical-align: middle;
+    margin-left: 413px;
+  }
+}
 @media (max-width: 320px) {
   .wrapper {
     width: 93vw;
   }
   .c-msg {
     width: 73vw;
+  }
+  .title-h4 {
+    font-size: 24px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
   }
   .logo {
     width: 10%;
@@ -453,15 +477,56 @@ td {
   .c-msg {
     width: 75vw;
   }
+  .logo {
+    display: inline-block;
+    height: 10%;
+    width: 20%;
+    vertical-align: middle;
+    margin-left: 100px;
+  }
+  .title-h4 {
+    font-size: 24px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+  }
 }
 @media (min-width: 425px) {
   .c-msg {
     width: 320px;
   }
+  .text {
+    margin: 20px;
+    margin-left: 91px;
+    align-items: center;
+    color: black;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 20px;
+  }
+  #title {
+    width: 200px;
+    display: inline-block;
+    margin-left: 60px;
+  }
+  .logo {
+    display: inline-block;
+    height: 10%;
+    width: 20%;
+    vertical-align: middle;
+    margin-left: 128px;
+  }
 }
 @media (min-width: 768px) {
   .c-msg {
     width: 38vw;
+  }
+  .logo {
+    display: inline-block;
+    height: 10%;
+    width: 13%;
+    vertical-align: middle;
+    margin-left: 44px;
   }
   .alterationTypeSelect {
     width: 30vw;

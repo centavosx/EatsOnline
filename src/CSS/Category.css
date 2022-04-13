@@ -110,7 +110,8 @@ h3 .heading :after {
 .shop {
   color: #fff;
 }
-.shop a:focus {
+.shop:focus {
   color: #f2f36b;
 }
+
 /* SEARCH WITH DROPDOWN */

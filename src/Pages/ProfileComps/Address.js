@@ -33,7 +33,6 @@ const Address = (props) => {
   }
 
   const update = (change, address, addressId, primary) => {
-    console.log(addressId)
     axios
       .patch(
         process.env.REACT_APP_APIURL + 'address',
@@ -123,8 +122,8 @@ const Address = (props) => {
         ) : null}
         {props.addresses.map((data, index) => {
           return (
-            <>
-              <div className="col-md-12" key={index}>
+            <div key={index}>
+              <div className="col-md-12">
                 {index + 1}.<label className="labels">{data[1].address}</label>
                 {data[1].primary ? (
                   <label className="default">DEFAULT</label>
@@ -148,7 +147,7 @@ const Address = (props) => {
                 )}
               </div>
               <br />
-            </>
+            </div>
           )
         })}
       </div>

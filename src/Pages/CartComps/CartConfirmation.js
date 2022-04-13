@@ -12,7 +12,6 @@ const CartConfirmation = (props) => {
   React.useEffect(() => {
     socket.emit('qrcodes')
     socket.on('gcash', (data) => {
-      console.log('HELLO')
       setGcash(data)
     })
     socket.on('bank', (data) => {
@@ -106,6 +105,7 @@ const CartConfirmation = (props) => {
       <div id="four">
         <h2 className="pay">PAYMENT DETAILS</h2>
         <select
+          className="dropdown-center"
           name="payment-details"
           defaultValue={true}
           onChange={(e) => {

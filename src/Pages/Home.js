@@ -12,7 +12,6 @@ const Home = (props) => {
     props.setPage('/')
   }, [])
   React.useEffect(() => {
-    console.log('e')
     try {
       if (
         localStorage.getItem('id') !== null &&
@@ -41,7 +40,6 @@ const Home = (props) => {
         setLoggedin(false)
       }
     } catch (e) {
-      console.log(e)
       setLoggedin(false)
     }
   }, [localStorage.getItem('id')])

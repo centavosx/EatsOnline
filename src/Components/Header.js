@@ -6,10 +6,8 @@ import axios from 'axios'
 import Notification from './Notification'
 import ProfileBtn from './ProfileBtn'
 import Chat from './Chat.js'
-import { useLocation } from 'react-router-dom'
 
 const Header = (props) => {
-  const location = useLocation()
   const [name, setName] = useState(null)
   const history = useHistory()
   const [clicked, setClicked] = useState(false)
@@ -36,7 +34,7 @@ const Header = (props) => {
             }
           })
           .catch(() => {
-            setName(false)
+            setName({ name: '' })
           })
       } else {
         setName({ name: '' })
@@ -71,7 +69,6 @@ const Header = (props) => {
           aria-label="Toggle navigation"
           style={!clicked ? { position: 'relative' } : {}}
           onClick={(e) => {
-            console.log(e.currentTarget.ariaExpanded)
             e.currentTarget.ariaExpanded === 'true'
               ? setClicked(true)
               : setClicked(false)
@@ -83,10 +80,7 @@ const Header = (props) => {
         <div className="collapse navbar-collapse" id="navbarsExample03">
           <ul className="navbar-nav me-auto mb-2 mb-sm-0">
             <li className="nav-item">
-              <Link
-                className="nav-link"
-                to={location.pathname === '/' ? null : '/'}
-              >
+              <Link className="nav-link" to="/">
                 Home
               </Link>
             </li>

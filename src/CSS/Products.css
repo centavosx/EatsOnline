@@ -307,6 +307,9 @@ body {
 .star-rating1 {
   float: left;
 }
+.fa-star {
+  color: yellow;
+}
 .total-sold1 {
   float: right;
 }
@@ -847,6 +850,9 @@ input[type='number'] {
 .category-list .shop a {
   background-color: #196b7d;
   color: #fff;
+}
+.category-list .shop a::after {
+  color: #f2f36b;
 }
 
 .toggle {

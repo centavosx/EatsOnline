@@ -45,7 +45,6 @@ const CartList = (props) => {
               for (let x of resp.data.data) {
                 obj[x[0]] = x[1].amount
               }
-              console.log('hello', resp.data.data)
               setdataAmt(obj)
               setCart(resp.data.data)
             }
@@ -100,7 +99,6 @@ const CartList = (props) => {
   const update = (e, key2, amt) => {
     e.preventDefault()
     setState(false)
-    console.log(data)
     if (amt < 1) {
       dataAmt[key2] = 1
     } else if (amt > 100) {
@@ -294,7 +292,7 @@ const CartList = (props) => {
               <strong className="check1">ALL ITEMS</strong>
             </label>
           </div>
-          {/* <!-- <div class="scroll-bg"> --> */}
+          {/* <!-- <div className="scroll-bg"> --> */}
           <div className="scroll-div" id="style-4">
             <div className="scroll-object">
               {cart.length > 0 ? (
@@ -354,7 +352,7 @@ const CartList = (props) => {
                           <div className="menu-star">
                             <div className="star-rating">
                               {data[1].comments == 0 ? (
-                                <label for={'star-1'}>No Ratings</label>
+                                <label htmlFor={'star-1'}>No Ratings</label>
                               ) : (
                                 showStar(data[1].comments)
                               )}

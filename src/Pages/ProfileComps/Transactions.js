@@ -19,13 +19,12 @@ const Transactions = (props) => {
       )
       .then((response) => {
         response.data = decryptJSON(response.data.data)
-        console.log(response.data.data)
+
         setData(response.data.data)
       })
   }, [])
 
   const Cancel = (id) => {
-    console.log(id)
     axios
       .post(
         process.env.REACT_APP_APIURL + 'cancelorder',
@@ -52,7 +51,7 @@ const Transactions = (props) => {
       <div className="p-title">
         {props.transaction ? 'PURCHASE HISTORY' : 'ADVANCE ORDER'}
       </div>
-      <div class="tableFixHead tbody-scroll">
+      <div className="tableFixHead tbody-scroll">
         <table>
           <thead className="top-head">
             <tr>

@@ -15,10 +15,8 @@ const Checkout = (props) => {
   const [output, setOutput] = useState({})
   React.useEffect(() => {
     setOutput(props.output)
-    console.log(props.output)
     socket.emit('qrcodes')
     socket.on('gcash', (data) => {
-      console.log('HELLO')
       setGcash(data)
     })
     socket.on('bank', (data) => {
@@ -196,6 +194,7 @@ const Checkout = (props) => {
         </div>
         <h2 className="pay">PAYMENT DETAILS</h2>
         <select
+          className="dropdown-center"
           name="payment-details"
           defaultValue={true}
           onChange={(e) => {

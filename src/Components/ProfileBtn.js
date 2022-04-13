@@ -53,7 +53,7 @@ const ProfileBtn = (props) => {
             <li className="cart">
               <Link className="pb-profile" to="/cartlist">
                 <span className="picon">
-                  <i class="fa-solid fa-cart-shopping"></i>
+                  <i className="fa-solid fa-cart-shopping"></i>
                 </span>
                 My Cart
               </Link>
@@ -65,7 +65,7 @@ const ProfileBtn = (props) => {
                 style={{ cursor: 'pointer' }}
               >
                 <span className="picon">
-                  <i class="fas fa-sign-out-alt"></i>
+                  <i className="fas fa-sign-out-alt"></i>
                 </span>
                 Logout
               </a>

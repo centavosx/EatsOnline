@@ -7,10 +7,10 @@ const Search = (props) => {
 
   const history = useHistory()
   return (
-    <div class="right-menu inputWithIcon">
+    <div className="right-menu inputWithIcon">
       <input
         type="text"
-        class="search-click"
+        className="search-click"
         name=""
         onKeyDown={(e) =>
           e.key === 'Enter'
@@ -21,7 +21,7 @@ const Search = (props) => {
         }
         placeholder="search here..."
       />
-      <i class="fas fa-search"></i>
+      <i className="fas fa-search"></i>
     </div>
     //     <div className="right-menu">
     //     {/* <div className="s-container"> */}

@@ -378,9 +378,18 @@ p {
     max-width: 1400px;
   }
 }
-@media (min-width: 1024px) {
+@media (max-width: 1024px) {
   .container {
     max-width: 1400px;
+  }
+  .product-right .product-title {
+    color: #222222;
+    font-size: 18px;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 0;
+    margin-left: auto;
+    margin-right: auto;
   }
   .product-right {
     color: #777777;
@@ -742,4 +751,9 @@ p {
   width: 95%;
   font-size: 20px;
   font-weight: bold;
+}
+.out {
+  font-weight: 600;
+  color: red;
+  padding-top: 14px;
 }

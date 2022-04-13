@@ -24,14 +24,11 @@ const SingleProduct = (props) => {
 
     resp.data = decryptJSON(resp.data.data)
     if (!resp.data.error) {
-      // console.log(resp.data)
       setData(resp.data.data)
-      console.log(resp.data.data)
     }
   }, [idParam])
   React.useEffect(async () => {
     if (props.login) {
-      console.log('eh')
       const resp2 = await axios.post(
         process.env.REACT_APP_APIURL + 'checkIfBought',
         encryptJSON({
@@ -85,9 +82,9 @@ const SingleProduct = (props) => {
   }
   return (
     <section className="single-sec">
-      <div class="collection-wrapper">
-        <div class="Single-container">
-          <div class="row">
+      <div className="collection-wrapper">
+        <div className="Single-container">
+          <div className="row">
             {/* <div> */}
             <div>
               <a
@@ -101,14 +98,14 @@ const SingleProduct = (props) => {
             </div>
             {/* </div> */}
             <div className="col-lg-5 col-sm-10 col-xs-12">
-              <div class="product-right-slick">
+              <div className="product-right-slick">
                 <div className="img-fluid lazyload image_zoom_cls-0">
                   <img src={data.link} alt="" className="Single-pic" />
                 </div>
               </div>
             </div>
-            <div class="col-lg-6 rtl-text">
-              <div class="product-right">
+            <div className="col-lg-6 rtl-text">
+              <div className="product-right">
                 <h2>{data.title}</h2>
                 <h6>{data.seller}</h6>
                 <h4>
@@ -125,7 +122,7 @@ const SingleProduct = (props) => {
                       )
                     : data.price}
                 </span>
-                <ul class="color-variant s-rate">
+                <ul className="color-variant s-rate">
                   {data.comments === 0 ? (
                     'No ratings'
                   ) : (
@@ -137,6 +134,7 @@ const SingleProduct = (props) => {
                         id="1star5"
                         checked={data.comments === 5}
                         style={{ display: 'none' }}
+                        readOnly={true}
                       />
                       <label htmlFor="1star5" title="text">
                         ★
@@ -148,6 +146,7 @@ const SingleProduct = (props) => {
                         id="1star4"
                         checked={data.comments === 4}
                         style={{ display: 'none' }}
+                        readOnly={true}
                       />
                       <label htmlFor="1star4" title="text">
                         ★
@@ -159,7 +158,9 @@ const SingleProduct = (props) => {
                         id="1star3"
                         checked={data.comments === 3}
                         style={{ display: 'none' }}
+                        readOnly={true}
                       />
+
                       <label htmlFor="1star3" title="text">
                         ★
                       </label>
@@ -170,6 +171,7 @@ const SingleProduct = (props) => {
                         id="1star2"
                         checked={data.comments === 2}
                         style={{ display: 'none' }}
+                        readOnly={true}
                       />
                       <label htmlFor="1star2" title="text">
                         ★
@@ -181,6 +183,7 @@ const SingleProduct = (props) => {
                         id="1star1"
                         checked={data.comments === 1}
                         style={{ display: 'none' }}
+                        readOnly={true}
                       />
                       <label htmlFor="1star1" title="text">
                         ★
@@ -188,13 +191,13 @@ const SingleProduct = (props) => {
                     </>
                   )}
                 </ul>
-                <div class="border-product">
-                  <h6 class="product-title">product details</h6>
+                <div className="border-product">
+                  <h6 className="product-title">product details</h6>
                   <p>{data.description}</p>
                 </div>
-                <div class="product-description border-product">
-                  <h6 class="product-title">quantity</h6>
-                  <div class="qty-box">
+                <div className="product-description border-product">
+                  <h6 className="product-title">quantity</h6>
+                  <div className="qty-box">
                     <button
                       className="m-btn"
                       type="button"
@@ -232,7 +235,7 @@ const SingleProduct = (props) => {
                           <h6 className="single-add-to">add to cart</h6>
                         </a>
                       ) : (
-                        <p className="single-add-btn"> OUT OF STOCK</p>
+                        <p className="out"> OUT OF STOCK</p>
                       )}
                     </div>
                   ) : null}

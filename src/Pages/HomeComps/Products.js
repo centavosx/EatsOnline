@@ -127,7 +127,11 @@ function Products(props) {
       proto.push(null)
     }
     return proto.map((data, index) => (
-      <label for={'star-' + index + 1} title={index + 1 + ' stars'} key={index}>
+      <label
+        htmlFor={'star-' + index + 1}
+        title={index + 1 + ' stars'}
+        key={index}
+      >
         <i className="active fa fa-star" aria-hidden="true">
           {data}
         </i>
@@ -173,14 +177,14 @@ function Products(props) {
                         />
                       </a>
                       <div className="p-overlay"></div>
-                      <a class="s-button" href={'/products?id=' + data[0]}>
-                        <a
+                      <a className="s-button" href={'/products?id=' + data[0]}>
+                        <div
                           href={void 0}
                           style={{ color: 'white', cursor: 'pointer' }}
                         >
                           {' '}
                           view{' '}
-                        </a>
+                        </div>
                       </a>
                     </div>
                   </div>
@@ -206,7 +210,7 @@ function Products(props) {
                         <div className="menu-star">
                           <div className="star-rating">
                             {data[1].comments == 0 ? (
-                              <label for={'star-1'}>No Ratings</label>
+                              <label htmlFor={'star-1'}>No Ratings</label>
                             ) : (
                               showStar(data[1].comments)
                             )}
@@ -231,10 +235,20 @@ function Products(props) {
                     {key.length > 0 && key === data[0] ? (
                       <p
                         style={
-                          message.added ? { color: 'green' } : { color: 'red' }
+                          message.added
+                            ? {
+                                color: 'green',
+                                marginTop: '10px',
+                                fontWeight: '600',
+                              }
+                            : {
+                                color: 'red',
+                                marginTop: '10px',
+                                fontWeight: '600',
+                              }
                         }
                       >
-                        {message.message}
+                        "{message.message}"
                       </p>
                     ) : (
                       <p></p>
@@ -291,7 +305,7 @@ function Products(props) {
                             <h6 className="add-to">add to cart</h6>
                           </a>
                         ) : (
-                          <p>OUT OF STOCK</p>
+                          <p className="out">OUT OF STOCK</p>
                         )}
                       </div>
                     ) : null}
@@ -369,7 +383,7 @@ function Products(props) {
                           <div id="star-rating1">
                             <div className="star-rating1">
                               {data[1].comments == 0 ? (
-                                <label for={'star-1'}>No Ratings</label>
+                                <label htmlFor={'star-1'}>No Ratings</label>
                               ) : (
                                 showStar(data[1].comments)
                               )}
@@ -388,8 +402,16 @@ function Products(props) {
                             <p
                               style={
                                 message.added
-                                  ? { color: 'green' }
-                                  : { color: 'red' }
+                                  ? {
+                                      color: 'green',
+                                      marginTop: '10px',
+                                      fontWeight: '600',
+                                    }
+                                  : {
+                                      color: 'red',
+                                      marginTop: '10px',
+                                      fontWeight: '600',
+                                    }
                               }
                             >
                               {message.message}
@@ -410,7 +432,7 @@ function Products(props) {
                                 ADD TO CART
                               </a>
                             ) : (
-                              <p> OUT OF STOCK</p>
+                              <p className="out"> OUT OF STOCK</p>
                             )
                           ) : null}
                         </div>

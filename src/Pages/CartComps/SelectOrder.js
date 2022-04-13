@@ -8,7 +8,6 @@ const SelectOrder = (props) => {
   const [address, setAddress] = useState([])
   const history = useHistory()
   React.useEffect(() => {
-    console.log(props.data)
     let x = []
     for (let v in props.data) {
       delete props.data[v].date
@@ -59,7 +58,7 @@ const SelectOrder = (props) => {
 
   return (
     <div className="order-container">
-      <div class="wrapper">
+      <div className="wrapper">
         <div id="one">
           <h4 className="d-flex justify-content-between mb-3">
             <span className="text">Selected Order</span>
@@ -127,7 +126,7 @@ const SelectOrder = (props) => {
             <h4 className="order-m">Message</h4>
             {/* style={{ width: '38vw' }}  */}
             <textarea
-              class="form-control c-msg"
+              className="form-control c-msg"
               name="message"
               rows="5"
               placeholder="Message"
@@ -142,7 +141,7 @@ const SelectOrder = (props) => {
               <>
                 <hr className="my-2" />
                 <h4 className="order-m">Select Delivery Date</h4>
-                <div class="form-group mt-2">
+                <div className="form-group mt-2">
                   {data.map((data, index) => (
                     <div key={index}>
                       <span>
@@ -151,7 +150,7 @@ const SelectOrder = (props) => {
 
                       {'adv' in data[1] ? (
                         <select
-                          class="form-control alterationTypeSelect"
+                          className="form-control alterationTypeSelect"
                           style={{ width: '33vw' }}
                           defaultValue={props.t_data.items[index][1].date}
                           onClick={(e) => changeValAdv(e, index)}
@@ -165,7 +164,7 @@ const SelectOrder = (props) => {
                         </select>
                       ) : (
                         // style={{ width: '33vw' }}
-                        <select class="form-control alterationTypeSelect">
+                        <select className="form-control alterationTypeSelect">
                           <option>No available date</option>
                         </select>
                       )}

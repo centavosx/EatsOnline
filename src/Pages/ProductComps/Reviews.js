@@ -8,7 +8,6 @@ const Reviews = (props) => {
   const [rate, setRate] = useState(0)
   const [submitted, setSubmitted] = useState({ success: false, message: '' })
   React.useEffect(() => {
-    console.log(props)
     if (props.id.length > 0) {
       axios
         .post(
@@ -94,9 +93,9 @@ const Reviews = (props) => {
                       value="5"
                       id="star5"
                       checked={rate === 5}
-                      c
                       style={{ display: 'none' }}
                       onClick={() => setRate(5)}
+                      readOnly={true}
                     />
                     <label htmlFor="star5" title="text">
                       ★
@@ -109,6 +108,7 @@ const Reviews = (props) => {
                       checked={rate === 4}
                       style={{ display: 'none' }}
                       onClick={() => setRate(4)}
+                      readOnly={true}
                     />
                     <label htmlFor="star4" title="text">
                       ★
@@ -121,6 +121,7 @@ const Reviews = (props) => {
                       checked={rate === 3}
                       style={{ display: 'none' }}
                       onClick={() => setRate(3)}
+                      readOnly={true}
                     />
                     <label htmlFor="star3" title="text">
                       ★
@@ -133,6 +134,7 @@ const Reviews = (props) => {
                       checked={rate === 2}
                       style={{ display: 'none' }}
                       onClick={() => setRate(2)}
+                      readOnly={true}
                     />
                     <label htmlFor="star2" title="text">
                       ★
@@ -145,6 +147,7 @@ const Reviews = (props) => {
                       checked={rate === 1}
                       style={{ display: 'none' }}
                       onClick={() => setRate(1)}
+                      readOnly={true}
                     />
                     <label htmlFor="star1" title="text">
                       ★

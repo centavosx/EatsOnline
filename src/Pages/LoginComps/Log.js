@@ -35,7 +35,6 @@ const Log = () => {
         response.data = decryptJSON(response.data.data)
         if (!response.data.error) {
           if (response.data.sent) {
-            console.log(color)
             setColor({ color: 'green' })
           } else {
             setColor({ color: 'red' })
@@ -78,8 +77,6 @@ const Log = () => {
 
     axios.post(process.env.REACT_APP_APIURL + 'guest').then((response) => {
       response.data = decryptJSON(response.data.data)
-      console.log('guest')
-      console.log(response.data)
       if (!response.data.error) {
         if (response.data.registered) {
           localStorage.setItem('id', response.data.id)

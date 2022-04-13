@@ -25,25 +25,25 @@ const ViewOrder = (props) => {
     )
   }, [])
   return Object.keys(data).length > 0 ? (
-    <div class="v-container">
+    <div className="v-container">
       <a className="v-btn" onClick={() => props.setData([])}>
         BACK
       </a>
 
-      <div class="v-card">
-        <div class="v-card-header">
+      <div className="v-card">
+        <div className="v-card-header">
           <strong>
             {new Date(data.dateBought).toDateString()}{' '}
             {new Date(data.dateBought).toLocaleTimeString()}
           </strong>
-          <span class="float-right">
+          <span className="float-right">
             {' '}
             <strong>Status of Order:</strong> {data.status}
           </span>
         </div>
-        <div class="v-card-body">
-          <div class="row mb-4">
-            <div class="infor col-sm-6">
+        <div className="v-card-body">
+          <div className="row mb-4">
+            <div className="infor col-sm-6">
               <div>
                 <strong>
                   {' '}
@@ -60,8 +60,8 @@ const ViewOrder = (props) => {
               </div>
             </div>
 
-            <div class="vcol col-sm-6">
-              <h6 class="mb-3">
+            <div className="vcol col-sm-6">
+              <h6 className="mb-3">
                 <strong>STATUS</strong>
               </h6>
               <strong> ORDER STATUS: </strong>
@@ -81,8 +81,8 @@ const ViewOrder = (props) => {
             </div>
           </div>
 
-          <div class="table-responsive-sm">
-            <table class="v-table table-striped">
+          <div className="table-responsive-sm">
+            <table className="v-table table-striped">
               <thead className="theadd">
                 <tr>
                   <th scope="col">No.</th>
@@ -95,7 +95,7 @@ const ViewOrder = (props) => {
               </thead>
               <tbody className="tbodyy">
                 {data.items.map((data, index) => (
-                  <tr>
+                  <tr key={index}>
                     <td data-label="No.">{index + 1}</td>
                     <td data-label="Item">{data[1].title}</td>
                     <td data-label="Description">{data[1].desc}</td>
@@ -109,8 +109,8 @@ const ViewOrder = (props) => {
               </tbody>
             </table>
           </div>
-          <div class="row">
-            <div class="ttl-amts">
+          <div className="row">
+            <div className="ttl-amts">
               <h4>
                 {' '}
                 <strong>TOTAL : </strong> {data.totalprice}

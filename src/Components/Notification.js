@@ -39,7 +39,7 @@ const Notification = (props) => {
   return (
     <div className="notifications">
       <div className="icon_wrap">
-        <i class="far fa-bell" onClick={() => setShow(!show)}></i>
+        <i className="far fa-bell" onClick={() => setShow(!show)}></i>
       </div>
       {show ? (
         <div className="notification_dd" style={{ display: 'block' }}>
@@ -62,7 +62,7 @@ const Notification = (props) => {
                     <span className="icon"></span>
                   </div>
                   <div className="notify_data">
-                    <div class="notif_title">{data[1].id}</div>
+                    <div className="notif_title">{data[1].id}</div>
                     <div className="sub_title">{data[1].payment}</div>
                   </div>
                   <div className="notify_status">

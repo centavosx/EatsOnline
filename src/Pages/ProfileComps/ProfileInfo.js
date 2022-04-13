@@ -23,37 +23,31 @@ function ProfileInfo(props) {
 
   const [show, setShow] = useState([true, false, false, false])
 
-  React.useEffect(() => {
-    axios
-      .post(
-        process.env.REACT_APP_APIURL + 'profileData',
-        encryptJSON({
-          id: localStorage.getItem('id'),
-          data: [
-            'name',
-            'address',
-            'email',
-            'phoneNumber',
-            'addresses',
-            'guest',
-            'img',
-          ],
-        })
-      )
-      .then((response) => {
-        response.data = decryptJSON(response.data.data)
-        if (response.data.addresses == null) {
-          response.data.addresses = []
-        }
-        response.data.password = ''
-        if (!response.data.img) {
-          response.data.img = './assets/eatsonlinelogo.png'
-        }
-        setProfileData(response.data)
+  React.useEffect(async () => {
+    const response = await axios.post(
+      process.env.REACT_APP_APIURL + 'profileData',
+      encryptJSON({
+        id: localStorage.getItem('id'),
+        data: [
+          'name',
+          'address',
+          'email',
+          'phoneNumber',
+          'addresses',
+          'guest',
+          'img',
+        ],
       })
-  }, [])
-
-  React.useEffect(() => {
+    )
+    response.data = decryptJSON(response.data.data)
+    if (response.data.addresses == null) {
+      response.data.addresses = []
+    }
+    response.data.password = ''
+    if (!response.data.img) {
+      response.data.img = './assets/eatsonlinelogo.png'
+    }
+    setProfileData(response.data)
     const script = document.createElement('script')
     script.src = 'https://code.jquery.com/jquery-3.3.1.slim.min.js'
     script.async = true
@@ -61,7 +55,7 @@ function ProfileInfo(props) {
     return () => {
       document.body.removeChild(script)
     }
-  }, [profileData])
+  }, [])
 
   const validatePass = () => {
     let re = /[A-Z]/
@@ -165,20 +159,20 @@ function ProfileInfo(props) {
   return (
     <div>
       {/* // <!-- Demo header--> */}
-      <section class="profile-section">
+      <section className="profile-section">
         <h1 className="text-center">MY ACCOUNT</h1>
-        <div class="container3 py-4">
-          <div class="row">
-            <div class="col-md-3">
+        <div className="container3 py-4">
+          <div className="row">
+            <div className="col-md-3">
               {/* <!-- Tabs nav --> */}
               <div
-                class="nav flex-column nav-pills nav-pills-custom"
+                className="nav flex-column nav-pills nav-pills-custom"
                 id="v-pills-tab"
                 role="tablist"
                 aria-orientation="vertical"
               >
                 <a
-                  class={
+                  className={
                     show[0]
                       ? 'nav-link mb-3 p-3 shadow active'
                       : 'nav-link mb-3 p-3 shadow'
@@ -188,12 +182,12 @@ function ProfileInfo(props) {
                   data-toggle="pill"
                   onClick={() => setShow([true, false, false, false])}
                 >
-                  <span class="font-weight-bold small text-uppercase">
+                  <span className="font-weight-bold small text-uppercase">
                     Personal information
                   </span>
                 </a>
                 <a
-                  class={
+                  className={
                     show[1]
                       ? 'nav-link mb-3 p-3 shadow active'
                       : 'nav-link mb-3 p-3 shadow'
@@ -203,12 +197,12 @@ function ProfileInfo(props) {
                   data-toggle="pill"
                   onClick={() => setShow([false, true, false, false])}
                 >
-                  <span class="font-weight-bold small text-uppercase">
+                  <span className="font-weight-bold small text-uppercase">
                     Purchase History
                   </span>
                 </a>
                 <a
-                  class={
+                  className={
                     show[2]
                       ? 'nav-link mb-3 p-3 shadow active'
                       : 'nav-link mb-3 p-3 shadow'
@@ -218,19 +212,19 @@ function ProfileInfo(props) {
                   data-toggle="pill"
                   onClick={() => setShow([false, false, true, false])}
                 >
-                  <span class="font-weight-bold small text-uppercase">
+                  <span className="font-weight-bold small text-uppercase">
                     Advance Order
                   </span>
                 </a>
               </div>
             </div>
 
-            <div class="col-md-9">
+            <div className="col-md-9">
               {/* <!-- Tabs content --> */}
-              <div class="tab-content" id="v-pills-tabContent">
+              <div className="tab-content" id="v-pills-tabContent">
                 {show[0] ? (
                   <div
-                    class="tab-pane fade shadow bg-white show active p-3"
+                    className="tab-pane fade shadow bg-white show active p-3"
                     id="v-pills-home"
                     role="tabpanel"
                     aria-labelledby="v-pills-home-tab"
@@ -242,7 +236,7 @@ function ProfileInfo(props) {
                         </div>
                       </div>
                       <div className="display-right">
-                        <div style={{ padding: '40px' }}>
+                        <div className="user-profile">
                           <img
                             src={imgurl !== null ? imgurl : profileData.img}
                             alt="Profile Image"
@@ -348,7 +342,7 @@ function ProfileInfo(props) {
                         </div>
                         <div className="display-right-div">
                           <Address
-                            setProfileData={setProfileData}
+                            setProfileData={(val) => setProfileData(val)}
                             addresses={profileData.addresses}
                           />
                         </div>
