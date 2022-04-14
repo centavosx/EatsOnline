@@ -22,12 +22,14 @@ const SelectOrder = (props) => {
   }, [props.data, props.totalamount, props.t_data])
   React.useEffect(() => {
     axios
-      .post(
-        process.env.REACT_APP_APIURL + 'profileData',
-        encryptJSON({
-          id: localStorage.getItem('id'),
-          data: ['addresses', 'name'],
-        })
+      .get(
+        process.env.REACT_APP_APIURL +
+          `profileData?data=${JSON.stringify(
+            encryptJSON({
+              id: localStorage.getItem('id'),
+              data: ['addresses', 'name'],
+            })
+          )}`
       )
       .then((response) => {
         response.data = decryptJSON(response.data.data)
@@ -88,7 +90,9 @@ const SelectOrder = (props) => {
         </div>
         <div id="two">
           <div lassName="needs-validation">
-            <h4 className="order-m">Order Method</h4>
+            <h4 className="order-m">
+              <span style={{ color: 'red' }}>*</span>Order Method
+            </h4>
             <div className="my-1">
               <div className="order-now">
                 <input
@@ -140,12 +144,17 @@ const SelectOrder = (props) => {
             {props.chA ? (
               <>
                 <hr className="my-2" />
-                <h4 className="order-m">Select Delivery Date</h4>
+                <h4 className="order-m">
+                  <span style={{ color: 'red' }}>*</span>Select Delivery Date
+                </h4>
                 <div className="form-group mt-2">
                   {data.map((data, index) => (
                     <div key={index}>
                       <span>
-                        <strong>{data[1].title} </strong>
+                        <strong>
+                          <span style={{ color: 'red' }}>*</span>
+                          {data[1].title}{' '}
+                        </strong>
                       </span>
 
                       {'adv' in data[1] ? (
@@ -175,7 +184,9 @@ const SelectOrder = (props) => {
               </>
             ) : null}
             <hr className="my-2" />
-            <h4 className="order-m">Payment Method</h4>
+            <h4 className="order-m">
+              <span style={{ color: 'red' }}>*</span>Payment Method
+            </h4>
             <div className="my-1">
               <div className="order-now">
                 <input
@@ -217,7 +228,7 @@ const SelectOrder = (props) => {
 
             <div className="col-md-5">
               <h4 htmlFor="country" className="form-label">
-                Address
+                <span style={{ color: 'red' }}>*</span>Address
               </h4>
               {address.length > 0 ? (
                 <select
@@ -259,6 +270,16 @@ const SelectOrder = (props) => {
             <p className="s-total">
               <strong>TOTAL: </strong>PHP{' '}
               <span id="price">{props.totalamount.toFixed(2)}</span>
+              <br />
+              {/* {props.toContinue() && props.t_data.address.length > 0 && props.t_data.payment.length > 0 && props.t_data.items.length > 0 ? <a href={void (0)} className="next-btn" onClick={() => props.checkOut()}>Next</a> : null} */}
+              {props.toContinue() &&
+              props.t_data.address.length > 0 &&
+              props.t_data.payment.length > 0 &&
+              props.t_data.items.length > 0 ? null : (
+                <span style={{ textAlign: 'end', fontSize: '14px' }}>
+                  Please fill up all the requirements to continue
+                </span>
+              )}
             </p>
           </div>
 
@@ -267,6 +288,7 @@ const SelectOrder = (props) => {
             <a
               href={void 0}
               className="prev-btn"
+              style={{ cursor: 'pointer' }}
               onClick={() => {
                 props.setWidth({ width: '0%' })
                 props.setProgress([
@@ -299,7 +321,17 @@ const SelectOrder = (props) => {
               >
                 NEXT
               </a>
-            ) : null}
+            ) : (
+              <>
+                <a
+                  href={void 0}
+                  className="cart-order-btn"
+                  style={{ backgroundColor: 'grey' }}
+                >
+                  NEXT
+                </a>
+              </>
+            )}
             {/* {props.toContinue() && props.t_data.address.length > 0 && props.t_data.payment.length > 0 && props.t_data.items.length > 0 ? <a href={void (0)} className="next-btn" onClick={() => props.checkOut()}>CHECKOUT</a> : null} */}
             {/* </div> */}
           </div>

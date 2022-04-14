@@ -18,22 +18,26 @@ const CartConfirmation = (props) => {
       setBank(data)
     })
     axios
-      .post(
-        process.env.REACT_APP_APIURL + 'toPay',
-        encryptJSON({
-          data: 'bank',
-        })
+      .get(
+        process.env.REACT_APP_APIURL +
+          `toPay?data=${JSON.stringify(
+            encryptJSON({
+              data: 'bank',
+            })
+          )}`
       )
       .then((resp) => {
         resp.data = decryptJSON(resp.data.data)
         setBank(resp.data.data)
       })
     axios
-      .post(
-        process.env.REACT_APP_APIURL + 'toPay',
-        encryptJSON({
-          data: 'gcash',
-        })
+      .get(
+        process.env.REACT_APP_APIURL +
+          `toPay?data=${JSON.stringify(
+            encryptJSON({
+              data: 'gcash',
+            })
+          )}`
       )
       .then((resp) => {
         resp.data = decryptJSON(resp.data.data)
@@ -173,6 +177,7 @@ const CartConfirmation = (props) => {
               'progress-step',
             ])
           }}
+          style={{ cursor: 'pointer' }}
         >
           PREVIOUS
         </a>
@@ -184,6 +189,7 @@ const CartConfirmation = (props) => {
             href={void 0}
             className="next-btn"
             onClick={() => props.checkOut()}
+            style={{ cursor: 'pointer' }}
           >
             Submit Order
           </a>

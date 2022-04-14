@@ -10,12 +10,14 @@ const Transactions = (props) => {
   const history = useHistory()
   React.useEffect(() => {
     axios
-      .post(
-        process.env.REACT_APP_APIURL + 'getTransactions',
-        encryptJSON({
-          id: localStorage.getItem('id'),
-          transaction: props.transaction ? 'transaction' : 'reservation',
-        })
+      .get(
+        process.env.REACT_APP_APIURL +
+          `getTransactions?data=${JSON.stringify(
+            encryptJSON({
+              id: localStorage.getItem('id'),
+              transaction: props.transaction ? 'transaction' : 'reservation',
+            })
+          )}`
       )
       .then((response) => {
         response.data = decryptJSON(response.data.data)
@@ -26,7 +28,7 @@ const Transactions = (props) => {
 
   const Cancel = (id) => {
     axios
-      .post(
+      .patch(
         process.env.REACT_APP_APIURL + 'cancelorder',
         encryptJSON({
           id: localStorage.getItem('id'),

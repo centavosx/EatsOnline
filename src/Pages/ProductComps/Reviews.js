@@ -10,12 +10,13 @@ const Reviews = (props) => {
   React.useEffect(() => {
     if (props.id.length > 0) {
       axios
-        .post(
-          process.env.REACT_APP_APIURL + 'comment',
-          encryptJSON({
-            id: props.id.replaceAll(' ', '+'),
-            get: true,
-          })
+        .get(
+          process.env.REACT_APP_APIURL +
+            `comment?data=${JSON.stringify(
+              encryptJSON({
+                id: props.id.replaceAll(' ', '+'),
+              })
+            )}`
         )
         .then((response) => {
           response.data = decryptJSON(response.data.data)
@@ -37,7 +38,6 @@ const Reviews = (props) => {
           process.env.REACT_APP_APIURL + 'comment',
           encryptJSON({
             id: props.id.replaceAll(' ', '+'),
-            get: false,
             message: message,
             rate: rate,
             uid: localStorage.getItem('id'),

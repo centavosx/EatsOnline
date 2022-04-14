@@ -12,13 +12,15 @@ function Products(props) {
 
   const search = async (value, what) => {
     props.setLoading(true)
-    const resp = await axios.post(
-      process.env.REACT_APP_APIURL + 'search',
-      encryptJSON({
-        reference: 'products',
-        data: what,
-        value: value,
-      })
+    const resp = await axios.get(
+      process.env.REACT_APP_APIURL +
+        `search?data=${JSON.stringify(
+          encryptJSON({
+            reference: 'products',
+            data: what,
+            value: value,
+          })
+        )}`
     )
     resp.data = decryptJSON(resp.data.data)
     if (!resp.data.error) {
@@ -49,17 +51,19 @@ function Products(props) {
     if (props.search.length > 0 && !props.featured) {
       await search(props.search[1], props.search[0])
     } else {
-      const resp = await axios.post(
-        process.env.REACT_APP_APIURL + 'getData',
-        encryptJSON({
-          reference: 'products',
-          sortwhat: props.sortwhat,
-          index: props.featured
-            ? [0, props.max]
-            : props.index !== null
-            ? props.index
-            : null,
-        })
+      const resp = await axios.get(
+        process.env.REACT_APP_APIURL +
+          `getData?data=${JSON.stringify(
+            encryptJSON({
+              reference: 'products',
+              sortwhat: props.sortwhat,
+              index: props.featured
+                ? [0, props.max]
+                : props.index !== null
+                ? props.index
+                : null,
+            })
+          )}`
       )
       resp.data = decryptJSON(resp.data.data)
       if (!resp.data.error) {
@@ -157,163 +161,170 @@ function Products(props) {
     } else {
       return (
         <section className="p-div-forbg-clr">
-          <div className="product-container">
-            {/* <!-- Product box --> */}
-            {products.map((data, index) => {
-              return (
-                <div className="product-box" key={index}>
-                  {/* <!-- discount --> */}
-                  {data[1].discount > 0 ? (
-                    <span className="p-discount">{data[1].discount}%</span>
-                  ) : null}
-                  {/* <!-- img container --> */}
-                  <div className="f-img-container">
-                    <div className="f-img">
-                      <a href={'/products?id=' + data[0]}>
-                        <img
-                          src={data[1].link}
-                          className="p-img-front"
-                          alt={data[1].imgname}
-                        />
-                      </a>
-                      <div className="p-overlay"></div>
-                      <a className="s-button" href={'/products?id=' + data[0]}>
-                        <div
-                          href={void 0}
-                          style={{ color: 'white', cursor: 'pointer' }}
+          {products.length ? (
+            <div className="product-container">
+              {/* <!-- Product box --> */}
+              {products.map((data, index) => {
+                return (
+                  <div className="product-box" key={index}>
+                    {/* <!-- discount --> */}
+                    {data[1].discount > 0 ? (
+                      <span className="p-discount">{data[1].discount}%</span>
+                    ) : null}
+                    {/* <!-- img container --> */}
+                    <div className="f-img-container">
+                      <div className="f-img">
+                        <a href={'/products?id=' + data[0]}>
+                          <img
+                            src={data[1].link}
+                            className="p-img-front"
+                            alt={data[1].imgname}
+                          />
+                        </a>
+                        <div className="p-overlay"></div>
+                        <a
+                          className="s-button"
+                          href={'/products?id=' + data[0]}
                         >
-                          {' '}
-                          view{' '}
-                        </div>
+                          <div
+                            href={void 0}
+                            style={{ color: 'white', cursor: 'pointer' }}
+                          >
+                            {' '}
+                            view{' '}
+                          </div>
+                        </a>
+                      </div>
+                    </div>
+                    {/* <!-- text --> */}
+                    <div className="p-box-text">
+                      {/* <!-- title --> */}
+                      <a href={void 0} className="product-title">
+                        {data[1].title}
                       </a>
-                    </div>
-                  </div>
-                  {/* <!-- text --> */}
-                  <div className="p-box-text">
-                    {/* <!-- title --> */}
-                    <a href={void 0} className="product-title">
-                      {data[1].title}
-                    </a>
-                    <div className="rate">
-                      {/* right */}
-                      <div className="menu-price">
-                        <span className="p-price">₱ {data[1].price}</span>
+                      <div className="rate">
+                        {/* right */}
+                        <div className="menu-price">
+                          <span className="p-price">₱ {data[1].price}</span>
+                        </div>
+                        {/* left */}
+                        <div className="menu-seller">
+                          <span>{data[1].seller}</span>
+                        </div>
                       </div>
-                      {/* left */}
-                      <div className="menu-seller">
-                        <span>{data[1].seller}</span>
-                      </div>
-                    </div>
 
-                    <div className="container">
-                      <div className="products-btn">
-                        <div className="menu-star">
-                          <div className="star-rating">
-                            {data[1].comments == 0 ? (
-                              <label htmlFor={'star-1'}>No Ratings</label>
-                            ) : (
-                              showStar(data[1].comments)
-                            )}
+                      <div className="container">
+                        <div className="products-btn">
+                          <div className="menu-star">
+                            <div className="star-rating">
+                              {data[1].comments == 0 ? (
+                                <label htmlFor={'star-1'}>No Ratings</label>
+                              ) : (
+                                showStar(data[1].comments)
+                              )}
+                            </div>
+                          </div>
+                          <div className="menu-sold">
+                            <span className="total-sold">
+                              {data[1].totalsold} Sold
+                            </span>
                           </div>
                         </div>
-                        <div className="menu-sold">
-                          <span className="total-sold">
-                            {data[1].totalsold} Sold
+                      </div>
+                      <div className="items-qty">
+                        <div className="itm-q">
+                          <span className="quantity-items">
+                            Quantity: <strong>{data[1].numberofitems}</strong>
                           </span>
                         </div>
                       </div>
-                    </div>
-                    <div className="items-qty">
-                      <div className="itm-q">
-                        <span className="quantity-items">
-                          Quantity: <strong>{data[1].numberofitems}</strong>
-                        </span>
-                      </div>
-                    </div>
-                    {/* <!-- price buy --> */}
-                    <div></div>
-                    {key.length > 0 && key === data[0] ? (
-                      <p
-                        style={
-                          message.added
-                            ? {
-                                color: 'green',
-                                marginTop: '10px',
-                                fontWeight: '600',
-                              }
-                            : {
-                                color: 'red',
-                                marginTop: '10px',
-                                fontWeight: '600',
-                              }
-                        }
-                      >
-                        "{message.message}"
-                      </p>
-                    ) : (
-                      <p></p>
-                    )}
-                  </div>
-                  <br />
-                  <div className="price-buy">
-                    {/* quantity adjustment experiment*/}
-
-                    <div>
-                      <p className="q-btn">
-                        {/* value={"-"} */}
-                        <button
-                          className="qtyminus"
-                          onClick={(e) =>
-                            editQty(e, data[0], (itemNum[data[0]] -= 1))
+                      {/* <!-- price buy --> */}
+                      <div></div>
+                      {key.length > 0 && key === data[0] ? (
+                        <p
+                          style={
+                            message.added
+                              ? {
+                                  color: 'green',
+                                  marginTop: '10px',
+                                  fontWeight: '600',
+                                }
+                              : {
+                                  color: 'red',
+                                  marginTop: '10px',
+                                  fontWeight: '600',
+                                }
                           }
                         >
-                          -
-                        </button>
-                        <input
-                          type="number"
-                          className="qty-int"
-                          readOnly={true}
-                          name="qty"
-                          value={itemNum[data[0]]}
-                          onChange={(e) =>
-                            editQty(e, data[0], parseInt(e.target.value))
-                          }
-                        />
-                        {/* value={"+"} */}
-                        <button
-                          className="qtyplus"
-                          onClick={(e) =>
-                            itemNum[data[0]] < data[1].numberofitems
-                              ? editQty(e, data[0], (itemNum[data[0]] += 1))
-                              : null
-                          }
-                        >
-                          +
-                        </button>
-                      </p>
+                          "{message.message}"
+                        </p>
+                      ) : (
+                        <p></p>
+                      )}
                     </div>
+                    <br />
+                    <div className="price-buy">
+                      {/* quantity adjustment experiment*/}
 
-                    {/* right */}
-                    {props.login ? (
-                      <div id="div2">
-                        {data[1].numberofitems > 0 ? (
-                          <a
-                            style={{ cursor: 'pointer' }}
-                            className="prd-btn"
-                            onClick={() => addCart(data[0])}
+                      <div>
+                        <p className="q-btn">
+                          {/* value={"-"} */}
+                          <button
+                            className="qtyminus"
+                            onClick={(e) =>
+                              editQty(e, data[0], (itemNum[data[0]] -= 1))
+                            }
                           >
-                            <h6 className="add-to">add to cart</h6>
-                          </a>
-                        ) : (
-                          <p className="out">OUT OF STOCK</p>
-                        )}
+                            -
+                          </button>
+                          <input
+                            type="number"
+                            className="qty-int"
+                            readOnly={true}
+                            name="qty"
+                            value={itemNum[data[0]]}
+                            onChange={(e) =>
+                              editQty(e, data[0], parseInt(e.target.value))
+                            }
+                          />
+                          {/* value={"+"} */}
+                          <button
+                            className="qtyplus"
+                            onClick={(e) =>
+                              itemNum[data[0]] < data[1].numberofitems
+                                ? editQty(e, data[0], (itemNum[data[0]] += 1))
+                                : null
+                            }
+                          >
+                            +
+                          </button>
+                        </p>
                       </div>
-                    ) : null}
+
+                      {/* right */}
+                      {props.login ? (
+                        <div id="div2">
+                          {data[1].numberofitems > 0 ? (
+                            <a
+                              style={{ cursor: 'pointer' }}
+                              className="prd-btn"
+                              onClick={() => addCart(data[0])}
+                            >
+                              <h6 className="add-to">add to cart</h6>
+                            </a>
+                          ) : (
+                            <p className="out">OUT OF STOCK</p>
+                          )}
+                        </div>
+                      ) : null}
+                    </div>
                   </div>
-                </div>
-              )
-            })}
-          </div>
+                )
+              })}
+            </div>
+          ) : (
+            <div className="product-container">No items to display</div>
+          )}
         </section>
       )
     }

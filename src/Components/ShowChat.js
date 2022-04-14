@@ -13,12 +13,13 @@ const ShowChat = (props) => {
   const [message, setMessage] = useState('')
   const [sending, setSending] = useState(false)
   React.useEffect(async () => {
-    let response = await axios.post(
-      process.env.REACT_APP_APIURL + 'chat',
-      encryptJSON({
-        id: localStorage.getItem('id'),
-        what: 'get',
-      })
+    let response = await axios.get(
+      process.env.REACT_APP_APIURL +
+        `chat?data=${JSON.stringify(
+          encryptJSON({
+            id: localStorage.getItem('id'),
+          })
+        )}`
     )
     response.data = decryptJSON(response.data.data)
     setChat(response.data.data)
@@ -39,7 +40,6 @@ const ShowChat = (props) => {
         encryptJSON({
           id: localStorage.getItem('id'),
           message: message,
-          what: 'post',
         })
       )
       .then((response) => {

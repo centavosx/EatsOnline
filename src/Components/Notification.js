@@ -12,11 +12,13 @@ const Notification = (props) => {
   const [notif, setNotif] = useState(0)
   React.useEffect(async () => {
     if (props.loggedin) {
-      let req = await axios.post(
-        process.env.REACT_APP_APIURL + 'notif',
-        encryptJSON({
-          id: localStorage.getItem('id'),
-        })
+      let req = await axios.get(
+        process.env.REACT_APP_APIURL +
+          `notif?data=${JSON.stringify(
+            encryptJSON({
+              id: localStorage.getItem('id'),
+            })
+          )}`
       )
       setData(decryptJSON(req.data.data))
       socket.emit('notifications', localStorage.getItem('id'))
@@ -40,6 +42,16 @@ const Notification = (props) => {
     <div className="notifications">
       <div className="icon_wrap">
         <i className="far fa-bell" onClick={() => setShow(!show)}></i>
+        <span
+          style={{
+            position: 'absolute',
+            fontSize: '15px',
+            color: 'red',
+            fontWeight: 'bold',
+          }}
+        >
+          {notif > 0 ? notif : null}
+        </span>
       </div>
       {show ? (
         <div className="notification_dd" style={{ display: 'block' }}>

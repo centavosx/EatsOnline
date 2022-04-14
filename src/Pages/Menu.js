@@ -21,12 +21,14 @@ const Menu = (props) => {
         localStorage.getItem('id').length > 0
       ) {
         axios
-          .post(
-            process.env.REACT_APP_APIURL + 'profileData',
-            encryptJSON({
-              id: localStorage.getItem('id'),
-              data: ['name', 'img'],
-            })
+          .get(
+            process.env.REACT_APP_APIURL +
+              `profileData?data=${JSON.stringify(
+                encryptJSON({
+                  id: localStorage.getItem('id'),
+                  data: ['name', 'img'],
+                })
+              )}`
           )
           .then((response) => {
             response.data = decryptJSON(response.data.data)

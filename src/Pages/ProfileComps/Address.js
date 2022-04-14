@@ -64,19 +64,21 @@ const Address = (props) => {
   const deleteAddress = (addressId) => {
     axios
       .delete(
-        process.env.REACT_APP_APIURL + 'address',
-        encryptJSON({
-          id: localStorage.getItem('id'),
-          data: [
-            'name',
-            'address',
-            'email',
-            'phoneNumber',
-            'addresses',
-            'guest',
-          ],
-          addressId: addressId,
-        })
+        process.env.REACT_APP_APIURL +
+          `address?data=${JSON.stringify(
+            encryptJSON({
+              id: localStorage.getItem('id'),
+              data: [
+                'name',
+                'address',
+                'email',
+                'phoneNumber',
+                'addresses',
+                'guest',
+              ],
+              addressId: addressId,
+            })
+          )}`
       )
       .then((response) => {
         response.data = decryptJSON(response.data.data)

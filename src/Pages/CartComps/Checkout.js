@@ -43,22 +43,26 @@ const Checkout = (props) => {
       }
     )
     axios
-      .post(
-        process.env.REACT_APP_APIURL + 'toPay',
-        encryptJSON({
-          data: 'bank',
-        })
+      .get(
+        process.env.REACT_APP_APIURL +
+          `toPay?data=${JSON.stringify(
+            encryptJSON({
+              data: 'bank',
+            })
+          )}`
       )
       .then((resp) => {
         resp.data = decryptJSON(resp.data.data)
         setBank(resp.data.data)
       })
     axios
-      .post(
-        process.env.REACT_APP_APIURL + 'toPay',
-        encryptJSON({
-          data: 'gcash',
-        })
+      .get(
+        process.env.REACT_APP_APIURL +
+          `toPay?data=${JSON.stringify(
+            encryptJSON({
+              data: 'gcash',
+            })
+          )}`
       )
       .then((resp) => {
         resp.data = decryptJSON(resp.data.data)
@@ -181,6 +185,17 @@ const Checkout = (props) => {
       <div id="four">
         <div className="info">
           <p>
+            <strong>ORDER: </strong>
+            <strong
+              style={
+                output.what === 'reservation'
+                  ? { color: 'red' }
+                  : { color: 'green' }
+              }
+            >
+              {output.what === 'reservation' ? 'Advance Order' : 'Order Now'}
+            </strong>
+            <br />
             <strong>ORDER STATUS: </strong>
             {output.status} <br />
             <strong>PAYMENT STATUS: </strong>
@@ -253,28 +268,32 @@ const Checkout = (props) => {
             />
           </center>
         ) : null}
-        <h2 className="pay">Upload Receipt</h2>
-        <form action="/action_page.php">
-          <input
-            className="upload"
-            type="file"
-            id="myFile"
-            onChange={(e) => filechange(e)}
-            name="filename"
-            accept="image/*"
-          />
-        </form>
-        {image !== null ? (
-          loading ? (
-            <h5 className="pay">Uploading...</h5>
-          ) : (
-            <input
-              className="up-btn"
-              value="UPLOAD"
-              type="submit"
-              onClick={(e) => uploadReceipt(e)}
-            />
-          )
+        {output.payment === 'Online Payment' ? (
+          <>
+            <h2 className="pay">Upload Receipt</h2>
+            <form action="/action_page.php">
+              <input
+                className="upload"
+                type="file"
+                id="myFile"
+                onChange={(e) => filechange(e)}
+                name="filename"
+                accept="image/*"
+              />
+            </form>
+            {image !== null ? (
+              loading ? (
+                <h5 className="pay">Uploading...</h5>
+              ) : (
+                <input
+                  className="up-btn"
+                  value="UPLOAD"
+                  type="submit"
+                  onClick={(e) => uploadReceipt(e)}
+                />
+              )
+            ) : null}
+          </>
         ) : null}
       </div>
     </div>

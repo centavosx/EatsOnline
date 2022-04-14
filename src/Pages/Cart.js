@@ -3,8 +3,6 @@ import React, { useState } from 'react'
 import Carousel from './HomeComps/Carousel.js'
 import CartList from './CartComps/CartList.js'
 import Goback from './HomeComps/Goback.js'
-
-import SelectOrder from './CartComps/SelectOrder.js'
 import Progress from './CartComps/Progress.js'
 import axios from 'axios'
 import { decryptJSON, encryptJSON } from '../Pages/EncryptionDecryption.js'
@@ -18,6 +16,7 @@ const Cart = (props) => {
     'progress-step',
     'progress-step',
   ])
+
   const [output, setOutput] = useState({})
   React.useEffect(() => {
     let val = new URLSearchParams(window.location.search).get('id')
@@ -35,13 +34,15 @@ const Cart = (props) => {
     try {
       setLoading(true)
       if (params !== null && what !== null) {
-        let req = await axios.post(
-          process.env.REACT_APP_APIURL + 'opennotif',
-          encryptJSON({
-            id: params,
-            uid: localStorage.getItem('id'),
-            what: what,
-          })
+        let req = await axios.get(
+          process.env.REACT_APP_APIURL +
+            `opennotif?data=${JSON.stringify(
+              encryptJSON({
+                id: params,
+                uid: localStorage.getItem('id'),
+                what: what,
+              })
+            )}`
         )
         let data = decryptJSON(req.data.data)
         if ('id' in data) {

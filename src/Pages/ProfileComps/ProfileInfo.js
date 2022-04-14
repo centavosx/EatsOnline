@@ -4,6 +4,7 @@ import Address from './Address'
 import { decryptJSON, encryptJSON } from '../EncryptionDecryption'
 import '../../CSS/Profileinfo.css'
 import Transactions from './Transactions'
+import sha256 from 'crypto-js/sha256'
 function ProfileInfo(props) {
   const [name, setName] = useState('')
   const [phoneNumber, setPhoneNumber] = useState('')
@@ -24,20 +25,22 @@ function ProfileInfo(props) {
   const [show, setShow] = useState([true, false, false, false])
 
   React.useEffect(async () => {
-    const response = await axios.post(
-      process.env.REACT_APP_APIURL + 'profileData',
-      encryptJSON({
-        id: localStorage.getItem('id'),
-        data: [
-          'name',
-          'address',
-          'email',
-          'phoneNumber',
-          'addresses',
-          'guest',
-          'img',
-        ],
-      })
+    const response = await axios.get(
+      process.env.REACT_APP_APIURL +
+        `profileData?data=${JSON.stringify(
+          encryptJSON({
+            id: localStorage.getItem('id'),
+            data: [
+              'name',
+              'address',
+              'email',
+              'phoneNumber',
+              'addresses',
+              'guest',
+              'img',
+            ],
+          })
+        )}`
     )
     response.data = decryptJSON(response.data.data)
     if (response.data.addresses == null) {
@@ -101,7 +104,7 @@ function ProfileInfo(props) {
   const updateData = () => {
     let updateData = {}
     if (name.length > 0 && name !== profileData.name) updateData.name = name
-    if (password.length > 0) updateData.password = name
+    if (password.length > 0) updateData.password = sha256(password).toString()
     if (phoneNumber.length > 0 && phoneNumber !== profileData.phoneNumber)
       updateData.phoneNumber = phoneNumber
     axios

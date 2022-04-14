@@ -15,13 +15,15 @@ const SingleProduct = (props) => {
   const [message, setMessage] = useState({ added: false, message: '' })
   const [checkB, setCheckB] = useState(false)
   React.useEffect(async () => {
-    const resp = await axios.post(
-      process.env.REACT_APP_APIURL + 'singleproduct',
-      encryptJSON({
-        id: idParam,
-      })
+    const resp = await axios.get(
+      process.env.REACT_APP_APIURL +
+        `singleproduct?data=${JSON.stringify(
+          encryptJSON({
+            id: idParam,
+          })
+        )}`
     )
-
+    console.log('hello')
     resp.data = decryptJSON(resp.data.data)
     if (!resp.data.error) {
       setData(resp.data.data)
@@ -29,12 +31,14 @@ const SingleProduct = (props) => {
   }, [idParam])
   React.useEffect(async () => {
     if (props.login) {
-      const resp2 = await axios.post(
-        process.env.REACT_APP_APIURL + 'checkIfBought',
-        encryptJSON({
-          id: localStorage.getItem('id'),
-          pid: idParam,
-        })
+      const resp2 = await axios.get(
+        process.env.REACT_APP_APIURL +
+          `checkIfBought?data=${JSON.stringify(
+            encryptJSON({
+              id: localStorage.getItem('id'),
+              pid: idParam,
+            })
+          )}`
       )
 
       const check = decryptJSON(resp2.data.data)

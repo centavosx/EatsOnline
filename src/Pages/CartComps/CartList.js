@@ -31,11 +31,13 @@ const CartList = (props) => {
   React.useEffect(() => {
     if (!('id' in props.output))
       axios
-        .post(
-          process.env.REACT_APP_APIURL + 'cart',
-          encryptJSON({
-            id: localStorage.getItem('id'),
-          })
+        .get(
+          process.env.REACT_APP_APIURL +
+            `cart?data=${JSON.stringify(
+              encryptJSON({
+                id: localStorage.getItem('id'),
+              })
+            )}`
         )
         .then((resp) => {
           resp.data = decryptJSON(resp.data.data)
@@ -443,24 +445,27 @@ const CartList = (props) => {
             <span id="price">{totalamount.toFixed(2)}</span>
           </p>
           <div className="">
-            {Object.keys(select).length > 0 ? (
-              <a
-                href={void 0}
-                className="cart1-btn"
-                onClick={() => {
-                  props.setWidth({ width: '33.33%' })
-                  props.setProgress([
-                    'progress-step progress-step-active',
-                    'progress-step progress-step-active',
-                    'progress-step',
-                    'progress-step',
-                  ])
-                  setOpenModal(true)
-                }}
-              >
-                NEXT
-              </a>
-            ) : null}
+            <a
+              href={void 0}
+              className="cart1-btn"
+              style={
+                !Object.keys(select).length > 0
+                  ? { backgroundColor: 'grey' }
+                  : {}
+              }
+              onClick={() => {
+                props.setWidth({ width: '33.33%' })
+                props.setProgress([
+                  'progress-step progress-step-active',
+                  'progress-step progress-step-active',
+                  'progress-step',
+                  'progress-step',
+                ])
+                setOpenModal(true)
+              }}
+            >
+              NEXT
+            </a>
           </div>
         </div>
       ) : props.width.width === '33.33%' ? (

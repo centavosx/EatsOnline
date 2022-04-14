@@ -7,13 +7,15 @@ const Recommended = (props) => {
   const [message, setMessage] = useState('')
   const [key, setKey] = useState('')
   React.useEffect(async () => {
-    let res = await axios.post(
-      process.env.REACT_APP_APIURL + 'recommended',
-      encryptJSON({
-        title: props.title,
-        seller: props.seller,
-        type: props.type,
-      })
+    let res = await axios.get(
+      process.env.REACT_APP_APIURL +
+        `recommended?data=${JSON.stringify(
+          encryptJSON({
+            title: props.title,
+            seller: props.seller,
+            type: props.type,
+          })
+        )}`
     )
 
     let data = decryptJSON(res.data.data)

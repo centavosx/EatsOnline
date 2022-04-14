@@ -16,6 +16,8 @@ const Log = () => {
   const [error, setError] = useState('')
   const [message, setMessage] = useState('')
   const [color, setColor] = useState({ color: 'red' })
+  const [emailReset, setEmailReset] = useState('')
+  const [rmess, setRmess] = useState('')
   const toggleForm = () => {
     const container3 = document.querySelector('.container3')
     container3.classList.toggle('active')
@@ -89,12 +91,14 @@ const Log = () => {
   const loginAccount = (e) => {
     e.preventDefault()
     axios
-      .post(
-        process.env.REACT_APP_APIURL + 'login',
-        encryptJSON({
-          email: email1,
-          password: sha256(password1).toString(),
-        })
+      .get(
+        process.env.REACT_APP_APIURL +
+          `login?data=${JSON.stringify(
+            encryptJSON({
+              email: email1,
+              password: sha256(password1).toString(),
+            })
+          )}`
       )
       .then((resp) => {
         let data = decryptJSON(resp.data.data)
@@ -120,6 +124,16 @@ const Log = () => {
       })
   }
 
+  const resetP = async (e) => {
+    e.preventDefault()
+    const resp = await axios.patch(
+      process.env.REACT_APP_APIURL + 'forgetPass',
+      encryptJSON({
+        email: emailReset,
+      })
+    )
+    setRmess(decryptJSON(resp.data.data).message)
+  }
   return (
     <div className="user signinBx">
       <div className="imgBx">
@@ -303,12 +317,13 @@ const Log = () => {
                 className="input-form"
                 type="email"
                 name="email1"
-                placeholder="Enter your email to send reset link."
+                placeholder="Enter your email to send reset password."
                 style={{ color: 'black' }}
                 required={true}
+                onChange={(e) => setEmailReset(e.target.value)}
               />
-              <p></p>
-              <input type="submit" value="SEND" />
+              <p>{rmess}</p>
+              <input type="submit" value="SEND" onClick={(e) => resetP(e)} />
             </form>
           ) : null}
           {/* <form>      
