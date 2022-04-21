@@ -55,13 +55,10 @@ function App() {
       <Router>
         {page !== 'login' ? <Header /> : null}
         <Switch>
-          <Route path="/products" render={(props) => <Menu {...props} />} />
+          <Route path="/menu" render={(props) => <Menu {...props} />} />
+          <Route path="/menu?id=:id" render={(props) => <Menu {...props} />} />
           <Route
-            path="/products?id=:id"
-            render={(props) => <Menu {...props} />}
-          />
-          <Route
-            path="/products?search=:search&value=:value"
+            path="/menu?search=:search&value=:value"
             render={(props) => <Menu {...props} />}
           />
           {loggedin === null ? null : !loggedin ? (

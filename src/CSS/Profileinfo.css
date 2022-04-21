@@ -13,19 +13,16 @@
   display: flex;
   width: 100%;
 }
-.center-div {
-  margin-top: 50%;
-}
 .align-end {
   align-content: flex-end;
 }
 .display-left {
   float: left;
-  width: 50%;
+  width: 40%;
 }
 .display-right {
   float: right;
-  width: 50%;
+  width: 60%;
 }
 .display-left-btn {
   float: left;
@@ -182,7 +179,23 @@
   border: 2px solid #0794c9;
   color: #fff;
 }
-
+.img-save {
+  border-radius: 100px;
+  text-transform: uppercase;
+  background-color: #10505e;
+  border: 2px solid #4ebad3;
+  color: #fff;
+  font-size: 18px;
+  padding: 7px 30px;
+  font-weight: bold;
+  overflow: hidden;
+  margin-bottom: 50px;
+}
+.img-save:hover {
+  background-color: #28aac7;
+  color: #f2f36b;
+  border: 2px solid #28aac7;
+}
 .Add-add {
   border-radius: 100px;
   text-transform: uppercase;
@@ -378,7 +391,6 @@ body {
 }
 
 .p-title {
-  margin-bottom: 40px;
   font-weight: bold;
   font-size: 20px;
   text-align: center;
@@ -391,9 +403,6 @@ body {
     margin-top: 15px;
     width: 100%;
     margin-top: 10px;
-  }
-  .center-div {
-    margin-top: 0;
   }
   .nav-pills-custom .nav-link.active {
     font-size: 16px;
@@ -435,6 +444,11 @@ body {
     width: 100%;
   }
 }
+@media (max-width: 320px) {
+  .user-profile {
+    padding: 0;
+  }
+}
 @media (min-width: 320px) {
   .tab-pane {
     margin-top: 15px;
@@ -466,6 +480,20 @@ body {
     margin-right: 280px;
     transition: all 300ms ease;
   }
+  .img-save {
+    background: #10505e;
+    border: 2px solid #0d6efd;
+    color: #fff;
+    border-radius: 100px;
+    text-transform: uppercase;
+    position: relative;
+    padding: 7px 20px;
+    font-size: 12px;
+    font-weight: bold;
+    overflow: hidden;
+    letter-spacing: 0.02em;
+    /* float: right; */
+  }
 }
 @media screen and (min-width: 425px) {
   .tab-pane {
@@ -490,7 +518,6 @@ body {
     width: 92%;
   }
   .p-title {
-    margin-bottom: 20px;
     font-weight: bold;
     font-size: 20px;
     text-align: center;
@@ -515,9 +542,6 @@ body {
     /* width: 70%; */
     width: 100%;
   }
-  .center-div {
-    margin-top: 50%;
-  }
   .display-flex {
     display: flex;
     width: 100%;
@@ -527,11 +551,11 @@ body {
   }
   .display-left {
     float: left;
-    width: 50%;
+    width: 40%;
   }
   .display-right {
     float: right;
-    width: 50%;
+    width: 60%;
   }
   .display-left-btn {
     float: left;

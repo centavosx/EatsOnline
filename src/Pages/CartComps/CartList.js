@@ -450,7 +450,7 @@ const CartList = (props) => {
               className="cart1-btn"
               style={
                 !Object.keys(select).length > 0
-                  ? { backgroundColor: 'grey' }
+                  ? { backgroundColor: '#10505e' }
                   : {}
               }
               onClick={() => {

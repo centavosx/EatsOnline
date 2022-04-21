@@ -2,6 +2,7 @@ import '../../CSS/home.css'
 import '../../CSS/Products.css'
 import React, { useState } from 'react'
 import axios from 'axios'
+import { useHistory } from 'react-router-dom'
 import { decryptJSON, encryptJSON } from '../EncryptionDecryption'
 function Products(props) {
   const [products, setProducts] = useState([])
@@ -9,7 +10,8 @@ function Products(props) {
   const [state, setState] = useState(false)
   const [message, setMessage] = useState({ added: false, message: '' })
   const [key, setKey] = useState('')
-
+  const history = useHistory()
+  const [curr, setCurr] = useState(0)
   const search = async (value, what) => {
     props.setLoading(true)
     const resp = await axios.get(
@@ -36,7 +38,7 @@ function Products(props) {
     }
   }
   React.useEffect(() => {
-    if (products.length > 0) {
+    if (products.length > 0 && props.featured) {
       const script = document.createElement('script')
       script.src = './assets/dist/js/glider.js'
       script.async = true
@@ -142,7 +144,9 @@ function Products(props) {
       </label>
     ))
   }
-
+  // const nextOrBack = (c) => {
+  //   c
+  // }
   if (!props.featured) {
     if (props.loading) {
       return (
@@ -163,7 +167,6 @@ function Products(props) {
         <section className="p-div-forbg-clr">
           {products.length ? (
             <div className="product-container">
-              {/* <!-- Product box --> */}
               {products.map((data, index) => {
                 return (
                   <div className="product-box" key={index}>
@@ -174,7 +177,7 @@ function Products(props) {
                     {/* <!-- img container --> */}
                     <div className="f-img-container">
                       <div className="f-img">
-                        <a href={'/products?id=' + data[0]}>
+                        <a href={'/menu?id=' + data[0]}>
                           <img
                             src={data[1].link}
                             className="p-img-front"
@@ -182,10 +185,7 @@ function Products(props) {
                           />
                         </a>
                         <div className="p-overlay"></div>
-                        <a
-                          className="s-button"
-                          href={'/products?id=' + data[0]}
-                        >
+                        <a className="s-button" href={'/menu?id=' + data[0]}>
                           <div
                             href={void 0}
                             style={{ color: 'white', cursor: 'pointer' }}
@@ -302,21 +302,24 @@ function Products(props) {
                       </div>
 
                       {/* right */}
-                      {props.login ? (
-                        <div id="div2">
-                          {data[1].numberofitems > 0 ? (
-                            <a
-                              style={{ cursor: 'pointer' }}
-                              className="prd-btn"
-                              onClick={() => addCart(data[0])}
-                            >
-                              <h6 className="add-to">add to cart</h6>
-                            </a>
-                          ) : (
-                            <p className="out">OUT OF STOCK</p>
-                          )}
-                        </div>
-                      ) : null}
+
+                      <div id="div2">
+                        {data[1].numberofitems > 0 ? (
+                          <a
+                            style={{ cursor: 'pointer' }}
+                            className="prd-btn"
+                            onClick={() =>
+                              props.login
+                                ? addCart(data[0])
+                                : history.push('/login')
+                            }
+                          >
+                            <h6 className="add-to">add to cart</h6>
+                          </a>
+                        ) : (
+                          <p className="out">OUT OF STOCK</p>
+                        )}
+                      </div>
                     </div>
                   </div>
                 )
@@ -359,7 +362,7 @@ function Products(props) {
                       <div
                         className="f-img-container"
                         onClick={() =>
-                          (window.location.href = '/products?id=' + data[0])
+                          (window.location.href = '/menu?id=' + data[0])
                         }
                       >
                         <div className="f-img">
@@ -433,19 +436,21 @@ function Products(props) {
                         </div>
                         <br />
                         <div className="btn-price">
-                          {props.login ? (
-                            data[1].numberofitems > 0 ? (
-                              <a
-                                href={void 0}
-                                className="p-buy-btn"
-                                onClick={() => addCart(data[0])}
-                              >
-                                ADD TO CART
-                              </a>
-                            ) : (
-                              <p className="out"> OUT OF STOCK</p>
-                            )
-                          ) : null}
+                          {data[1].numberofitems > 0 ? (
+                            <a
+                              href={void 0}
+                              className="p-buy-btn"
+                              onClick={() =>
+                                props.login
+                                  ? addCart(data[0])
+                                  : history.push('/login')
+                              }
+                            >
+                              ADD TO CART
+                            </a>
+                          ) : (
+                            <p className="out"> OUT OF STOCK</p>
+                          )}
                         </div>
                       </div>
                     </div>

@@ -37,7 +37,7 @@ function AboutUs() {
               </p>
               <div className="btn1">
                 <Link to="/contactus">
-                  <div className="ab-btn btn-style-one">Contact Us</div>
+                  <div className="about-btn">Contact Us</div>
                 </Link>
               </div>
             </td>

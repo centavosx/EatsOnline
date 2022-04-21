@@ -74,7 +74,7 @@ const Recommended = (props) => {
 
                   <div className="reco-img-container">
                     <div className="reco-img">
-                      <a href={'/products?id=' + data[0]}>
+                      <a href={'/menu?id=' + data[0]}>
                         <img
                           src={data[1].link}
                           className="reco-img-front"

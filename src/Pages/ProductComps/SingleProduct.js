@@ -4,13 +4,14 @@ import '../../CSS/SingleProduct.css'
 import { decryptJSON, encryptJSON } from '../EncryptionDecryption'
 import Reviews from './Reviews'
 import Recommended from './Recommended'
+import { useHistory } from 'react-router-dom'
 
 const SingleProduct = (props) => {
   const [data, setData] = useState({})
   const [idParam, setParams] = useState(
     new URLSearchParams(window.location.search).get('id')
   )
-
+  const history = useHistory()
   const [qty, setQty] = useState(1)
   const [message, setMessage] = useState({ added: false, message: '' })
   const [checkB, setCheckB] = useState(false)
@@ -95,11 +96,12 @@ const SingleProduct = (props) => {
                 className="ss-btn"
                 style={{ cursor: 'pointer' }}
                 href={void 0}
-                onClick={() => (window.location.href = '/products')}
+                onClick={() => (window.location.href = '/menu')}
               >
                 BACK
               </a>
             </div>
+            <br />
             {/* </div> */}
             <div className="col-lg-5 col-sm-10 col-xs-12">
               <div className="product-right-slick">
@@ -199,7 +201,7 @@ const SingleProduct = (props) => {
                   <h6 className="product-title">product details</h6>
                   <p>{data.description}</p>
                 </div>
-                <div className="product-description border-product">
+                <div className="border-product">
                   <h6 className="product-title">quantity</h6>
                   <div className="qty-box">
                     <button
@@ -228,21 +230,24 @@ const SingleProduct = (props) => {
                     </button>
                   </div>
                   <div>{message.message}</div>
-                  {props.login ? (
-                    <div id="single-add">
-                      {data.numberofitems ? (
-                        <a
-                          style={{ cursor: 'pointer' }}
-                          className="single-add-btn"
-                          onClick={() => addCart(data[0])}
-                        >
-                          <h6 className="single-add-to">add to cart</h6>
-                        </a>
-                      ) : (
-                        <p className="out"> OUT OF STOCK</p>
-                      )}
-                    </div>
-                  ) : null}
+                  <br />
+                  <div id="single-add">
+                    {data.numberofitems ? (
+                      <a
+                        style={{ cursor: 'pointer' }}
+                        className="single-add-btn"
+                        onClick={() =>
+                          props.login
+                            ? addCart(data[0])
+                            : history.push('/login')
+                        }
+                      >
+                        <span style={{ color: 'white' }}>Add to cart</span>
+                      </a>
+                    ) : (
+                      <span className="out"> OUT OF STOCK</span>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>

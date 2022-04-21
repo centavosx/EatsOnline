@@ -37,7 +37,7 @@ function Category(props) {
             <li
               className="shop"
               onClick={() => {
-                window.location.replace(`/products?search=type&value=${''}`)
+                window.location.replace(`/menu?search=type&value=${''}`)
               }}
             >
               <a href={void 0}>All</a>
@@ -47,7 +47,7 @@ function Category(props) {
                 className="shop"
                 key={index}
                 onClick={() => {
-                  window.location.replace(`/products?search=type&value=${data}`)
+                  window.location.replace(`/menu?search=type&value=${data}`)
                 }}
                 style={{ cursor: 'pointer' }}
               >

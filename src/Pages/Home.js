@@ -49,7 +49,7 @@ const Home = (props) => {
     <main>
       <Carousel />
       <Products
-        max={10}
+        max={7}
         featured={true}
         sortwhat={'totalsold'}
         value={[]}

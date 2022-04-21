@@ -53,6 +53,7 @@ const Transactions = (props) => {
       <div className="p-title">
         {props.transaction ? 'PURCHASE HISTORY' : 'ADVANCE ORDER'}
       </div>
+      <br />
       <div className="tableFixHead tbody-scroll">
         <table>
           <thead className="top-head">

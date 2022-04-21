@@ -50,7 +50,7 @@ function Carousel() {
               <p>Your One-Stop Shop for Regional Delicacies.</p>
               <p></p>
               <p>
-                <Link className="btn btn-lg btn-primary" to="/products">
+                <Link className="btn btn-lg btn-primary" to="/menu">
                   SHOP NOW
                 </Link>
               </p>

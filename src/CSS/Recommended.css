@@ -83,3 +83,11 @@
   color: #10505e;
   font-weight: bold;
 }
+@media (min-width: 320px) {
+  .reco-buy-btn {
+    font-size: 10px;
+    padding: 7px 10px;
+    display: flex;
+    justify-content: center;
+  }
+}

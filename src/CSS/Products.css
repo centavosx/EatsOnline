@@ -523,6 +523,10 @@ body {
   .total-sold1 {
     float: right;
     margin-top: 15px;
+    /* padding-top: 10px; */
+  }
+  .star-rating1 label {
+    /* padding-top: 10px; */
   }
   /* .product-container{
         margin-right: 300px !important;
@@ -998,9 +1002,6 @@ input[type='number'] {
   .p-img-container {
     width: auto;
   }
-  .p-img-front {
-    height: 156px;
-  }
   .p-overlay {
     width: 5px;
     height: 5px;
@@ -1024,8 +1025,8 @@ input[type='number'] {
 }
 .p-img-front {
   position: relative;
-  height: 250px;
-  width: 80%;
+  width: 100%;
+  height: auto;
 }
 /* latest products try lang 03/12/22*/
 /* @media(max-width:1440px) {

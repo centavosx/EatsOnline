@@ -234,121 +234,120 @@ function ProfileInfo(props) {
                   >
                     <div className="display-flex">
                       <div className="display-left">
+                        <div className="p-title">
+                          <h5>PROFILE INFORMATION</h5>
+                        </div>
                         <div className="center-div">
-                          <div className="p-title">PROFILE INFORMATION</div>
+                          <div className="user-profile">
+                            <img
+                              src={imgurl !== null ? imgurl : profileData.img}
+                              alt="Profile Image"
+                              style={{
+                                width: '100%',
+                                borderRadius: '50px',
+                                marginBottom: '10px',
+                              }}
+                            />
+                          </div>
+                          <div className="display-flex">
+                            <div className="display-left-btn">
+                              <input
+                                type="file"
+                                className="form-control"
+                                style={{ width: '80%', height: '35px' }}
+                                onChange={(e) => filechange(e)}
+                                accept="image/*"
+                              />
+                            </div>
+
+                            <div className="display-right-btn">
+                              {!loading ? (
+                                <button
+                                  className="img-save"
+                                  onClick={(e) => uploadPIC(e)}
+                                >
+                                  Save
+                                </button>
+                              ) : (
+                                <p>Uploading...</p>
+                              )}
+                            </div>
+                          </div>
                         </div>
                       </div>
                       <div className="display-right">
-                        <div className="user-profile">
-                          <img
-                            src={imgurl !== null ? imgurl : profileData.img}
-                            alt="Profile Image"
-                            style={{
-                              width: '100%',
-                              borderRadius: '20px',
-                              marginBottom: '10px',
-                            }}
+                        <div className="mt-2">
+                          <br />
+                          <label className="labels">Name</label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            placeholder={profileData.name}
+                            value={name}
+                            style={{ width: '100%' }}
+                            onChange={(e) => setName(e.target.value)}
                           />
-                        </div>
-                        <div className="display-flex">
-                          <div className="display-left-btn">
-                            <input
-                              type="file"
-                              className="form-control"
-                              style={{ width: '80%', height: '35px' }}
-                              onChange={(e) => filechange(e)}
-                              accept="image/*"
-                            />
-                          </div>
+                          <label className="labels">Email</label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            style={{ width: '100%' }}
+                            placeholder={profileData.email}
+                          />
+                          <label className="labels">Phone Number</label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            placeholder={profileData.phoneNumber}
+                            value={phoneNumber}
+                            style={{ width: '100%' }}
+                            onChange={(e) => setPhoneNumber(e.target.value)}
+                          />
 
-                          <div className="display-right-btn">
-                            {!loading ? (
-                              <button
-                                className="Add-add"
-                                onClick={(e) => uploadPIC(e)}
-                              >
-                                Save
-                              </button>
-                            ) : (
-                              <p>Uploading...</p>
-                            )}
-                          </div>
+                          {!profileData.guest ? (
+                            <>
+                              <h4>
+                                {' '}
+                                &nbsp; &nbsp;
+                                <br />
+                                Change pass
+                              </h4>
+                              <label className="labels">Password</label>
+                              <input
+                                type="password"
+                                className="form-control"
+                                placeholder={profileData.password}
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                              />
+                              {password.length > 0 ? (
+                                <>
+                                  <label className="labels">
+                                    Confirm Password
+                                  </label>
+                                  <input
+                                    type="password"
+                                    className="form-control"
+                                    placeholder={profileData.confirmPassword}
+                                    value={confirmPassword}
+                                    onChange={(e) => setConfirm(e.target.value)}
+                                  />
+                                </>
+                              ) : null}
+                            </>
+                          ) : null}
+                          <Address
+                            setProfileData={(val) => setProfileData(val)}
+                            addresses={profileData.addresses}
+                          />
                         </div>
                       </div>
                     </div>
 
                     <div className="p-3">
                       <div className="display-flex">
-                        <div className="display-left-div">
-                          <div className="row mt-2">
-                            <label className="labels">Name</label>
-                            <input
-                              type="text"
-                              className="form-control"
-                              placeholder={profileData.name}
-                              value={name}
-                              style={{ width: '100%' }}
-                              onChange={(e) => setName(e.target.value)}
-                            />
-                            <label className="labels">Email</label>
-                            <input
-                              type="text"
-                              className="form-control"
-                              style={{ width: '100%' }}
-                              placeholder={profileData.email}
-                            />
-                            <label className="labels">Phone Number</label>
-                            <input
-                              type="text"
-                              className="form-control"
-                              placeholder={profileData.phoneNumber}
-                              value={phoneNumber}
-                              style={{ width: '100%' }}
-                              onChange={(e) => setPhoneNumber(e.target.value)}
-                            />
-
-                            {!profileData.guest ? (
-                              <>
-                                <h4>
-                                  {' '}
-                                  &nbsp; &nbsp;
-                                  <br />
-                                  Change pass
-                                </h4>
-                                <label className="labels">Password</label>
-                                <input
-                                  type="password"
-                                  className="form-control"
-                                  placeholder={profileData.password}
-                                  value={password}
-                                  onChange={(e) => setPassword(e.target.value)}
-                                />
-                                {password.length > 0 ? (
-                                  <>
-                                    <label className="labels">
-                                      Confirm Password
-                                    </label>
-                                    <input
-                                      type="password"
-                                      className="form-control"
-                                      placeholder={profileData.confirmPassword}
-                                      value={confirmPassword}
-                                      onChange={(e) =>
-                                        setConfirm(e.target.value)
-                                      }
-                                    />
-                                  </>
-                                ) : null}
-                              </>
-                            ) : null}
-                          </div>
-                        </div>
-                        <div className="display-right-div">
-                          <Address
-                            setProfileData={(val) => setProfileData(val)}
-                            addresses={profileData.addresses}
-                          />
-                        </div>
+                        <div className="display-left-div"></div>
+                        <div className="display-right-div"></div>
                       </div>
                       <div id="col">
                         {checkP() || checkName() || checkNumber() ? (
