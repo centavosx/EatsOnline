@@ -11,7 +11,7 @@ const Menu = (props) => {
   const [values, setValues] = useState([])
   const [params, setParams] = useState(null)
   const [search, setSearch] = useState(null)
-  const [loading, setLoading] = useState(false)
+
   const [login, setLoggedin] = useState(false)
   const [data, setData] = useState({})
   React.useEffect(() => {
@@ -69,7 +69,7 @@ const Menu = (props) => {
   return (
     <main>
       <Carousel />
-      <Category setValues={setValues} setLoading={setLoading} />
+      <Category setValues={setValues} />
       <div style={{ width: '90%', margin: 'auto' }}>
         {params !== null ? (
           <SingleProduct login={login} data={data} />
@@ -78,8 +78,6 @@ const Menu = (props) => {
             featured={false}
             sortwhat={'totalsold'}
             value={values}
-            setLoading={setLoading}
-            loading={loading}
             search={search}
             setValues={setValues}
             login={login}

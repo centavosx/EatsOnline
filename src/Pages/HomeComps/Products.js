@@ -11,9 +11,8 @@ function Products(props) {
   const [message, setMessage] = useState({ added: false, message: '' })
   const [key, setKey] = useState('')
   const history = useHistory()
-  const [curr, setCurr] = useState(0)
+  const [loading, setLoading] = useState(true)
   const search = async (value, what) => {
-    props.setLoading(true)
     const resp = await axios.get(
       process.env.REACT_APP_APIURL +
         `search?data=${JSON.stringify(
@@ -33,7 +32,7 @@ function Products(props) {
         }
         setItemNum(val)
         setProducts(resp.data.data)
-        props.setLoading(false)
+        setLoading(false)
       }
     }
   }
@@ -49,7 +48,6 @@ function Products(props) {
     }
   }, [products])
   React.useEffect(async () => {
-    if (!props.featured) props.setLoading(true)
     if (props.search.length > 0 && !props.featured) {
       await search(props.search[1], props.search[0])
     } else {
@@ -75,7 +73,7 @@ function Products(props) {
         }
         setItemNum(val)
         setProducts(resp.data.data)
-        if (!props.featured) props.setLoading(false)
+        setLoading(false)
       }
     }
   }, [])
@@ -88,7 +86,6 @@ function Products(props) {
       }
       setItemNum(val)
       setProducts(props.value)
-      if (!props.featured) props.setLoading(false)
     }
   }, [props.value])
   const addCart = (id) => {
@@ -148,7 +145,7 @@ function Products(props) {
   //   c
   // }
   if (!props.featured) {
-    if (props.loading) {
+    if (loading) {
       return (
         <div
           className="product-container"
