@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import '../../CSS/SingleProduct.css'
 import { decryptJSON, encryptJSON } from '../EncryptionDecryption'
 import Reviews from './Reviews'
@@ -11,6 +11,7 @@ const SingleProduct = (props) => {
   const [idParam, setParams] = useState(
     new URLSearchParams(window.location.search).get('id')
   )
+  const ref = useRef()
   const history = useHistory()
   const [qty, setQty] = useState(1)
   const [message, setMessage] = useState({ added: false, message: '' })
@@ -24,7 +25,6 @@ const SingleProduct = (props) => {
           })
         )}`
     )
-    console.log('hello')
     resp.data = decryptJSON(resp.data.data)
     if (!resp.data.error) {
       setData(resp.data.data)
@@ -47,6 +47,7 @@ const SingleProduct = (props) => {
     }
   }, [data])
   React.useEffect(() => {
+    ref.current.scrollIntoView({ behavior: 'smooth' })
     let param = new URLSearchParams(window.location.search).get('id')
     if (param !== null) {
       setParams(param.replaceAll(' ', '+'))
@@ -86,7 +87,7 @@ const SingleProduct = (props) => {
     }
   }
   return (
-    <section className="single-sec">
+    <section className="single-sec" ref={ref}>
       <div className="collection-wrapper">
         <div className="Single-container">
           <div className="row">

@@ -1,6 +1,6 @@
 import '../../CSS/home.css'
 import '../../CSS/Products.css'
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import axios from 'axios'
 import { useHistory } from 'react-router-dom'
 import { decryptJSON, encryptJSON } from '../EncryptionDecryption'
@@ -12,6 +12,7 @@ function Products(props) {
   const [key, setKey] = useState('')
   const history = useHistory()
   const [loading, setLoading] = useState(true)
+  const ref = useRef()
   const search = async (value, what) => {
     const resp = await axios.get(
       process.env.REACT_APP_APIURL +
@@ -23,6 +24,7 @@ function Products(props) {
           })
         )}`
     )
+
     resp.data = decryptJSON(resp.data.data)
     if (!resp.data.error) {
       if (resp.data.search) {
@@ -48,6 +50,7 @@ function Products(props) {
     }
   }, [products])
   React.useEffect(async () => {
+    if (!props.featured) ref.current.scrollIntoView({ behavior: 'smooth' })
     if (props.search.length > 0 && !props.featured) {
       await search(props.search[1], props.search[0])
     } else {
@@ -148,6 +151,7 @@ function Products(props) {
     if (loading) {
       return (
         <div
+          ref={ref}
           className="product-container"
           style={{
             height: '100%',
@@ -161,7 +165,7 @@ function Products(props) {
       )
     } else {
       return (
-        <section className="p-div-forbg-clr">
+        <section className="p-div-forbg-clr" ref={ref}>
           {products.length ? (
             <div className="product-container">
               {products.map((data, index) => {

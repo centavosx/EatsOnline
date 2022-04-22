@@ -15,7 +15,7 @@ const Search = (props) => {
         onKeyDown={(e) =>
           e.key === 'Enter'
             ? window.location.replace(
-                `/products?search=title&value=${e.target.value}`
+                `/menu?search=title&value=${e.target.value}`
               )
             : null
         }

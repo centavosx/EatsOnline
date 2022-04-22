@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import Address from './Address'
 import { decryptJSON, encryptJSON } from '../EncryptionDecryption'
 import '../../CSS/Profileinfo.css'
@@ -13,6 +13,7 @@ function ProfileInfo(props) {
   const [image, setImage] = useState(null)
   const [imgurl, setImgurl] = useState(null)
   const [loading, setLoading] = useState(false)
+  const ref = useRef()
   const [profileData, setProfileData] = useState({
     name: '',
     phoneNumber: '',
@@ -25,6 +26,7 @@ function ProfileInfo(props) {
   const [show, setShow] = useState([true, false, false, false])
 
   React.useEffect(async () => {
+    ref.current.scrollIntoView({ behavior: 'smooth' })
     const response = await axios.get(
       process.env.REACT_APP_APIURL +
         `profileData?data=${JSON.stringify(
@@ -160,7 +162,7 @@ function ProfileInfo(props) {
   }
 
   return (
-    <div>
+    <div ref={ref}>
       {/* // <!-- Demo header--> */}
       <section className="profile-section">
         <h1 className="text-center">MY ACCOUNT</h1>

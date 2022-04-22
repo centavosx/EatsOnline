@@ -39,9 +39,9 @@ nav {
   /* font-size: 1.2rem; */
   color: #cefbf5;
 }
-.menu a:hover {
+.menu a:visited {
   color: #f2f36b;
-  transition: all ease 0.3s;
+  /* transition: all ease 0.3s; */
 }
 
 /* new heading */
@@ -110,7 +110,7 @@ h3 .heading :after {
 .shop {
   color: #fff;
 }
-.shop:focus {
+.shop:visited {
   color: #f2f36b;
 }
 

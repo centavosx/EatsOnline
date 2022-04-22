@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import '../../CSS/CartConfirmation.css'
 import { decrypt, decryptJSON, encryptJSON } from '../EncryptionDecryption'
 import socket from '../../socket'
@@ -13,7 +13,9 @@ const Checkout = (props) => {
   const [gcash, setGcash] = useState({})
   const [bank, setBank] = useState({})
   const [output, setOutput] = useState({})
+  const ref = useRef()
   React.useEffect(() => {
+    ref.current.scrollIntoView({ behavior: 'smooth' })
     setOutput(props.output)
     socket.emit('qrcodes')
     socket.on('gcash', (data) => {
@@ -111,7 +113,7 @@ const Checkout = (props) => {
   }
 
   return Object.keys(output).length > 0 ? (
-    <div className="confirm-wrapper">
+    <div className="confirm-wrapper" ref={ref}>
       <div id="three">
         <img
           className="logo"
@@ -297,6 +299,8 @@ const Checkout = (props) => {
         ) : null}
       </div>
     </div>
-  ) : null
+  ) : (
+    <div ref={ref}></div>
+  )
 }
 export default Checkout

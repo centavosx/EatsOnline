@@ -1,5 +1,5 @@
 import '../../CSS/ContactUs.css'
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import axios from 'axios'
 import { decryptJSON, encryptJSON } from '../EncryptionDecryption'
 
@@ -10,6 +10,10 @@ function ContactUs() {
   const [message, setMessage] = useState('')
   const [response, setResponse] = useState('')
   const [loading, setLoading] = useState(false)
+  const ref = useRef()
+  React.useEffect(() => {
+    ref.current.scrollIntoView({ behavior: 'smooth' })
+  }, [])
   const submit = async () => {
     setLoading(true)
     try {
@@ -29,7 +33,7 @@ function ContactUs() {
     setLoading(false)
   }
   return (
-    <section className="profile-section">
+    <section className="profile-section" ref={ref}>
       <h1 className="text-center">CONTACT US</h1>
       <div className="con-container">
         <div className="contact-row">

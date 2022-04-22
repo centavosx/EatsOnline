@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import '../../CSS/CartList.css'
 import { decryptJSON, encryptJSON } from '../EncryptionDecryption'
 import SelectOrder from './SelectOrder'
@@ -14,6 +14,7 @@ const CartList = (props) => {
   const [state, setState] = useState(false)
   const [chA, setChA] = useState(false)
   const [use, setUse] = useState(false)
+  const ref = useRef()
   // modal
   const [openModal, setOpenModal] = useState(false)
 
@@ -29,6 +30,7 @@ const CartList = (props) => {
   const [output, setOutput] = useState(props.output)
 
   React.useEffect(() => {
+    ref.current.scrollIntoView({ behavior: 'smooth' })
     if (!('id' in props.output))
       axios
         .get(
@@ -278,7 +280,7 @@ const CartList = (props) => {
     document.getElementById('allcheck').checked = false
   }
   return (
-    <form action={void 0} className="form">
+    <form action={void 0} className="form" ref={ref}>
       {/* <!-- Steps --> */}
       {props.width.width === '0%' ? (
         <div className="form-step form-step-active">

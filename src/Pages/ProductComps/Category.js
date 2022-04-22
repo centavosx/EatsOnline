@@ -7,10 +7,8 @@ import Search from '../ProductComps/Search.js'
 import { decryptJSON } from '../EncryptionDecryption'
 function Category(props) {
   const [cat, setCat] = useState([])
-  const ref = useRef()
 
   React.useEffect(() => {
-    ref.current.scrollIntoView({ behavior: 'smooth' })
     axios.get(process.env.REACT_APP_APIURL + 'category').then((resp) => {
       resp.data = decryptJSON(resp.data.data)
       setCat(resp.data.data)
@@ -20,7 +18,7 @@ function Category(props) {
   return (
     <nav>
       {/* <!-- heading --> */}
-      <div className="heading" ref={ref}>
+      <div className="heading">
         <h3>MENU</h3>
       </div>
       <nav>
