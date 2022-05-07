@@ -16,6 +16,7 @@ import { encryptJSON, decryptJSON } from './Pages/EncryptionDecryption'
 function App() {
   const [loggedin, setLoggedin] = useState(null)
   const [page, setPage] = useState('')
+
   React.useEffect(async () => {
     try {
       if (
@@ -33,6 +34,7 @@ function App() {
               )}`
           )
           .then((response) => {
+            console.log(response)
             response.data = decryptJSON(response.data.data)
             if (!response.data.error) {
               setLoggedin(response.data.name.length > 0)
@@ -49,7 +51,8 @@ function App() {
     } catch {
       setLoggedin(false)
     }
-  }, [localStorage.getItem('id')])
+  }, [loggedin])
+
   return (
     <div className="App">
       <Router>

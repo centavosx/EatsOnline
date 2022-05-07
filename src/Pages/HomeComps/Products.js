@@ -4,6 +4,7 @@ import React, { useState, useRef } from 'react'
 import axios from 'axios'
 import { useHistory } from 'react-router-dom'
 import { decryptJSON, encryptJSON } from '../EncryptionDecryption'
+
 function Products(props) {
   const [products, setProducts] = useState([])
   const [itemNum, setItemNum] = useState({})
@@ -13,6 +14,7 @@ function Products(props) {
   const history = useHistory()
   const [loading, setLoading] = useState(true)
   const ref = useRef()
+
   const search = async (value, what) => {
     const resp = await axios.get(
       process.env.REACT_APP_APIURL +
@@ -38,6 +40,7 @@ function Products(props) {
       }
     }
   }
+
   React.useEffect(() => {
     if (products.length > 0 && props.featured) {
       const script = document.createElement('script')
@@ -49,6 +52,7 @@ function Products(props) {
       }
     }
   }, [products])
+
   React.useEffect(async () => {
     if (!props.featured) ref.current.scrollIntoView({ behavior: 'smooth' })
     if (props.search.length > 0 && !props.featured) {

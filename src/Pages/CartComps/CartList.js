@@ -352,23 +352,24 @@ const CartList = (props) => {
                           {/* end 2 div */}
                         </div>
                         {/* rating */}
-                        <div className="products-btn">
-                          <div className="menu-star">
-                            <div className="star-rating">
-                              {data[1].comments == 0 ? (
-                                <label htmlFor={'star-1'}>No Ratings</label>
-                              ) : (
-                                showStar(data[1].comments)
-                              )}
+                        <div className="container">
+                          <div className="products-btn">
+                            <div className="menu-star">
+                              <div className="star-rating">
+                                {data[1].comments == 0 ? (
+                                  <label htmlFor={'star-1'}>No Ratings</label>
+                                ) : (
+                                  showStar(data[1].comments)
+                                )}
+                              </div>
+                            </div>
+                            <div className="menu-sold">
+                              <span className="total-sold">
+                                {data[1].totalsold} Sold
+                              </span>
                             </div>
                           </div>
-                          <div className="menu-sold">
-                            <span className="total-sold">
-                              {data[1].totalsold} Sold
-                            </span>
-                          </div>
                         </div>
-
                         <div className="price-buy">
                           {/* quantity adjustment experiment*/}
 

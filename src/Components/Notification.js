@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import '../CSS/Notification.css'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
 import { decryptJSON, encryptJSON } from '../Pages/EncryptionDecryption.js'
 import socket from '../socket'
 const Notification = (props) => {

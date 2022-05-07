@@ -60,6 +60,13 @@ const Header = (props) => {
           />
           &nbsp;Eats Online
         </a>
+        {/* {!name || name === null ? null : name.name.length > 0 ? (
+          <a className="navbar-item">
+            <Notification
+              loggedin={name === null ? false : name.name.length > 0}
+            />
+          </a>
+        ) : null} */}
 
         <button
           className="navbar-toggler"

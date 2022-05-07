@@ -1,12 +1,7 @@
 import React, { useState } from 'react'
 import '../CSS/Goback.css'
 import axios from 'axios'
-import {
-  decrypt,
-  decryptJSON,
-  encrypt,
-  encryptJSON,
-} from '../Pages/EncryptionDecryption.js'
+import { decryptJSON, encryptJSON } from '../Pages/EncryptionDecryption.js'
 import socket from '../socket'
 const ShowChat = (props) => {
   const [chat, setChat] = useState([])
@@ -32,21 +27,19 @@ const ShowChat = (props) => {
     })
   }, [])
 
-  const send = () => {
+  const send = async () => {
     setSending(true)
-    axios
-      .post(
-        process.env.REACT_APP_APIURL + 'chat',
-        encryptJSON({
-          id: localStorage.getItem('id'),
-          message: message,
-        })
-      )
-      .then((response) => {
-        setSending(false)
-        setMessage('')
+    await axios.post(
+      process.env.REACT_APP_APIURL + 'chat',
+      encryptJSON({
+        id: localStorage.getItem('id'),
+        message: message,
       })
+    )
+    setSending(false)
+    setMessage('')
   }
+
   return (
     <div className="messenger_dd">
       <ul className="messenger_ul">

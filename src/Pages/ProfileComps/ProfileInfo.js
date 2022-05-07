@@ -160,7 +160,6 @@ function ProfileInfo(props) {
       setLoading(false)
     }
   }
-
   return (
     <div ref={ref}>
       {/* // <!-- Demo header--> */}
@@ -237,7 +236,7 @@ function ProfileInfo(props) {
                     <div className="display-flex">
                       <div className="display-left">
                         <div className="p-title">
-                          <h5>PROFILE INFORMATION</h5>
+                          <h5>PROFILE INFORMATION </h5>
                         </div>
                         <div className="center-div">
                           <div className="user-profile">

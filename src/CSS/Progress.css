@@ -82,3 +82,11 @@
     color: #f2f36b;
   }
 }
+@media (max-width: 320px) {
+  .progressbar {
+    margin: 2px 5px 24px 5px;
+  }
+  .progress-step::after {
+    font-size: 8px;
+  }
+}

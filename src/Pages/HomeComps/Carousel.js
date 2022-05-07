@@ -1,7 +1,7 @@
 import '../../CSS/carousel.css'
 import { Link } from 'react-router-dom'
 
-function Carousel() {
+function Carousel(props) {
   return (
     <div id="myCarousel" className="carousel slide" data-bs-ride="carousel">
       <div className="carousel-indicators">
