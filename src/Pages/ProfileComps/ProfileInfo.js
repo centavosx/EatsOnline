@@ -318,6 +318,7 @@ function ProfileInfo(props) {
                                 type="password"
                                 className="form-control"
                                 placeholder={profileData.password}
+                                style={{ width: '100%' }}
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                               />
@@ -329,6 +330,7 @@ function ProfileInfo(props) {
                                   <input
                                     type="password"
                                     className="form-control"
+                                    style={{ width: '100%' }}
                                     placeholder={profileData.confirmPassword}
                                     value={confirmPassword}
                                     onChange={(e) => setConfirm(e.target.value)}
