@@ -233,15 +233,21 @@ const SingleProduct = (props) => {
                   <div>{message.message}</div>
                   <br />
                   <div id="single-add">
-                    <a
-                      style={{ cursor: 'pointer' }}
-                      className="single-add-btn"
-                      onClick={() =>
-                        props.login ? addCart(data[0]) : history.push('/login')
-                      }
-                    >
-                      <span style={{ color: 'white' }}>Add to cart</span>
-                    </a>
+                    {data.numberofitems ? (
+                      <a
+                        style={{ cursor: 'pointer' }}
+                        className="single-add-btn"
+                        onClick={() =>
+                          props.login
+                            ? addCart(data[0])
+                            : history.push('/login')
+                        }
+                      >
+                        <span style={{ color: 'white' }}>Add to cart</span>
+                      </a>
+                    ) : (
+                      <span className="out"> OUT OF STOCK</span>
+                    )}
                   </div>
                 </div>
               </div>

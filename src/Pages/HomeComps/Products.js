@@ -309,17 +309,21 @@ function Products(props) {
                       {/* right */}
 
                       <div id="div2">
-                        <a
-                          style={{ cursor: 'pointer' }}
-                          className="prd-btn"
-                          onClick={() =>
-                            props.login
-                              ? addCart(data[0])
-                              : history.push('/login')
-                          }
-                        >
-                          <h6 className="add-to">add to cart</h6>
-                        </a>
+                        {data[1].numberofitems > 0 ? (
+                          <a
+                            style={{ cursor: 'pointer' }}
+                            className="prd-btn"
+                            onClick={() =>
+                              props.login
+                                ? addCart(data[0])
+                                : history.push('/login')
+                            }
+                          >
+                            <h6 className="add-to">add to cart</h6>
+                          </a>
+                        ) : (
+                          <p className="out">OUT OF STOCK</p>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -437,17 +441,21 @@ function Products(props) {
                         </div>
                         <br />
                         <div className="btn-price">
-                          <a
-                            href={void 0}
-                            className="p-buy-btn"
-                            onClick={() =>
-                              props.login
-                                ? addCart(data[0])
-                                : history.push('/login')
-                            }
-                          >
-                            ADD TO CART
-                          </a>
+                          {data[1].numberofitems > 0 ? (
+                            <a
+                              href={void 0}
+                              className="p-buy-btn"
+                              onClick={() =>
+                                props.login
+                                  ? addCart(data[0])
+                                  : history.push('/login')
+                              }
+                            >
+                              ADD TO CART
+                            </a>
+                          ) : (
+                            <p className="out"> OUT OF STOCK</p>
+                          )}
                         </div>
                       </div>
                     </div>
