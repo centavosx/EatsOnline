@@ -13,6 +13,7 @@ const CartList = (props) => {
   const [state, setState] = useState(false)
   const [chA, setChA] = useState(false)
   const [use, setUse] = useState(false)
+  const [itemsToDelete, setItemsToDelete] = useState([])
   const ref = useRef()
 
   const [data, setData] = useState({
@@ -110,9 +111,11 @@ const CartList = (props) => {
     let totalvalue = 0
     let f = {}
     let obj = {}
+    let deleteItems = []
     for (let x of cart) {
       x[1].amount = dataAmt[x[0]]
       if (x[0] in select) {
+        deleteItems.push(x[0])
         totalvalue +=
           'discount' in x[1]
             ? (x[1].price - (x[1].discount * x[1].price) / 100) * dataAmt[x[0]]
@@ -124,6 +127,7 @@ const CartList = (props) => {
     setSelect(f)
     setdataAmt(obj)
     setTotalAmount(totalvalue)
+    setItemsToDelete(deleteItems)
     const timer = setTimeout(async () => {
       sendreq()
     }, 1000)
@@ -173,9 +177,10 @@ const CartList = (props) => {
     }
     let totalvalue = 0
     let count = 0
+    let deleteItems = []
     for (let x of cart) {
       if (x[0] in select) {
-        //
+        deleteItems.push(x[0])
         totalvalue +=
           'discount' in x[1]
             ? (x[1].price - (x[1].discount * x[1].price) / 100) * dataAmt[x[0]]
@@ -189,6 +194,7 @@ const CartList = (props) => {
     } else {
       document.getElementById('allcheck').checked = false
     }
+    setItemsToDelete(deleteItems)
     setSelect(select)
     setTotalAmount(totalvalue)
   }
@@ -198,12 +204,13 @@ const CartList = (props) => {
     let index = 0
     let totalvalue = 0
     let arr = {}
+    let deleteItems = []
     for (let v of inputs) {
       if (v.type === 'checkbox') {
         if (index > 0) {
           v.checked = e.target.checked
           if (v.checked) {
-            //
+            deleteItems.push(cart[index - 1][0])
             arr[cart[index - 1][0]] = cart[index - 1][1]
             totalvalue +=
               'discount' in cart[index - 1][1]
@@ -217,7 +224,7 @@ const CartList = (props) => {
         index += 1
       }
     }
-
+    setItemsToDelete(deleteItems)
     setTotalAmount(totalvalue)
     setSelect(arr)
   }
@@ -264,9 +271,7 @@ const CartList = (props) => {
     else return []
   }
   const deleteItem = async (id) => {
-    let x = []
-    x.push(id)
-    let data = await deleteReq(x)
+    let data = await deleteReq(id)
     let obj = {}
     for (let x of data) {
       obj[x[0]] = x[1].amount
@@ -292,8 +297,20 @@ const CartList = (props) => {
                 onClick={(e) => selectAll(e)}
               />{' '}
               <strong className="check1">ALL ITEMS</strong>
+              &nbsp;
+              <button
+                className="cartDel"
+                onClick={(e) => {
+                  e.preventDefault()
+                  deleteItem(itemsToDelete)
+                }}
+              >
+                <i className="fa fa-trash"></i>
+                Delete
+              </button>
             </label>
           </div>
+          <br />
           {/* <!-- <div className="scroll-bg"> --> */}
           <div className="scroll-div" id="style-4">
             <div className="scroll-object">
@@ -404,16 +421,6 @@ const CartList = (props) => {
                                   Quantity:{' '}
                                   <strong>{data[1].numberofitems}</strong>
                                   <br />
-                                  <button
-                                    className="cartDel"
-                                    onClick={(e) => {
-                                      e.preventDefault()
-                                      deleteItem(data[0])
-                                    }}
-                                  >
-                                    <i className="fa fa-trash"></i>
-                                    Delete
-                                  </button>
                                 </span>
                               </div>
                             </div>
