@@ -158,19 +158,27 @@ const Checkout = (props) => {
                 <th>Name</th>
                 <th>Qty</th>
                 <th>Price</th>
+                {props.output.what !== 'transaction' ? <th>Status</th> : null}
               </tr>
             </thead>
             <tbody id="style-4">
               <tr>
-                <td colSpan="3">
+                <td colSpan={props.output.what !== 'transaction' ? '4' : '3'}>
                   <div className="scrollit">
                     <table className="cart-table">
                       {output.items.map((data, index) => {
                         return (
-                          <tr className="cart-tr" key={index}>
+                          <tr
+                            className="cart-tr"
+                            key={index}
+                            style={{ width: '100%' }}
+                          >
                             <td data-label="Name">{data[1].title}</td>
                             <td data-label="Qty">{data[1].amount}</td>
                             <td data-label="Price">{data[1].price}</td>
+                            {props.output.what !== 'transaction' ? (
+                              <td data-label="Status">{data[1].status}</td>
+                            ) : null}
                           </tr>
                         )
                       })}

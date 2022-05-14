@@ -243,6 +243,8 @@ const CartList = (props) => {
               'progress-step progress-step-active',
               'progress-step progress-step-active',
             ])
+          } else {
+            alert(resp.data.message.map((data) => data + '\n'))
           }
         }
       })

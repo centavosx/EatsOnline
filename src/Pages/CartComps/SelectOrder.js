@@ -83,6 +83,7 @@ const SelectOrder = (props) => {
   }
 
   const checkToContinue = async () => {
+    if (props.chA) return true
     let obj = {}
     for (let x of data) {
       obj[decrypt(x[1].key)] = x[1].amount

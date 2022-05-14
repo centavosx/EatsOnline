@@ -60,7 +60,7 @@ function Products(props) {
 
       setLoading(false)
     }
-    console.log('h')
+
     if (props.featured)
       socket.on('featured', (data) => {
         setDataSent(data)
