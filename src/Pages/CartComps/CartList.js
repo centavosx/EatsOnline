@@ -396,9 +396,7 @@ const CartList = (props) => {
                               <button
                                 className="qtyplus"
                                 onClick={(e) =>
-                                  data[1].numberofitems > dataAmt[data[0]]
-                                    ? update(e, data[0], dataAmt[data[0]] + 1)
-                                    : e.preventDefault()
+                                  update(e, data[0], dataAmt[data[0]] + 1)
                                 }
                               >
                                 +

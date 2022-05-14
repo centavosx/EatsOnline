@@ -61,10 +61,20 @@ function Products(props) {
     }
     if (props.featured)
       socket.on('featured', (data) => {
+        let val = {}
+        for (let i in data) {
+          val[data[i][0]] = 1
+        }
+        setItemNum(val)
         setProducts(data)
       })
     else
       socket.on('products', (data) => {
+        let val = {}
+        for (let i in data) {
+          val[data[i][0]] = 1
+        }
+        setItemNum(val)
         setProducts(data)
       })
   }, [])
@@ -309,9 +319,7 @@ function Products(props) {
                           <button
                             className="qtyplus"
                             onClick={(e) =>
-                              itemNum[data[0]] < data[1].numberofitems
-                                ? editQty(e, data[0], (itemNum[data[0]] += 1))
-                                : null
+                              editQty(e, data[0], (itemNum[data[0]] += 1))
                             }
                           >
                             +
@@ -322,21 +330,17 @@ function Products(props) {
                       {/* right */}
 
                       <div id="div2">
-                        {data[1].numberofitems > 0 ? (
-                          <a
-                            style={{ cursor: 'pointer' }}
-                            className="prd-btn"
-                            onClick={() =>
-                              props.login
-                                ? addCart(data[0])
-                                : history.push('/login')
-                            }
-                          >
-                            <h6 className="add-to">add to cart</h6>
-                          </a>
-                        ) : (
-                          <p className="out">OUT OF STOCK</p>
-                        )}
+                        <a
+                          style={{ cursor: 'pointer' }}
+                          className="prd-btn"
+                          onClick={() =>
+                            props.login
+                              ? addCart(data[0])
+                              : history.push('/login')
+                          }
+                        >
+                          <h6 className="add-to">add to cart</h6>
+                        </a>
                       </div>
                     </div>
                   </div>
@@ -459,21 +463,17 @@ function Products(props) {
                         </div>
                         <br />
                         <div className="btn-price">
-                          {data[1].numberofitems > 0 ? (
-                            <a
-                              href={void 0}
-                              className="p-buy-btn"
-                              onClick={() =>
-                                props.login
-                                  ? addCart(data[0])
-                                  : history.push('/login')
-                              }
-                            >
-                              ADD TO CART
-                            </a>
-                          ) : (
-                            <p className="out"> OUT OF STOCK</p>
-                          )}
+                          <a
+                            href={void 0}
+                            className="p-buy-btn"
+                            onClick={() =>
+                              props.login
+                                ? addCart(data[0])
+                                : history.push('/login')
+                            }
+                          >
+                            ADD TO CART
+                          </a>
                         </div>
                       </div>
                     </div>
