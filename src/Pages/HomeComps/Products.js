@@ -15,6 +15,7 @@ function Products(props) {
   const history = useHistory()
   const [loading, setLoading] = useState(true)
   const [cartItems, setCartItems] = useState([])
+  const [dataSent, setDataSent] = useState([])
   const ref = useRef()
 
   React.useEffect(() => {
@@ -52,32 +53,38 @@ function Products(props) {
     if (!resp.data.error) {
       let val = {}
       for (let i in resp.data.data) {
-        val[resp.data.data[i][0]] = 1
+        val[decrypt(resp.data.data[i][0])] = 1
       }
       setItemNum(val)
       setProducts(resp.data.data)
 
       setLoading(false)
     }
+    console.log('h')
     if (props.featured)
       socket.on('featured', (data) => {
-        let val = {}
-        for (let i in data) {
-          val[data[i][0]] = 1
-        }
-        setItemNum(val)
-        setProducts(data)
+        setDataSent(data)
       })
     else
       socket.on('products', (data) => {
-        let val = {}
-        for (let i in data) {
-          val[data[i][0]] = 1
-        }
-        setItemNum(val)
-        setProducts(data)
+        setDataSent(data)
       })
   }, [])
+
+  React.useEffect(() => {
+    if (dataSent.length > 0) {
+      let val = Object.keys(itemNum).length > 0 ? { ...itemNum } : {}
+
+      for (let i in dataSent) {
+        val[decrypt(dataSent[i][0])] = itemNum[decrypt(dataSent[i][0])]
+          ? itemNum[decrypt(dataSent[i][0])]
+          : 1
+      }
+      setItemNum(val)
+      setProducts(dataSent)
+      setDataSent([])
+    }
+  }, [dataSent])
 
   React.useEffect(async () => {
     if (props.login) {
@@ -102,7 +109,7 @@ function Products(props) {
     if (!props.featured) {
       let val = {}
       for (let i in props.value) {
-        val[props.value[i][0]] = 1
+        val[decrypt(props.value[i][0])] = 1
       }
       setItemNum(val)
       setProducts(props.value)
@@ -116,7 +123,7 @@ function Products(props) {
           encryptJSON({
             id: localStorage.getItem('id'),
             cartid: id,
-            amount: itemNum[id],
+            amount: itemNum[decrypt(id)],
           })
         )
         .then((response) => {
@@ -132,12 +139,13 @@ function Products(props) {
 
   const editQty = (e, id, x) => {
     e.preventDefault()
+
     if (x < 1) {
-      itemNum[id] = 1
+      itemNum[decrypt(id)] = 1
     } else if (x > 100) {
-      itemNum[id] = 100
+      itemNum[decrypt(id)] = 100
     } else {
-      itemNum[id] = parseInt(x)
+      itemNum[decrypt(id)] = parseInt(x)
     }
 
     state ? setState(false) : setState(true)
@@ -300,7 +308,11 @@ function Products(props) {
                           <button
                             className="qtyminus"
                             onClick={(e) =>
-                              editQty(e, data[0], (itemNum[data[0]] -= 1))
+                              editQty(
+                                e,
+                                data[0],
+                                (itemNum[decrypt(data[0])] -= 1)
+                              )
                             }
                           >
                             -
@@ -310,16 +322,21 @@ function Products(props) {
                             className="qty-int"
                             readOnly={true}
                             name="qty"
-                            value={itemNum[data[0]]}
+                            value={itemNum[decrypt(data[0])]}
                             onChange={(e) =>
                               editQty(e, data[0], parseInt(e.target.value))
                             }
                           />
+                          {/* {console.log(data[0])} */}
                           {/* value={"+"} */}
                           <button
                             className="qtyplus"
                             onClick={(e) =>
-                              editQty(e, data[0], (itemNum[data[0]] += 1))
+                              editQty(
+                                e,
+                                data[0],
+                                (itemNum[decrypt(data[0])] += 1)
+                              )
                             }
                           >
                             +

@@ -7,6 +7,8 @@ import socket from '../../socket'
 const SelectOrder = (props) => {
   const [data, setData] = useState([])
   const [address, setAddress] = useState([])
+  const [orderavail, setOrderAvail] = useState(true)
+  const [message, setMessage] = useState(false)
   const history = useHistory()
   React.useEffect(() => {
     let x = []
@@ -17,8 +19,16 @@ const SelectOrder = (props) => {
     }
     props.t_data.items = x
     props.t_data.totalprice = props.totalamount
+
     props.setData(props.t_data)
     props.setUse(!props.use)
+    if (checkItem(x)) {
+      setOrderAvail(true)
+      props.setChA(false)
+    } else {
+      props.setChA(true)
+      setOrderAvail(false)
+    }
     setData(x)
   }, [props.data, props.totalamount, props.t_data])
   React.useEffect(() => {
@@ -63,6 +73,27 @@ const SelectOrder = (props) => {
     props.setUse(!props.use)
   }
 
+  const checkItem = (v) => {
+    let x = true
+
+    v.forEach((data) => {
+      if (!(data[1].numberofitems >= data[1].amount)) x = false
+    })
+    return x
+  }
+
+  const checkToContinue = async () => {
+    let obj = {}
+    for (let x of data) {
+      obj[decrypt(x[1].key)] = x[1].amount
+    }
+    const resp = await axios.put(
+      process.env.REACT_APP_APIURL + 'checkCartItems',
+      encryptJSON(obj)
+    )
+    setMessage(!resp.data.data)
+    return resp.data.data
+  }
   return (
     <div className="order-container">
       <div className="wrapper">
@@ -99,23 +130,30 @@ const SelectOrder = (props) => {
               <span style={{ color: 'red' }}>*</span>Order Method
             </h4>
             <div className="my-1">
-              <div className="order-now">
-                <input
-                  id="order"
-                  name="aoao"
-                  type="radio"
-                  className="form-check-input"
-                  checked={!props.chA}
-                  onClick={() => {
-                    props.setChA(false)
-                  }}
-                />
-                <label className="on-btn" htmlFor="order">
-                  Order Now
-                </label>
-              </div>
-
-              <div className="advance-order">
+              {orderavail ? (
+                <div className="order-now">
+                  <input
+                    id="order"
+                    name="aoao"
+                    type="radio"
+                    className="form-check-input"
+                    checked={!props.chA}
+                    onClick={() => {
+                      props.setChA(false)
+                    }}
+                  />
+                  <label className="on-btn" htmlFor="order">
+                    Order Now
+                  </label>
+                </div>
+              ) : null}
+              {!orderavail ? (
+                <p style={{ color: 'red' }}>
+                  Some products are only available for advance order, reduce or
+                  remove the item to order now
+                </p>
+              ) : null}
+              <div className={!orderavail ? 'order-now' : 'advance-order'}>
                 <input
                   id="advorder"
                   name="aoao"
@@ -130,6 +168,7 @@ const SelectOrder = (props) => {
                   Advance Order
                 </label>
               </div>
+              <br />
             </div>
             <hr className="my-2" />
             <h4 className="order-m">Message</h4>
@@ -285,6 +324,15 @@ const SelectOrder = (props) => {
                   Please fill up all the requirements to continue
                 </span>
               )}
+              <br />
+              {message ? (
+                <span
+                  style={{ color: 'red', textAlign: 'end', fontSize: '14px' }}
+                >
+                  Some products are only available for advance order, reduce or
+                  remove the item to order now
+                </span>
+              ) : null}
             </p>
           </div>
 
@@ -294,7 +342,7 @@ const SelectOrder = (props) => {
               href={void 0}
               className="prev-btn"
               style={{ cursor: 'pointer' }}
-              onClick={() => {
+              onClick={async () => {
                 props.setWidth({ width: '0%' })
                 props.setProgress([
                   'progress-step progress-step-active',
@@ -314,14 +362,16 @@ const SelectOrder = (props) => {
               <a
                 href={void 0}
                 className="cart-order-btn"
-                onClick={() => {
-                  props.setWidth({ width: '66.66%' })
-                  props.setProgress([
-                    'progress-step progress-step-active',
-                    'progress-step progress-step-active',
-                    'progress-step progress-step-active',
-                    'progress-step',
-                  ])
+                onClick={async () => {
+                  if (await checkToContinue()) {
+                    props.setWidth({ width: '66.66%' })
+                    props.setProgress([
+                      'progress-step progress-step-active',
+                      'progress-step progress-step-active',
+                      'progress-step progress-step-active',
+                      'progress-step',
+                    ])
+                  }
                 }}
               >
                 NEXT
@@ -331,7 +381,7 @@ const SelectOrder = (props) => {
                 <a
                   href={void 0}
                   className="cart-order-btn"
-                  style={{ backgroundColor: '#10505e' }}
+                  style={{ backgroundColor: 'lightgrey' }}
                 >
                   NEXT
                 </a>

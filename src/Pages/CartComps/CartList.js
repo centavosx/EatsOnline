@@ -112,7 +112,7 @@ const CartList = (props) => {
     let obj = {}
     for (let x of cart) {
       x[1].amount = dataAmt[x[0]]
-      if (x[0] in select && x[1].numberofitems > 0) {
+      if (x[0] in select) {
         totalvalue +=
           'discount' in x[1]
             ? (x[1].price - (x[1].discount * x[1].price) / 100) * dataAmt[x[0]]
@@ -154,28 +154,27 @@ const CartList = (props) => {
   }
 
   const check = (e, id, data) => {
-    if (data.numberofitems > 0)
-      if (e.target.checked) {
-        select[id] = data
-        setTotalAmount(
-          totalamount +
-            ('discount' in data
-              ? data.price - (data.discount * data.price) / 100
-              : data.price * data.amount)
-        )
-      } else {
-        delete select[id]
-        setTotalAmount(
-          totalamount -
-            ('discount' in data
-              ? data.price - (data.discount * data.price) / 100
-              : data.price * data.amount)
-        )
-      }
+    if (e.target.checked) {
+      select[id] = data
+      setTotalAmount(
+        totalamount +
+          ('discount' in data
+            ? data.price - (data.discount * data.price) / 100
+            : data.price * data.amount)
+      )
+    } else {
+      delete select[id]
+      setTotalAmount(
+        totalamount -
+          ('discount' in data
+            ? data.price - (data.discount * data.price) / 100
+            : data.price * data.amount)
+      )
+    }
     let totalvalue = 0
     let count = 0
     for (let x of cart) {
-      if (x[0] in select && x[1].numberofitems > 0) {
+      if (x[0] in select) {
         //
         totalvalue +=
           'discount' in x[1]
@@ -203,7 +202,7 @@ const CartList = (props) => {
       if (v.type === 'checkbox') {
         if (index > 0) {
           v.checked = e.target.checked
-          if (v.checked && cart[index - 1][1].numberofitems > 0) {
+          if (v.checked) {
             //
             arr[cart[index - 1][0]] = cart[index - 1][1]
             totalvalue +=
@@ -307,11 +306,6 @@ const CartList = (props) => {
                           onClick={(e) => check(e, data[0], data[1])}
                           checked={data[0] in select}
                         />
-                        {data[1].numberofitems < 1 ? (
-                          <p style={{ marginLeft: '5px' }}>
-                            This item is out of stock{' '}
-                          </p>
-                        ) : null}
                       </div>
                       {/* <!-- img container --> */}
                       <div className="c-img-container">
@@ -385,11 +379,7 @@ const CartList = (props) => {
                                 type="number"
                                 className="qty-int"
                                 name="qty"
-                                value={
-                                  data[1].numberofitems > 0
-                                    ? dataAmt[data[0]]
-                                    : 0
-                                }
+                                value={dataAmt[data[0]]}
                                 readOnly={true}
                               />
                               {/* value={"+"} */}
