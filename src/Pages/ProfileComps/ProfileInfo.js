@@ -299,7 +299,9 @@ function ProfileInfo(props) {
                           <input
                             type="text"
                             className="form-control"
-                            placeholder={profileData.phoneNumber}
+                            placeholder={
+                              profileData.phoneNumber ?? 'Enter Phone Number'
+                            }
                             value={phoneNumber}
                             style={{ width: '100%' }}
                             onChange={(e) => setPhoneNumber(e.target.value)}

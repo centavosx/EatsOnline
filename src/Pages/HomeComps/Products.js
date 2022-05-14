@@ -3,7 +3,8 @@ import '../../CSS/Products.css'
 import React, { useState, useRef } from 'react'
 import axios from 'axios'
 import { useHistory } from 'react-router-dom'
-import { decryptJSON, encryptJSON } from '../EncryptionDecryption'
+import { decrypt, decryptJSON, encryptJSON } from '../EncryptionDecryption'
+import socket from '../../socket'
 
 function Products(props) {
   const [products, setProducts] = useState([])
@@ -13,33 +14,8 @@ function Products(props) {
   const [key, setKey] = useState('')
   const history = useHistory()
   const [loading, setLoading] = useState(true)
+  const [cartItems, setCartItems] = useState([])
   const ref = useRef()
-
-  const search = async (value, what) => {
-    const resp = await axios.get(
-      process.env.REACT_APP_APIURL +
-        `search?data=${JSON.stringify(
-          encryptJSON({
-            reference: 'products',
-            data: what,
-            value: value,
-          })
-        )}`
-    )
-
-    resp.data = decryptJSON(resp.data.data)
-    if (!resp.data.error) {
-      if (resp.data.search) {
-        let val = {}
-        for (let i in resp.data.data) {
-          val[resp.data.data[i][0]] = 1
-        }
-        setItemNum(val)
-        setProducts(resp.data.data)
-        setLoading(false)
-      }
-    }
-  }
 
   React.useEffect(() => {
     if (products.length > 0 && props.featured) {
@@ -55,35 +31,62 @@ function Products(props) {
 
   React.useEffect(async () => {
     if (!props.featured) ref.current.scrollIntoView({ behavior: 'smooth' })
-    if (props.search.length > 0 && !props.featured) {
-      await search(props.search[1], props.search[0])
-    } else {
-      const resp = await axios.get(
+
+    const resp = await axios.get(
+      process.env.REACT_APP_APIURL +
+        `getData?data=${JSON.stringify(
+          encryptJSON({
+            reference: 'products',
+            sortwhat: props.sortwhat,
+            index: props.featured
+              ? [0, props.max]
+              : props.index !== null
+              ? props.index
+              : null,
+          })
+        )}`
+    )
+
+    resp.data = decryptJSON(resp.data.data)
+
+    if (!resp.data.error) {
+      let val = {}
+      for (let i in resp.data.data) {
+        val[resp.data.data[i][0]] = 1
+      }
+      setItemNum(val)
+      setProducts(resp.data.data)
+
+      setLoading(false)
+    }
+    if (props.featured)
+      socket.on('featured', (data) => {
+        setProducts(data)
+      })
+    else
+      socket.on('products', (data) => {
+        setProducts(data)
+      })
+  }, [])
+
+  React.useEffect(async () => {
+    if (props.login) {
+      const resp2 = await axios.get(
         process.env.REACT_APP_APIURL +
-          `getData?data=${JSON.stringify(
+          `cartItem?data=${JSON.stringify(
             encryptJSON({
-              reference: 'products',
-              sortwhat: props.sortwhat,
-              index: props.featured
-                ? [0, props.max]
-                : props.index !== null
-                ? props.index
-                : null,
+              id: localStorage.getItem('id'),
             })
           )}`
       )
-      resp.data = decryptJSON(resp.data.data)
-      if (!resp.data.error) {
-        let val = {}
-        for (let i in resp.data.data) {
-          val[resp.data.data[i][0]] = 1
-        }
-        setItemNum(val)
-        setProducts(resp.data.data)
-        setLoading(false)
-      }
+      resp2.data = decryptJSON(resp2.data.data)
+      setCartItems(resp2.data.data)
+      socket.emit(`userinfocart`, localStorage.getItem('id'))
+      socket.on(`cart/${decrypt(localStorage.getItem('id'))}`, (data) => {
+        setCartItems(data)
+      })
     }
-  }, [])
+  }, [props.login])
 
   React.useEffect(() => {
     if (!props.featured) {
@@ -173,13 +176,17 @@ function Products(props) {
           {products.length ? (
             <div className="product-container">
               {products.map((data, index) => {
-                return (
+                return data[1][props.type]
+                  .toLowerCase()
+                  .includes(props.search.toLowerCase()) ||
+                  props.search.length <= 0 ? (
                   <div className="product-box" key={index}>
                     {/* <!-- discount --> */}
                     {data[1].discount > 0 ? (
                       <span className="p-discount">{data[1].discount}%</span>
                     ) : null}
                     {/* <!-- img container --> */}
+
                     <div className="f-img-container">
                       <div className="f-img">
                         <a href={'/menu?id=' + data[0]}>
@@ -203,7 +210,14 @@ function Products(props) {
                     </div>
                     {/* <!-- text --> */}
                     <div className="p-box-text">
+                      {/* {console.log(data[0], cartItems)} */}
                       {/* <!-- title --> */}
+                      {cartItems.includes(decrypt(data[0])) ? (
+                        <span style={{ color: 'red', fontWeight: 'bold' }}>
+                          In cart
+                        </span>
+                      ) : null}
+
                       <a href={void 0} className="product-title">
                         {data[1].title}
                       </a>
@@ -217,7 +231,6 @@ function Products(props) {
                           <span>{data[1].seller}</span>
                         </div>
                       </div>
-
                       <div className="container">
                         <div className="products-btn">
                           <div className="menu-star">
@@ -327,7 +340,7 @@ function Products(props) {
                       </div>
                     </div>
                   </div>
-                )
+                ) : null
               })}
             </div>
           ) : (
@@ -381,6 +394,11 @@ function Products(props) {
                         </div>
                       </div>
                       {/* <!-- text --> */}
+                      {cartItems.includes(decrypt(data[0])) ? (
+                        <span style={{ color: 'red', fontWeight: 'bold' }}>
+                          In cart
+                        </span>
+                      ) : null}
                       <div className="f-box-text">
                         <a href={void 0} className="product-title1">
                           {data[1].title}

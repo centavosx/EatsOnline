@@ -100,16 +100,32 @@ const Header = (props) => {
               </Link>
             </li>
           </ul>
-          {!name || name === null ? null : name.name.length > 0 ? (
-            <li className="navbar-item">
-              <Notification
-                loggedin={name === null ? false : name.name.length > 0}
-              />
-            </li>
+          {!name || name === null ? null : name.name ? (
+            name.name.length > 0 ? (
+              <li className="navbar-item">
+                <Notification
+                  loggedin={name === null ? false : name.name.length > 0}
+                />
+              </li>
+            ) : null
           ) : null}
           <li className="navbar-item">
-            {!name || name === null ? null : name.name.length > 0 ? (
-              <ProfileBtn data={name} />
+            {!name || name === null ? null : name.name ? (
+              name.name.length > 0 ? (
+                <ProfileBtn data={name} />
+              ) : (
+                <button className="btn-login">
+                  <a
+                    className="nav-link"
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => {
+                      history.push('/login')
+                    }}
+                  >
+                    LogIn or Sign Up
+                  </a>
+                </button>
+              )
             ) : (
               <button className="btn-login">
                 <a
@@ -126,7 +142,11 @@ const Header = (props) => {
           </li>
         </div>
       </div>
-      {!name || name === null ? null : name.name.length > 0 ? <Chat /> : null}
+      {!name || name === null ? null : name.name ? (
+        name.name.length > 0 ? (
+          <Chat />
+        ) : null
+      ) : null}
     </nav>
   )
 }

@@ -1,10 +1,11 @@
 import axios from 'axios'
 import React, { useState, useRef } from 'react'
 import '../../CSS/SingleProduct.css'
-import { decryptJSON, encryptJSON } from '../EncryptionDecryption'
+import { decrypt, decryptJSON, encryptJSON } from '../EncryptionDecryption'
 import Reviews from './Reviews'
 import Recommended from './Recommended'
 import { useHistory } from 'react-router-dom'
+import socket from '../../socket'
 
 const SingleProduct = (props) => {
   const [data, setData] = useState({})
@@ -29,6 +30,9 @@ const SingleProduct = (props) => {
     if (!resp.data.error) {
       setData(resp.data.data)
     }
+    socket.on(decrypt(idParam), (data) => {
+      setData(data)
+    })
   }, [idParam])
   React.useEffect(async () => {
     if (props.login) {

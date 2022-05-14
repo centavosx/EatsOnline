@@ -9,8 +9,9 @@ import axios from 'axios'
 import { encryptJSON, decryptJSON } from './EncryptionDecryption.js'
 const Menu = (props) => {
   const [values, setValues] = useState([])
+  const [type, setType] = useState('type')
   const [params, setParams] = useState(null)
-  const [search, setSearch] = useState(null)
+  const [search, setSearch] = useState('')
 
   const [login, setLoggedin] = useState(false)
   const [data, setData] = useState({})
@@ -52,24 +53,17 @@ const Menu = (props) => {
 
   React.useEffect(() => {
     let val = new URLSearchParams(window.location.search).get('id')
-    let searchv = new URLSearchParams(window.location.search).get('search')
-    let value = new URLSearchParams(window.location.search).get('value')
 
     if (val !== null) {
       setParams([val.replaceAll(' ', '+')])
     } else {
       setParams(null)
     }
-    if (searchv !== null && value !== null) {
-      setSearch([searchv, value])
-    } else {
-      setSearch([])
-    }
   }, [])
   return (
     <main>
       <Carousel />
-      <Category setValues={setValues} />
+      <Category setValues={(v) => setSearch(v)} setSearch={(v) => setType(v)} />
       <div style={{ width: '90%', margin: 'auto' }}>
         {params !== null ? (
           <SingleProduct login={login} data={data} />
@@ -79,6 +73,7 @@ const Menu = (props) => {
             sortwhat={'totalsold'}
             value={values}
             search={search}
+            type={type}
             setValues={setValues}
             login={login}
           />

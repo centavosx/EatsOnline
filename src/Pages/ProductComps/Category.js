@@ -35,7 +35,8 @@ function Category(props) {
             <li
               className="shop"
               onClick={() => {
-                window.location.replace(`/menu?search=type&value=${''}`)
+                props.setSearch('type')
+                props.setValues('')
               }}
             >
               <a href={void 0}>All</a>
@@ -45,7 +46,8 @@ function Category(props) {
                 className="shop"
                 key={index}
                 onClick={() => {
-                  window.location.replace(`/menu?search=type&value=${data}`)
+                  props.setSearch('type')
+                  props.setValues(data)
                 }}
                 style={{ cursor: 'pointer' }}
               >
@@ -53,7 +55,10 @@ function Category(props) {
               </li>
             ))}
           </ul>
-          <Search setValues={props.setValues} />
+          <Search
+            setValues={(v) => props.setValues(v)}
+            setSearch={(v) => props.setSearch(v)}
+          />
         </div>
       </nav>
     </nav>

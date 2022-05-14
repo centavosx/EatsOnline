@@ -3,9 +3,6 @@ import { useState } from 'react'
 import '../../CSS/Search.css'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'
 const Search = (props) => {
-  const [v, setV] = useState('')
-
-  const history = useHistory()
   return (
     <div className="right-menu inputWithIcon">
       <input
@@ -20,6 +17,10 @@ const Search = (props) => {
             : null
         }
         placeholder="search here..."
+        onChange={(e) => {
+          props.setSearch('title')
+          props.setValues(e.target.value)
+        }}
       />
       <i className="fas fa-search"></i>
     </div>

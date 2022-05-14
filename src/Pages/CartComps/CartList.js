@@ -4,7 +4,6 @@ import '../../CSS/CartList.css'
 import { decryptJSON, encryptJSON } from '../EncryptionDecryption'
 import SelectOrder from './SelectOrder'
 import CartConfirmation from './CartConfirmation'
-import Modal from '../../Components/Modal'
 import Checkout from './Checkout'
 const CartList = (props) => {
   const [cart, setCart] = useState([])
@@ -15,8 +14,6 @@ const CartList = (props) => {
   const [chA, setChA] = useState(false)
   const [use, setUse] = useState(false)
   const ref = useRef()
-  // modal
-  const [openModal, setOpenModal] = useState(false)
 
   const [data, setData] = useState({
     name: '',
@@ -464,7 +461,6 @@ const CartList = (props) => {
                   'progress-step',
                   'progress-step',
                 ])
-                setOpenModal(true)
               }}
             >
               NEXT
