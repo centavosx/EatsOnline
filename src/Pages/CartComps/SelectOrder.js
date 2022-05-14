@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import '../../CSS/Checkout.css'
 import { decryptJSON, decrypt, encryptJSON } from '../EncryptionDecryption'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'
+import socket from '../../socket'
 const SelectOrder = (props) => {
   const [data, setData] = useState([])
   const [address, setAddress] = useState([])
@@ -47,6 +48,10 @@ const SelectOrder = (props) => {
         props.setUse(!props.use)
         setAddress(response.data.addresses)
       })
+    socket.emit('userinfo', localStorage.getItem('id'))
+    socket.on(`usercartadd/${decrypt(localStorage.getItem('id'))}`, (data) => {
+      setAddress(data.addresses)
+    })
   }, [])
 
   const changeValAdv = (e, index) => {

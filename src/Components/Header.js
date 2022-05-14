@@ -1,11 +1,16 @@
 import React, { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import '../CSS/Header.css'
-import { decryptJSON, encryptJSON } from '../Pages/EncryptionDecryption.js'
+import {
+  decrypt,
+  decryptJSON,
+  encryptJSON,
+} from '../Pages/EncryptionDecryption.js'
 import axios from 'axios'
 import Notification from './Notification'
 import ProfileBtn from './ProfileBtn'
 import Chat from './Chat.js'
+import socket from '../socket'
 
 const Header = (props) => {
   const [name, setName] = useState(null)
@@ -38,6 +43,11 @@ const Header = (props) => {
           .catch(() => {
             setName({ name: '' })
           })
+
+        socket.emit('userinfo', localStorage.getItem('id'))
+        socket.on(`userhead/${decrypt(localStorage.getItem('id'))}`, (data) => {
+          setName(data)
+        })
       } else {
         setName({ name: '' })
       }

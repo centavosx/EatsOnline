@@ -1,8 +1,9 @@
 import axios from 'axios'
 import { Link, useHistory } from 'react-router-dom'
 import React, { useState } from 'react'
-import { decryptJSON, encryptJSON } from '../EncryptionDecryption'
+import { decrypt, decryptJSON, encryptJSON } from '../EncryptionDecryption'
 import '../../CSS/ViewOrder.css'
+import socket from '../../socket'
 // import Modal from '../src/Components/Modal.js';
 const Transactions = (props) => {
   const [data, setData] = useState([])
@@ -24,6 +25,14 @@ const Transactions = (props) => {
 
         setData(response.data.data)
       })
+    socket.on(
+      `${props.transaction ? 'transaction-all' : 'reservation-all'}/${decrypt(
+        localStorage.getItem('id')
+      )}`,
+      (data) => {
+        setData(data)
+      }
+    )
   }, [])
 
   const Cancel = (id) => {

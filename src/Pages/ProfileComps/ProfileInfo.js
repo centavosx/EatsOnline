@@ -1,10 +1,11 @@
 import axios from 'axios'
 import React, { useState, useRef } from 'react'
 import Address from './Address'
-import { decryptJSON, encryptJSON } from '../EncryptionDecryption'
+import { decrypt, decryptJSON, encryptJSON } from '../EncryptionDecryption'
 import '../../CSS/Profileinfo.css'
 import Transactions from './Transactions'
 import sha256 from 'crypto-js/sha256'
+import socket from '../../socket'
 function ProfileInfo(props) {
   const [name, setName] = useState('')
   const [phoneNumber, setPhoneNumber] = useState('')
@@ -53,6 +54,10 @@ function ProfileInfo(props) {
       response.data.img = './assets/eatsonlinelogo.png'
     }
     setProfileData(response.data)
+    socket.emit('userinfo', localStorage.getItem('id'))
+    socket.on(`user/${decrypt(localStorage.getItem('id'))}`, (data) => {
+      setProfileData(data)
+    })
     const script = document.createElement('script')
     script.src = 'https://code.jquery.com/jquery-3.3.1.slim.min.js'
     script.async = true
@@ -343,7 +348,7 @@ function ProfileInfo(props) {
                           ) : null}
                           <Address
                             setProfileData={(val) => setProfileData(val)}
-                            addresses={profileData.addresses}
+                            addresses={profileData.addresses ?? []}
                           />
                         </div>
                       </div>

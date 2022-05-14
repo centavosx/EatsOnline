@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import '../../CSS/ViewOrder.css'
 import socket from '../../socket'
-import { encrypt } from '../EncryptionDecryption'
 const ViewOrder = (props) => {
   const [data, setData] = useState({})
   React.useEffect(() => {
