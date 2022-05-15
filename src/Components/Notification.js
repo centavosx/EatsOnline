@@ -19,7 +19,12 @@ const Notification = (props) => {
             })
           )}`
       )
-      setData(decryptJSON(req.data.data))
+      setData(
+        decryptJSON(req.data.data).filter(
+          (v) => v[1].status !== 'Completed' && v[1].status !== 'Cancelled'
+        )
+      )
+
       socket.emit('notifications', localStorage.getItem('id'))
       socket.on(`transact/${localStorage.getItem('id')}`, (data) => {
         setOrder(data)
@@ -27,16 +32,19 @@ const Notification = (props) => {
       socket.on(`advanced/${localStorage.getItem('id')}`, (data) => {
         setAdvanced(data)
       })
-      socket.on(`notifcount/${localStorage.getItem('id')}`, (count) => {
-        setNotif(notif + count)
-      })
     }
   }, [props.loggedin])
 
   React.useEffect(() => {
-    setData([...order, ...advanced])
+    setData(
+      [...order, ...advanced].filter(
+        (v) => v[1].status !== 'Completed' && v[1].status !== 'Cancelled'
+      )
+    )
   }, [order, advanced])
-
+  React.useEffect(() => {
+    setNotif(data.length)
+  }, [data])
   return (
     <div className="notifications">
       <div className="icon_wrap">

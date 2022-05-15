@@ -297,7 +297,7 @@ const SelectOrder = (props) => {
                   ))}
                 </select>
               ) : (
-                <p>
+                <p style={{ color: 'red' }}>
                   You don't have any listed address. Please add one.{' '}
                   <span
                     style={{ color: 'blue', cursor: 'pointer' }}
@@ -321,7 +321,9 @@ const SelectOrder = (props) => {
               props.t_data.address.length > 0 &&
               props.t_data.payment.length > 0 &&
               props.t_data.items.length > 0 ? null : (
-                <span style={{ textAlign: 'end', fontSize: '14px' }}>
+                <span
+                  style={{ textAlign: 'end', fontSize: '14px', color: 'red' }}
+                >
                   Please fill up all the requirements to continue
                 </span>
               )}

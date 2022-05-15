@@ -50,7 +50,20 @@
 
 /* please edit */
 .cart-discount {
-  display: none;
+  position: relative;
+  left: 60px;
+  top: -10px;
+  width: 65px;
+  height: 24px;
+  color: #ffffff;
+  background-color: #e63b3b;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  letter-spacing: 1px;
+  z-index: 100;
+  border-radius: 3px;
 }
 .div-price .p-price {
   color: #10505e;

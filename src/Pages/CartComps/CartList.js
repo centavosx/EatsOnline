@@ -326,6 +326,11 @@ const CartList = (props) => {
                           checked={data[0] in select}
                         />
                       </div>
+                      {data[1].discount ? (
+                        <span className="cart-discount">
+                          {data[1].discount}%
+                        </span>
+                      ) : null}
                       {/* <!-- img container --> */}
                       <div className="c-img-container">
                         <div className="cart-img">
@@ -341,6 +346,9 @@ const CartList = (props) => {
                       {/* <!-- text --> */}
                       <div className="p-box-text">
                         {/* <!-- title --> */}
+                        {/* <span className="cart-discount">
+                          {data[1].discount}%
+                        </span> */}
                         <a href={void 0} className="product-title">
                           {data[1].title}
                         </a>
@@ -354,9 +362,6 @@ const CartList = (props) => {
                           <div className="div-price">
                             <span className="p-price">
                               ₱{data[1].price.toFixed(2)}
-                            </span>
-                            <span className="cart-discount">
-                              {data[1].discount}%
                             </span>
                           </div>
                           {/* end 2 div */}
