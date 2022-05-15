@@ -217,58 +217,62 @@ const Checkout = (props) => {
           </p>
           <hr classNameName="hr-line" />
         </div>
-        <h2 className="pay">PAYMENT DETAILS</h2>
-        <select
-          className="dropdown-center"
-          name="payment-details"
-          defaultValue={true}
-          onChange={(e) => {
-            setValue(e.target.value === 'true')
-            e.target.value === 'true' ? setVal('bank') : setVal('gcash')
-          }}
-        >
-          <option value={true}>Bank Detail</option>
-          <option value={false}>Gcash Detail</option>
-        </select>
-        {value ? (
-          <div>
-            <h1 className="Pay-bank">Bank Account Detail</h1>
-            <div className="text-center">
-              <img
-                src={adminData.url}
-                className="img-thumbnail img-responsive"
-                data-output="qrcode"
-              />
-            </div>
-            <div className="info">
-              <p>
-                {adminData.bank} <br />
-                {adminData.holder} <br />
-                {adminData.number}
-                <br />
-              </p>
-            </div>
-          </div>
-        ) : (
-          <div>
-            <h1 className="Pay-gcash">Gcash Account Detail</h1>
-            <div className="text-center">
-              <img
-                src={adminData.url}
-                className="img-thumbnail img-responsive"
-                data-output="qrcode"
-              />
-            </div>
-            <div className="info">
-              <p>
-                {adminData.holder} <br />
-                {adminData.number}
-                <br />
-              </p>
-            </div>
-          </div>
-        )}
-        <hr className="hr-line" />
+        {output.payment === 'Online Payment' ? (
+          <>
+            <h2 className="pay">PAYMENT DETAILS</h2>
+            <select
+              className="dropdown-center"
+              name="payment-details"
+              defaultValue={true}
+              onChange={(e) => {
+                setValue(e.target.value === 'true')
+                e.target.value === 'true' ? setVal('bank') : setVal('gcash')
+              }}
+            >
+              <option value={true}>Bank Detail</option>
+              <option value={false}>Gcash Detail</option>
+            </select>
+            {value ? (
+              <div>
+                <h1 className="Pay-bank">Bank Account Detail</h1>
+                <div className="text-center">
+                  <img
+                    src={adminData.url}
+                    className="img-thumbnail img-responsive"
+                    data-output="qrcode"
+                  />
+                </div>
+                <div className="info">
+                  <p>
+                    {adminData.bank} <br />
+                    {adminData.holder} <br />
+                    {adminData.number}
+                    <br />
+                  </p>
+                </div>
+              </div>
+            ) : (
+              <div>
+                <h1 className="Pay-gcash">Gcash Account Detail</h1>
+                <div className="text-center">
+                  <img
+                    src={adminData.url}
+                    className="img-thumbnail img-responsive"
+                    data-output="qrcode"
+                  />
+                </div>
+                <div className="info">
+                  <p>
+                    {adminData.holder} <br />
+                    {adminData.number}
+                    <br />
+                  </p>
+                </div>
+              </div>
+            )}
+            <hr className="hr-line" />
+          </>
+        ) : null}
         {imgurl !== null || output.receipt ? (
           <center>
             <img
