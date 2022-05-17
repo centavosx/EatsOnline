@@ -17,7 +17,7 @@ function AboutUs() {
                 <img
                   className="about-img"
                   title=""
-                  src="../assets/Home Slider.png"
+                  src="../assets/BANNER SIZES/AboutUs_1440x898px.png"
                   alt=""
                 />
               </a>

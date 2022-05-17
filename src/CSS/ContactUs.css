@@ -178,6 +178,10 @@ textarea {
     border-radius: 10px;
   }
 }
+/* banner image */
+.contact-banner-img {
+  width: 100%;
+}
 @media (max-width: 768px) {
   .submit-btn {
     float: right;

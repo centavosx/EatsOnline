@@ -9,7 +9,13 @@ const Profile = (props) => {
     <ViewOrder data={data} setData={setData} />
   ) : (
     <main>
-      <Carousel />
+      {/* <Carousel /> */}
+      <img
+        className="profile-banner-img"
+        title=""
+        src="../assets/BANNER SIZES/Account Banner_1900x723.png"
+        alt=""
+      />
       <ProfileInfo setData={setData} />
       <Goback />
     </main>

@@ -62,7 +62,13 @@ const Menu = (props) => {
   }, [])
   return (
     <main>
-      <Carousel />
+      {/* <Carousel /> */}
+      <img
+        className="menu-img"
+        title=""
+        src="../assets/BANNER SIZES/Product Banner_1900x723.png"
+        alt=""
+      />
       <Category setValues={(v) => setSearch(v)} setSearch={(v) => setType(v)} />
       <div style={{ width: '90%', margin: 'auto' }}>
         {params !== null ? (

@@ -111,10 +111,11 @@ table tr {
   font-size: 15px;
 }
 
-table th {
+.table th {
   font-size: 0.85em;
   letter-spacing: 0.1em;
   text-transform: uppercase;
+  color: white;
 }
 
 .top-head {

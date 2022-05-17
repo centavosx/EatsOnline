@@ -39,7 +39,7 @@ function Carousel(props) {
             style={{ position: 'relative' }}
           >
             <image
-              href="../assets/Home Slider.png"
+              href="../assets/BANNER SIZES/Home Banner 1_1900x723.png"
               className="responsive-image"
             />
           </svg>
@@ -69,22 +69,19 @@ function Carousel(props) {
           >
             <rect width="100%" height="100%" fill="#777" />
             <image
-              href="../assets/Home Slider.png"
+              href="../assets/BANNER SIZES/Home Banner 2_1900x723.png"
               className="responsive-image"
             />
           </svg>
 
           <div className="container">
             <div className="carousel-caption text-start">
-              <h1>Another example headline.</h1>
+              <h1>Contact us for more other offers!</h1>
+              <p>Your One-stop Shop for Regional Delicacies!</p>
               <p>
-                Some representative placeholder content for the second slide of
-                the carousel.
-              </p>
-              <p>
-                <a className="btn btn-lg btn-primary" href={void 0}>
-                  Learn more
-                </a>
+                <Link className="btn btn-lg btn-primary" to="/contactus">
+                  Contact Now
+                </Link>
               </p>
             </div>
           </div>
@@ -101,7 +98,7 @@ function Carousel(props) {
           >
             <rect width="100%" height="100%" fill="#777" />
             <image
-              href="../assets/Home Slider.png"
+              href="../assets/BANNER SIZES/Home Banner 3_1900x723.png"
               className="responsive-image"
             />
           </svg>

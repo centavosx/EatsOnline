@@ -478,6 +478,10 @@ body {
 .slider-btns .glider-prev span {
   transform: rotate(-180deg);
 }
+/* banner image */
+.menu-img {
+  width: 100%;
+}
 @media (max-width: 500px) {
   .product-container {
     align-items: center;

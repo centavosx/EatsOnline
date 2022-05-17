@@ -63,7 +63,13 @@ const Cart = (props) => {
   }, [params, what])
   return (
     <main>
-      <Carousel />
+      {/* <Carousel /> */}
+      <img
+        className="cart-banner-img"
+        title=""
+        src="../assets/BANNER SIZES/Cart Banner_1900x723.png"
+        alt=""
+      />
       <Progress
         width={width}
         progress={progress}

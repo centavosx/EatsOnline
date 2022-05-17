@@ -473,7 +473,7 @@ td {
     overflow-x: hidden;
   }
 }
-@media (min-width: 375px) {
+@media (max-width: 375px) {
   .c-msg {
     width: 75vw;
   }

@@ -302,7 +302,7 @@ function ProfileInfo(props) {
                           />
                           <label className="labels">Phone Number</label>
                           <input
-                            type="text"
+                            type="number"
                             className="form-control"
                             placeholder={
                               profileData.phoneNumber ?? 'Enter Phone Number'

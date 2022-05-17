@@ -1,3 +1,7 @@
+/* banner image */
+.profile-banner-img {
+  width: 100%;
+}
 @media (min-width: 768px) {
   .col-md-3 {
     width: -webkit-fill-available;
