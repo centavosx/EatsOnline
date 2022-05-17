@@ -491,6 +491,7 @@ const CartList = (props) => {
         <div className="form-step form-step-active">
           {/* <CartConfirmation/> */}
           <CartConfirmation
+            advance={chA}
             output={data}
             toContinue={toContinue}
             checkOut={checkOut}

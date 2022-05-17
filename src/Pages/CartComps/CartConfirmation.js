@@ -162,13 +162,35 @@ const CartConfirmation = (props) => {
             )}
             <hr className="hr-line" />
           </>
-        ) : null}
+        ) : (
+          <div
+            className="COD-NOTE"
+            style={{
+              marginTop: '5px',
+              marginBottom: '100px',
+            }}
+          >
+            <h5
+              style={{
+                fontSize: '30px',
+                fontWeight: 'bold',
+                textAlign: 'center',
+              }}
+            >
+              CASH ON DELIVERY
+            </h5>
+            <h5 style={{ marginTop: '50px', color: 'red' }}>
+              Note: Please prepare your payment upon delivery.
+            </h5>
+          </div>
+        )}
         {/*
                 <h2 className='pay'>Upload Receipt</h2>
                 <form action="/action_page.php">
                     <input className="upload" type="file" id="myFile" onChange={(e)=>filechange(e)} name="filename" />
                 </form> */}
         {/* <input className="up-btn" value="UPLOAD" type="submit" /> */}
+
         <a
           href={void 0}
           className="prev-btn"
