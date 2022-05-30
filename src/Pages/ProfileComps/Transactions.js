@@ -9,8 +9,9 @@ import Modal from '../../Components/Modal'
 const Transactions = (props) => {
   const [data, setData] = useState([])
   const [showModal, setShowModal] = useState(false)
-  const [reason, setReason] = useState('')
+  const [reason, setReason] = useState(null)
   const history = useHistory()
+  const [id, setId] = useState(null)
   React.useEffect(() => {
     axios
       .get(
@@ -38,6 +39,7 @@ const Transactions = (props) => {
   }, [])
 
   const Cancel = (id) => {
+    if (reason === null) return alert('Please add a reason!')
     axios
       .patch(
         process.env.REACT_APP_APIURL + 'cancelorder',
@@ -50,7 +52,7 @@ const Transactions = (props) => {
       )
       .then((response) => {
         response.data = decryptJSON(response.data.data)
-        setData(response.data.data)
+        setShowModal(false)
       })
   }
 
@@ -61,7 +63,12 @@ const Transactions = (props) => {
       role="tabpanel"
       aria-labelledby="v-pills-profile-tab"
     >
-      <Modal display={showModal} cancelModal={setShowModal} />
+      <Modal
+        display={showModal}
+        cancelModal={setShowModal}
+        reason={(v) => setReason(v)}
+        confirm={() => Cancel(id)}
+      />
       <div className="p-title">
         {props.transaction ? 'PURCHASE HISTORY' : 'ADVANCE ORDER'}
       </div>
@@ -117,7 +124,10 @@ const Transactions = (props) => {
                     ) : (
                       <button
                         className="c-button button-small button-round"
-                        onClick={() => /*Cancel(d[0])*/ setShowModal(true)}
+                        onClick={() => /*Cancel(d[0])*/ {
+                          setId(d[0])
+                          setShowModal(true)
+                        }}
                       >
                         Cancel
                       </button>

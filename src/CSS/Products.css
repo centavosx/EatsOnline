@@ -429,16 +429,20 @@ body {
   z-index: 100;
   border-radius: 3px;
 }
-.p-adv-indicator {
+.cart-item-indicate {
   position: absolute;
-  padding: 5px;
   top: 290px;
-  right: 155px;
+  display: flex;
+  justify-content: center;
+  width: 92%;
+}
+.p-adv-indicator {
+  padding: 8px;
   width: fit-content;
-  height: 40px;
+  height: auto;
+  margin: 5px;
   color: #ffffff;
   background-color: #e63b3b;
-  display: flex;
   justify-content: center;
   align-items: center;
   font-size: 13px;
@@ -446,17 +450,14 @@ body {
   border-radius: 3px;
 }
 .p-ord-indicator {
-  position: absolute;
-  padding: 5px;
-  top: 290px;
-  right: 22px;
+  padding: 8px;
+
   width: fit-content;
-  height: 40px;
+  height: auto;
   color: #ffffff;
   background-color: #e63b3b;
-  display: flex;
-  justify-content: center;
   align-items: center;
+  margin: 5px;
   font-size: 13px;
   letter-spacing: 1px;
   border-radius: 3px;

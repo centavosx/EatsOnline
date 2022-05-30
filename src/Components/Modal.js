@@ -2,6 +2,17 @@ import React, { useState } from 'react'
 import '../CSS/Modal.css'
 
 const Modal = (props) => {
+  const [others, setOthers] = useState(false)
+  const setVal = (v) => {
+    if (v === 'Others') {
+      props.reason(null)
+      return setOthers(true)
+    }
+    setOthers(false)
+    if (v === 'Choose Reason' || v === 'null' || v === null)
+      return props.reason(null)
+    return props.reason(v)
+  }
   return props.display ? (
     <div className="modalBackground">
       <div className="display-block">
@@ -9,8 +20,15 @@ const Modal = (props) => {
           <ul className="cancel_ul">
             <h2>Do you want to Cancel your order?</h2>
             <p className="please">Please Select Reason</p>
-            <select name="slct" id="reas" style={{ width: '100%' }}>
-              <option disabled="">Choose Reason</option>
+            <select
+              name="slct"
+              id="reas"
+              style={{ width: '100%' }}
+              onChange={(e) => setVal(e.target.value)}
+            >
+              <option disabled="" value={null}>
+                Choose Reason
+              </option>
               <option value="Want to change payment method">
                 Want to change payment method
               </option>
@@ -23,15 +41,20 @@ const Modal = (props) => {
                 Sourcing payment issue
               </option>
               <option value="Change of mind">Change of mind</option>
-              <option value="Decided for alternative product7">
+              <option value="Decided for alternative product">
                 Decided for alternative product
               </option>
               <option value="Fees-shipping costs">Fees-shipping costs</option>
-              <option value="9">Others</option>
+              <option value="Others">Others</option>
             </select>
           </ul>
         </div>
-        <textarea placeholder="Please type your reason for cancelling this transaction." />
+        {others ? (
+          <textarea
+            placeholder="Please type your reason for cancelling this transaction."
+            onChange={(e) => props.reason('Others: ' + e.target.value)}
+          />
+        ) : null}
         <div className="bottom">
           <div style={{ margin: '10px' }}>
             <button

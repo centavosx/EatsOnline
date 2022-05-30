@@ -607,4 +607,5 @@ const CartList = (props) => {
     </form>
   )
 }
+
 export default CartList

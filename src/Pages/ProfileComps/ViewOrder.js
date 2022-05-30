@@ -82,14 +82,24 @@ const ViewOrder = (props) => {
           </div>
 
           <div className="table-responsive-sm">
-            <table className="v-table table-striped">
+            <table
+              className="v-table table-striped"
+              style={{ overflow: 'auto' }}
+            >
               <thead className="theadd">
                 <tr>
                   <th scope="col">No.</th>
                   <th scope="col">Item</th>
                   <th scope="col">Description</th>
+                  {props.data[1] === 'reservation' ? (
+                    <th scope="col">Adv Date</th>
+                  ) : null}
                   <th scope="col">Price</th>
+                  <th scope="col">Discount</th>
                   <th scope="col">Qty</th>
+                  {props.data[1] === 'reservation' ? (
+                    <th scope="col">Status</th>
+                  ) : null}
                   <th scope="col">Total</th>
                 </tr>
               </thead>
@@ -98,11 +108,29 @@ const ViewOrder = (props) => {
                   <tr key={index}>
                     <td data-label="No.">{index + 1}</td>
                     <td data-label="Item">{data[1].title}</td>
-                    <td data-label="Description">{data[1].desc}</td>
-                    <td data-label="Price">{data[1].price}</td>
+                    <td data-label="Description">{data[1].description}</td>
+                    {props.data[1] === 'reservation' ? (
+                      <td data-label="Adv Date">
+                        {new Date(data[1].date).toDateString()}
+                      </td>
+                    ) : null}
+                    <td data-label="Price">Php{data[1].price}</td>
+                    <td data-label="Discount">
+                      {data[1].discount ? data[1].discount : '0'} %
+                    </td>
                     <td data-label="Qty">{data[1].amount}</td>
+                    {props.data[1] === 'reservation' ? (
+                      <td data-label="Status">{data[1].status}</td>
+                    ) : null}
                     <td data-label="Total">
-                      {(data[1].price * data[1].amount).toFixed(2)}
+                      Php
+                      {data[1].discount
+                        ? (
+                            (data[1].price -
+                              (data[1].discount * data[1].price) / 100) *
+                            data[1].amount
+                          ).toFixed(2)
+                        : (data[1].price * data[1].amount).toFixed(2)}
                     </td>
                   </tr>
                 ))}

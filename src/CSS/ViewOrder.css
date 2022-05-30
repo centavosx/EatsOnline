@@ -85,7 +85,6 @@
   max-height: 220px;
   overflow-y: scroll;
   bottom: 17px;
-  overflow-x: hidden;
 }
 .dashboard-sidebar .sidebar-select > div:last-child::-webkit-scrollbar,
 .table-responsive-sm::-webkit-scrollbar {
