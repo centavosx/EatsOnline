@@ -64,9 +64,9 @@
 
 .reco-discount {
   position: absolute;
-  /* left: 86px; */
+  padding: 10px;
   top: 20px;
-  width: 65px;
+  width: fit-content;
   height: 24px;
   color: #ffffff;
   background-color: #e63b3b;

@@ -70,7 +70,9 @@ const Recommended = (props) => {
             {recommended.map((data, i) => {
               return (
                 <div key={i} className="reco-product-box">
-                  <span className="reco-discount">-{data[1].discount}%</span>
+                  <span className="reco-discount">
+                    {data[1].discount}% off Discount
+                  </span>
 
                   <div className="reco-img-container">
                     <div className="reco-img">

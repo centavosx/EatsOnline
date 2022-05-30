@@ -6,6 +6,7 @@ import '../../CSS/Profileinfo.css'
 import Transactions from './Transactions'
 import sha256 from 'crypto-js/sha256'
 import socket from '../../socket'
+
 function ProfileInfo(props) {
   const [name, setName] = useState('')
   const [phoneNumber, setPhoneNumber] = useState('')

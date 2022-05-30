@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import '../CSS/Goback.css'
 import axios from 'axios'
 import { decryptJSON, encryptJSON } from '../Pages/EncryptionDecryption.js'
@@ -7,6 +7,7 @@ const ShowChat = (props) => {
   const [chat, setChat] = useState([])
   const [message, setMessage] = useState('')
   const [sending, setSending] = useState(false)
+  const ref = useRef()
   React.useEffect(async () => {
     let response = await axios.get(
       process.env.REACT_APP_APIURL +
@@ -26,6 +27,10 @@ const ShowChat = (props) => {
       setChat(newchat)
     })
   }, [])
+  React.useEffect(() => {
+    console.log(ref.current.scrollHeight)
+    ref.current.scrollTop = ref.current.scrollHeight
+  }, [chat])
 
   const send = async () => {
     setSending(true)
@@ -41,7 +46,7 @@ const ShowChat = (props) => {
   }
 
   return (
-    <div className="messenger_dd">
+    <div className="messenger_dd" style={{ zIndex: 200 }}>
       <ul className="messenger_ul">
         <li className="messenger_li">
           <a className="profilemsg" href={void 0}>
@@ -65,7 +70,7 @@ const ShowChat = (props) => {
               <div className="chat-page">
                 <div className="msg-inbox">
                   <div className="chats">
-                    <div className="msg-page">
+                    <div className="msg-page" ref={ref}>
                       {chat.map((data, index) => {
                         if (data[1].who == 'user') {
                           return (

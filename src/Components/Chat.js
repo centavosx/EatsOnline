@@ -10,11 +10,12 @@ const Chat = () => {
     socket.emit('chat', localStorage.getItem('id'))
     socket.on(`unread/${localStorage.getItem('id')}`, (unread) => {
       setUnread(unread)
+      setShow(true)
     })
   }, [])
 
   return (
-    <div>
+    <div style={{ zIndex: 100 }}>
       <button
         onClick={() => setShow(!show)}
         id="msgBtn"

@@ -40,12 +40,13 @@
 }
 /* 2divs */
 .div-price {
-  height: 5%;
+  height: 100%;
   float: right;
   padding: 0px 10px;
   width: 50%;
   font-size: 0.5rem;
-  display: contents;
+  display: block;
+  margin-top: -10px;
 }
 
 /* please edit */
@@ -64,6 +65,14 @@
   letter-spacing: 1px;
   z-index: 100;
   border-radius: 3px;
+}
+.div-price .d-price {
+  color: grey;
+  text-transform: capitalize;
+  font-weight: bold;
+  font-size: 13px;
+  text-decoration: line-through;
+  /* margin-left: 78px; */
 }
 .div-price .p-price {
   color: #10505e;
@@ -307,6 +316,7 @@
 
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 20px;
 }
 .fa-trash {
   color: #fff;
@@ -454,4 +464,32 @@
   /* .scroll-div {
     width: 95%;
   } */
+}
+/* order method filter */
+.method {
+  margin-top: 30px;
+  margin-bottom: 35px;
+  font-size: 20px;
+  color: #fff;
+  padding: 1px;
+  display: inline-block;
+}
+.OrderMethod {
+  width: fit-content;
+  height: 35px;
+}
+
+.order-mthds {
+  display: grid;
+  grid-template-rows: 50% 50%;
+  float: right;
+}
+
+.ord-cols {
+  display: grid;
+}
+
+.main_cart {
+  display: flex;
+  justify-content: space-between;
 }

@@ -84,7 +84,8 @@ td {
 
 .table {
   /* height: 57vh; */
-  height: 100%;
+  max-height: 500px;
+  overflow: auto;
   /* border: 2px solid #000; */
   border-collapse: initial;
   margin: 0;

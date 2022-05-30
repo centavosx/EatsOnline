@@ -56,6 +56,11 @@
   background: none;
   cursor: pointer;
 }
+
+.discount-con {
+  display: flex;
+}
+
 /*Rating*/
 
 .s-rate {
@@ -234,9 +239,12 @@ p {
   font-weight: 700;
   margin-bottom: 0;
 }
-
+.qty-cons {
+  display: flex;
+  width: 35%;
+}
 .product-right .border-product {
-  padding-top: 15px;
+  /* padding-top: 15px; */
   padding-bottom: 20px;
   border-top: 1px dashed #dddddd;
 }
@@ -274,6 +282,7 @@ p {
 
 .product-right .color-variant {
   margin-top: -21px;
+  display: contents;
 }
 .product-right .color-variant li {
   height: 30px;
@@ -351,6 +360,7 @@ p {
 .s-current {
   font-weight: Bold;
   color: #10505e;
+  margin-left: 10px;
 }
 .comment-box .comment {
   font-size: 18px;
@@ -377,7 +387,7 @@ p {
     text-transform: uppercase;
     font-weight: 700;
     margin-bottom: 0;
-    margin-left: auto;
+    /* margin-left: auto; */
     margin-right: auto;
   }
 }
@@ -576,7 +586,7 @@ p {
   text-align: center;
   color: #cefbf5;
   padding: 5px;
-  width: 95%;
+  /* width: 95%; */
   font-size: 20px;
   font-weight: bold;
 }
@@ -594,6 +604,7 @@ p {
   padding: 10px;
 }
 .review-card {
+  margin: auto;
   width: 92%;
   font-size: 24px;
   font-weight: bold;
@@ -765,11 +776,13 @@ p {
   width: 90%;
   height: auto;
   max-height: 350px;
-  margin-top: 50px;
+  /* margin-top: 50px; */
   margin-bottom: 50px;
   overflow: hidden;
   overflow-y: scroll;
   background-color: #fff;
+  margin-left: auto;
+  margin-right: auto;
 }
 /* recommended items */
 .s-recommended {
@@ -778,7 +791,7 @@ p {
   text-align: center;
   color: #cefbf5;
   padding: 5px;
-  width: 95%;
+  /* width: 95%; */
   font-size: 20px;
   font-weight: bold;
 }
@@ -786,4 +799,44 @@ p {
   font-weight: 600;
   color: red;
   padding-top: 14px;
+}
+/*single products btn order now and advanve order */
+.single-ord-conts {
+  display: flex;
+  justify-content: space-between;
+}
+.single-ord-btn {
+  margin-left: 80px;
+}
+
+.single-order-now-btn {
+  margin: 0px 5px;
+  font-weight: 600;
+  position: relative;
+  display: inline-block;
+  font-size: 14px;
+  line-height: 30px;
+  color: #fff;
+  padding: 7px 10px;
+  overflow: hidden;
+  letter-spacing: 0.02em;
+  border-radius: 25px;
+  background-color: #10505e;
+  border: 2px solid #0d6efd;
+}
+.single-advance-btn {
+  margin: 0px 5px;
+  font-weight: 600;
+  position: relative;
+  display: inline-block;
+  font-size: 14px;
+  line-height: 30px;
+  color: #fff;
+  padding: 7px 10px;
+  overflow: hidden;
+  letter-spacing: 0.02em;
+  border-radius: 25px;
+  background-color: #10505e;
+  border: 2px solid #0d6efd;
+  margin-right: 35px;
 }

@@ -415,9 +415,9 @@ body {
 /* HOME ADD TO CART BUTTON */
 .p-discount {
   position: absolute;
-  left: 86px;
+  padding: 10px;
   top: 20px;
-  width: 65px;
+  width: fit-content;
   height: 24px;
   color: #ffffff;
   background-color: #e63b3b;
@@ -427,6 +427,38 @@ body {
   font-size: 14px;
   letter-spacing: 1px;
   z-index: 100;
+  border-radius: 3px;
+}
+.p-adv-indicator {
+  position: absolute;
+  padding: 5px;
+  top: 290px;
+  right: 155px;
+  width: fit-content;
+  height: 40px;
+  color: #ffffff;
+  background-color: #e63b3b;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 13px;
+  letter-spacing: 1px;
+  border-radius: 3px;
+}
+.p-ord-indicator {
+  position: absolute;
+  padding: 5px;
+  top: 290px;
+  right: 22px;
+  width: fit-content;
+  height: 40px;
+  color: #ffffff;
+  background-color: #e63b3b;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 13px;
+  letter-spacing: 1px;
   border-radius: 3px;
 }
 .slider-btns {
@@ -1086,5 +1118,76 @@ input[type='number'] {
 .prd-btn:hover {
   color: #f2f36b;
   background-color: #28aac7;
+  border: 2px solid #0d6efd;
+}
+/* btn order now and advanve order */
+.ord-conts {
+  display: flex;
+  justify-content: space-between;
+}
+
+.order-now-btn {
+  margin: 0px 5px;
+  font-weight: 600;
+  position: relative;
+  display: inline-block;
+  font-size: 14px;
+  line-height: 30px;
+  color: #fff;
+  padding: 7px 10px;
+  overflow: hidden;
+  letter-spacing: 0.02em;
+  border-radius: 25px;
+  background-color: #10505e;
+  border: 2px solid #0d6efd;
+}
+.advance-btn {
+  margin: 0px 5px;
+  font-weight: 600;
+  position: relative;
+  display: inline-block;
+  font-size: 14px;
+  line-height: 30px;
+  color: #fff;
+  padding: 7px 10px;
+  overflow: hidden;
+  letter-spacing: 0.02em;
+  border-radius: 25px;
+  background-color: #10505e;
+  border: 2px solid #0d6efd;
+}
+/* featured btn order now and advanve order */
+.featured-ord-conts {
+  display: flex;
+  justify-content: space-between;
+}
+.featured-order-now-btn {
+  margin: 0px 5px;
+  font-weight: 600;
+  position: relative;
+  display: inline-block;
+  font-size: 14px;
+  line-height: 30px;
+  color: #fff;
+  padding: 7px 10px;
+  overflow: hidden;
+  letter-spacing: 0.02em;
+  border-radius: 25px;
+  background-color: #10505e;
+  border: 2px solid #0d6efd;
+}
+.featured-advance-btn {
+  margin: 0px 5px;
+  font-weight: 600;
+  position: relative;
+  display: inline-block;
+  font-size: 14px;
+  line-height: 30px;
+  color: #fff;
+  padding: 7px 10px;
+  overflow: hidden;
+  letter-spacing: 0.02em;
+  border-radius: 25px;
+  background-color: #10505e;
   border: 2px solid #0d6efd;
 }

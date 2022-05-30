@@ -11,9 +11,9 @@ const CartList = (props) => {
   const [totalamount, setTotalAmount] = useState(0)
   const [dataAmt, setdataAmt] = useState({})
   const [state, setState] = useState(false)
-  const [chA, setChA] = useState(false)
   const [use, setUse] = useState(false)
   const [itemsToDelete, setItemsToDelete] = useState([])
+  const [what, setWhat] = useState(false)
   const ref = useRef()
 
   const [data, setData] = useState({
@@ -29,13 +29,19 @@ const CartList = (props) => {
 
   React.useEffect(() => {
     ref.current.scrollIntoView({ behavior: 'smooth' })
+    setCart([])
+    getData(what)
+  }, [what])
+
+  const getData = (adv) => {
     if (!('id' in props.output))
       axios
         .get(
           process.env.REACT_APP_APIURL +
-            `cart?data=${JSON.stringify(
+            `newcart?data=${JSON.stringify(
               encryptJSON({
                 id: localStorage.getItem('id'),
+                adv: adv,
               })
             )}`
         )
@@ -47,15 +53,19 @@ const CartList = (props) => {
               for (let x of resp.data.data) {
                 obj[x[0]] = x[1].amount
               }
+              document.getElementById('allcheck').checked = false
+              setTotalAmount(0)
+              setSelect({})
+              console.log(resp.data.data)
               setdataAmt(obj)
               setCart(resp.data.data)
             }
           }
         })
-  }, [])
+  }
 
   const toContinue = () => {
-    if (chA) {
+    if (what) {
       let pass = []
       for (let x of data.items) {
         pass.push('date' in x[1] ? x[1].date.length > 0 : false)
@@ -98,6 +108,11 @@ const CartList = (props) => {
   React.useEffect(() => {
     setUse(!use)
   }, [props.width])
+  const updateDate = (e, index, date) => {
+    e.preventDefault()
+    cart[index][1].date = new Date(date).toString()
+    fastUpd(cart)
+  }
   const update = (e, key2, amt) => {
     e.preventDefault()
     setState(false)
@@ -129,24 +144,43 @@ const CartList = (props) => {
     setTotalAmount(totalvalue)
     setItemsToDelete(deleteItems)
     const timer = setTimeout(async () => {
-      sendreq()
+      sendreq(cart)
     }, 1000)
     return () => clearTimeout(timer)
   }
-
-  const sendreq = () => {
+  const fastUpd = (c) => {
+    let obj = {}
+    for (let x of c) {
+      obj[x[0]] = {}
+      obj[x[0]].amount = dataAmt[x[0]]
+      obj[x[0]].date = x[1].date
+      obj[x[0]].key = x[1].key
+      obj[x[0]].advance = what
+      obj[x[0]].advdate = x[1].date ?? null
+    }
+    axios.patch(
+      process.env.REACT_APP_APIURL + 'newcart',
+      encryptJSON({
+        id: localStorage.getItem('id'),
+        data: obj,
+      })
+    )
+  }
+  const sendreq = (c) => {
     setState(true)
     const timer = setTimeout(async () => {
       if (state) {
         let obj = {}
-        for (let x of cart) {
+        for (let x of c) {
           obj[x[0]] = {}
           obj[x[0]].amount = dataAmt[x[0]]
           obj[x[0]].date = x[1].date
           obj[x[0]].key = x[1].key
+          obj[x[0]].advance = what
+          obj[x[0]].advdate = x[1].date ?? null
         }
         axios.patch(
-          process.env.REACT_APP_APIURL + 'cart',
+          process.env.REACT_APP_APIURL + 'newcart',
           encryptJSON({
             id: localStorage.getItem('id'),
             data: obj,
@@ -235,7 +269,7 @@ const CartList = (props) => {
         process.env.REACT_APP_APIURL + 'transact',
         encryptJSON({
           data: data,
-          advance: chA,
+          advance: what,
         })
       )
       .then((resp) => {
@@ -287,27 +321,50 @@ const CartList = (props) => {
       {/* <!-- Steps --> */}
       {props.width.width === '0%' ? (
         <div className="form-step form-step-active">
-          <div className="main_cart">
+          <div>
             {/* {openModal && <Modal closeModal={setOpenModal} />} */}
-            <label>
-              <input
-                type="checkbox"
-                className="allcheckbox"
-                id="allcheck"
-                onClick={(e) => selectAll(e)}
-              />{' '}
-              <strong className="check1">ALL ITEMS</strong>
-              &nbsp;
-              <button
-                className="cartDel"
-                onClick={(e) => {
-                  e.preventDefault()
-                  deleteItem(itemsToDelete)
-                }}
-              >
-                <i className="fa fa-trash"></i>
-                Delete
-              </button>
+            <label className="main_cart">
+              <div className="all-items-cols">
+                <input
+                  type="checkbox"
+                  className="allcheckbox"
+                  id="allcheck"
+                  onClick={(e) => selectAll(e)}
+                />{' '}
+                <strong className="check1">ALL ITEMS</strong>
+                &nbsp;
+                <button
+                  className="cartDel"
+                  onClick={(e) => {
+                    e.preventDefault()
+                    deleteItem(itemsToDelete)
+                  }}
+                >
+                  <i className="fa fa-trash"></i>
+                  Delete
+                </button>
+              </div>
+              {/* <br /> */}
+              <div className="ord-cols">
+                <h1
+                  className="method"
+                  style={{ width: '100%', margin: 0, marginTop: 10 }}
+                >
+                  Order Method
+                </h1>
+                <select
+                  className="OrderMethod"
+                  style={{ width: 'auto' }}
+                  onChange={(e) => setWhat(e.target.value === 'Advance Order')}
+                >
+                  <option disabled="" selected={!what}>
+                    Order Now
+                  </option>
+                  <option disabled="" selected={what}>
+                    Advance Order
+                  </option>
+                </select>
+              </div>
             </label>
           </div>
           <br />
@@ -328,7 +385,7 @@ const CartList = (props) => {
                       </div>
                       {data[1].discount ? (
                         <span className="cart-discount">
-                          {data[1].discount}%
+                          {data[1].discount}% Off
                         </span>
                       ) : null}
                       {/* <!-- img container --> */}
@@ -347,7 +404,7 @@ const CartList = (props) => {
                       <div className="p-box-text">
                         {/* <!-- title --> */}
                         {/* <span className="cart-discount">
-                          {data[1].discount}%
+                          {data[1].discount}% Off
                         </span> */}
                         <a href={void 0} className="product-title">
                           {data[1].title}
@@ -360,6 +417,10 @@ const CartList = (props) => {
                           </div>
                           {/* right */}
                           <div className="div-price">
+                            <span className="d-price">
+                              ₱{data[1].price.toFixed(2)}
+                            </span>
+                            <br />
                             <span className="p-price">
                               ₱{data[1].price.toFixed(2)}
                             </span>
@@ -385,6 +446,40 @@ const CartList = (props) => {
                             </div>
                           </div>
                         </div>
+                        {what ? (
+                          <select
+                            className="form-control alterationTypeSelect"
+                            style={{
+                              width: '90%',
+                              height: '35px',
+                              marginLeft: '5%',
+                              marginRight: '5%',
+                            }}
+                            onChange={(e) =>
+                              e.target.value === 'Select available dates'
+                                ? updateDate(e, index, null)
+                                : updateDate(e, index, e.target.value)
+                            }
+                          >
+                            <option disabled="" value={null}>
+                              Select available dates
+                            </option>
+                            {data[1].adv
+                              ? Object.keys(data[1].adv).map((d, i) => (
+                                  <option
+                                    disabled=""
+                                    key={i}
+                                    selected={
+                                      new Date(data[1].date).toDateString() ===
+                                      new Date(data[1].adv[d]).toDateString()
+                                    }
+                                  >
+                                    {new Date(data[1].adv[d]).toDateString()}
+                                  </option>
+                                ))
+                              : null}
+                          </select>
+                        ) : null}
                         <div className="price-buy">
                           {/* quantity adjustment experiment*/}
 
@@ -410,7 +505,12 @@ const CartList = (props) => {
                               <button
                                 className="qtyplus"
                                 onClick={(e) =>
-                                  update(e, data[0], dataAmt[data[0]] + 1)
+                                  what
+                                    ? update(e, data[0], dataAmt[data[0]] + 1)
+                                    : dataAmt[data[0]] + 1 <=
+                                      data[1].numberofitems
+                                    ? update(e, data[0], dataAmt[data[0]] + 1)
+                                    : e.preventDefault()
                                 }
                               >
                                 +
@@ -483,15 +583,14 @@ const CartList = (props) => {
             setData={setData}
             setUse={setUse}
             use={use}
-            chA={chA}
-            setChA={setChA}
+            chA={what}
           />
         </div>
       ) : props.width.width === '66.66%' ? ( //{  }
         <div className="form-step form-step-active">
           {/* <CartConfirmation/> */}
           <CartConfirmation
-            advance={chA}
+            advance={what}
             output={data}
             toContinue={toContinue}
             checkOut={checkOut}

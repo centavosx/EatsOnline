@@ -17,6 +17,9 @@ const SingleProduct = (props) => {
   const [qty, setQty] = useState(1)
   const [message, setMessage] = useState({ added: false, message: '' })
   const [checkB, setCheckB] = useState(false)
+
+  const [adv, setAdv] = useState(null)
+  const [selectedDate, setSelectedDate] = useState(null)
   React.useEffect(async () => {
     const resp = await axios.get(
       process.env.REACT_APP_APIURL +
@@ -63,11 +66,13 @@ const SingleProduct = (props) => {
     if (localStorage.getItem('id') !== null) {
       axios
         .post(
-          process.env.REACT_APP_APIURL + 'addcart',
+          process.env.REACT_APP_APIURL + 'newaddcart',
           encryptJSON({
             id: localStorage.getItem('id'),
             cartid: idParam,
             amount: qty,
+            adv: adv,
+            date: selectedDate,
           })
         )
         .then((response) => {
@@ -90,6 +95,7 @@ const SingleProduct = (props) => {
       setQty(parseInt(x))
     }
   }
+
   return (
     <section className="single-sec" ref={ref}>
       <div className="collection-wrapper">
@@ -119,20 +125,23 @@ const SingleProduct = (props) => {
               <div className="product-right">
                 <h2>{data.title}</h2>
                 <h6>{data.seller}</h6>
-                <h4>
-                  {' '}
-                  {data.discount !== undefined ? (
-                    <span className="s-before">P{data.price}</span>
-                  ) : null}
-                </h4>
-                <span className="s-current">
-                  P
-                  {data.discount !== undefined
-                    ? (data.price - (data.discount * data.price) / 100).toFixed(
-                        2
-                      )
-                    : data.price}
-                </span>
+                <div className="discount-con">
+                  <h4>
+                    {' '}
+                    {data.discount !== undefined ? (
+                      <span className="s-before">P{data.price}</span>
+                    ) : null}
+                  </h4>
+                  <span className="s-current">
+                    P
+                    {data.discount !== undefined
+                      ? (
+                          data.price -
+                          (data.discount * data.price) / 100
+                        ).toFixed(2)
+                      : data.price}
+                  </span>
+                </div>
                 <ul className="color-variant s-rate">
                   {data.comments === 0 ? (
                     'No ratings'
@@ -206,7 +215,7 @@ const SingleProduct = (props) => {
                   <h6 className="product-title">product details</h6>
                   <p>{data.description}</p>
                 </div>
-                <div className="border-product">
+                {/* <div className="border-product">
                   <h6 className="product-title">quantity</h6>
                   <div className="qty-box">
                     <button
@@ -229,42 +238,200 @@ const SingleProduct = (props) => {
                     >
                       +
                     </button>
-                  </div>
-                  <div>{message.message}</div>
-                  <br />
-                  <div id="single-add">
-                    <a
-                      style={{ cursor: 'pointer' }}
-                      className="single-add-btn"
-                      onClick={() =>
-                        props.login ? addCart(data[0]) : history.push('/login')
-                      }
+                  </div> */}
+                <div>{message.message}</div>
+                <br />{' '}
+                {adv !== null ? (
+                  <>
+                    <div className="adv-btn">
+                      <a
+                        style={{
+                          cursor: 'pointer',
+                          backgroundColor: 'red',
+                          border: 'none',
+                          padding: '2px',
+                          paddingLeft: '5px',
+                          paddingRight: '5px',
+                        }}
+                        className="advance-btn"
+                        onClick={(e) => setAdv(null)}
+                      >
+                        Cancel
+                      </a>
+                    </div>
+                    <p
+                      style={{
+                        textAlign: 'center',
+                        justifyContent: 'center',
+                        width: '100%',
+                      }}
                     >
-                      <span style={{ color: 'white' }}>Add to cart</span>
-                    </a>
-                  </div>
-                </div>
+                      Add to {adv === true ? 'Advance Order' : 'Order Now'}
+                    </p>
+                  </>
+                ) : null}
+                {adv === true ? (
+                  <select
+                    className="form-control alterationTypeSelect"
+                    style={{
+                      width: '90%',
+                      height: '35px',
+                      marginLeft: '5%',
+                      marginRight: '5%',
+                    }}
+                    onChange={(e) =>
+                      e.target.value === 'Select available dates'
+                        ? setSelectedDate(null)
+                        : setSelectedDate(e.target.value)
+                    }
+                  >
+                    <option disabled="" value={null}>
+                      Select available dates
+                    </option>
+                    {data.adv
+                      ? Object.keys(data.adv).map((d, i) => (
+                          <option disabled="" key={i}>
+                            {new Date(data.adv[d]).toDateString()}
+                          </option>
+                        ))
+                      : null}
+                  </select>
+                ) : null}
+                {/* <br /> */}
+                {/* order now and advance order button */}
+                {adv === null ? (
+                  <>
+                    <p
+                      style={{
+                        textAlign: 'center',
+                        justifyContent: 'center',
+                        width: '100%',
+                        fontWeight: 500,
+                      }}
+                    >
+                      Add to:
+                    </p>
+                    {data.adv ? (
+                      Object.keys(data.adv).length > 0 ? (
+                        <div className="single-ord-conts">
+                          <div className="single-ord-btn">
+                            <a
+                              style={{ cursor: 'pointer' }}
+                              className="single-order-now-btn"
+                              onClick={(e) => setAdv(false)}
+                            >
+                              Order Now
+                            </a>
+                          </div>
+
+                          <div className="single-adv-btn">
+                            <a
+                              style={{ cursor: 'pointer' }}
+                              className="single-advance-btn"
+                              onClick={(e) => setAdv(true)}
+                            >
+                              Advance Order
+                            </a>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="single-ord-btn">
+                          <a
+                            style={{ cursor: 'pointer' }}
+                            className="single-order-now-btn"
+                            onClick={(e) => setAdv(false)}
+                          >
+                            Order Now
+                          </a>
+                        </div>
+                      )
+                    ) : (
+                      <div className="single-ord-btn">
+                        <a
+                          style={{ cursor: 'pointer' }}
+                          className="single-order-now-btn"
+                          onClick={(e) => setAdv(false)}
+                        >
+                          Order Now
+                        </a>
+                      </div>
+                    )}
+                  </>
+                ) : null}
+                {data.adv !== null ? (
+                  <>
+                    <div className="price-buy">
+                      {/* quantity adjustment experiment*/}
+
+                      <div className="qty-cons">
+                        <h6 className="product-title">quantity</h6>
+                        <p className="q-btn">
+                          {/* value={"-"} */}
+
+                          <button
+                            className="qtyminus"
+                            onClick={(e) => editQty(qty - 1)}
+                          >
+                            -
+                          </button>
+                          <input
+                            type="number"
+                            className="qty-int"
+                            readOnly={true}
+                            name="qty"
+                            value={qty}
+                          />
+                          {/* {console.log(data[0])} */}
+                          {/* value={"+"} */}
+                          <button
+                            className="qtyplus"
+                            onClick={(e) => editQty(qty + 1)}
+                          >
+                            +
+                          </button>
+                        </p>
+                      </div>
+
+                      {/* right */}
+
+                      <div id="div2">
+                        <a
+                          style={{ cursor: 'pointer' }}
+                          className="prd-btn"
+                          onClick={() =>
+                            props.login
+                              ? addCart(data[0])
+                              : history.push('/login')
+                          }
+                        >
+                          <h6 className="add-to">add to cart</h6>
+                        </a>
+                      </div>
+                    </div>
+                  </>
+                ) : null}
               </div>
             </div>
-            {/*comments*/}
-
-            <Reviews
-              id={idParam}
-              login={props.login}
-              check={checkB}
-              data={props.data}
-            />
-            {'title' in data ? (
-              <Recommended
-                title={data.title}
-                seller={data.seller}
-                type={data.type}
-                login={props.login}
-              />
-            ) : null}
           </div>
+          {/*comments*/}
+
+          <Reviews
+            id={idParam}
+            login={props.login}
+            check={checkB}
+            data={props.data}
+          />
+          {'title' in data ? (
+            <Recommended
+              title={data.title}
+              seller={data.seller}
+              type={data.type}
+              login={props.login}
+            />
+          ) : null}
         </div>
       </div>
+      {/* </div> */}
     </section>
   )
 }

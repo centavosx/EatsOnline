@@ -2,47 +2,54 @@ import React, { useState } from 'react'
 import '../CSS/Modal.css'
 
 const Modal = (props) => {
-  return (
-    <div
-      className="modal fade"
-      id="exampleModalCenter"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalCenterTitle"
-      aria-hidden="true"
-    >
-      <div className="modal-dialog modal-dialog-centered" role="document">
-        <div className="modal-content">
-          <div className="modal-header">
-            {/* <h5 className="modal-title" id="exampleModalLongTitle">Modal title</h5> */}
+  return props.display ? (
+    <div className="modalBackground">
+      <div className="display-block">
+        <div className="modalContainer">
+          <ul className="cancel_ul">
+            <h2>Do you want to Cancel your order?</h2>
+            <p className="please">Please Select Reason</p>
+            <select name="slct" id="reas" style={{ width: '100%' }}>
+              <option disabled="">Choose Reason</option>
+              <option value="Want to change payment method">
+                Want to change payment method
+              </option>
+              <option value="Change/Combine order">Change/Combine order</option>
+              <option value="Delivery time is too long">
+                Delivery time is too long
+              </option>
+              <option value="Duplicate Order">Duplicate Order</option>
+              <option value="Sourcing payment issue">
+                Sourcing payment issue
+              </option>
+              <option value="Change of mind">Change of mind</option>
+              <option value="Decided for alternative product7">
+                Decided for alternative product
+              </option>
+              <option value="Fees-shipping costs">Fees-shipping costs</option>
+              <option value="9">Others</option>
+            </select>
+          </ul>
+        </div>
+        <textarea placeholder="Please type your reason for cancelling this transaction." />
+        <div className="bottom">
+          <div style={{ margin: '10px' }}>
             <button
-              type="button"
-              className="close"
-              data-dismiss="modal"
-              aria-label="Close"
+              className="modal-Cancel"
+              onClick={() => props.cancelModal(false)}
             >
-              <span aria-hidden="true">&times;</span>
+              Cancel
             </button>
           </div>
-          <div className="modal-body">
-            <h5 className="modalh5">Are you sure you want to proceed?</h5>
-          </div>
-          <div className="modal-footer">
-            <button type="button" className="y-btn btn-primary">
-              Yes
-            </button>
-            <button
-              type="button"
-              className="n-btn btn-secondary"
-              data-dismiss="modal"
-            >
-              No
+          <div style={{ margin: '10px' }}>
+            <button className="modal-Confirm" onClick={props.confirm}>
+              Confirm
             </button>
           </div>
         </div>
       </div>
     </div>
-  )
+  ) : null
 }
 
 export default Modal

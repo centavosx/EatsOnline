@@ -51,13 +51,15 @@ const CartConfirmation = (props) => {
   return (
     <div className="confirm-wrapper">
       <div id="three">
-        <img
-          className="logo"
-          src="../assets/EOLogo_TransparentBG.png"
-          alt="Logo"
-        />
-        <div id="title">
-          <h4 className="title-h4">EATS ONLINE</h4>
+        <div className="icon-title">
+          <img
+            className="logo"
+            src="../assets/EOLogo_TransparentBG.png"
+            alt="Logo"
+          />
+          <div id="title">
+            <h4 className="title-h4">EATS ONLINE</h4>
+          </div>
         </div>
         <div id="mid">
           <div className="info">
@@ -74,6 +76,9 @@ const CartConfirmation = (props) => {
               <br />
               <strong>PAYMENT MODE: </strong>
               {props.output.payment}
+              <br />
+              <strong>ORDER METHOD: </strong>
+              {props.advance ? 'Advance Order' : 'Order Now'}
             </p>
             <hr classNameName="hr-line" />
           </div>
@@ -81,13 +86,14 @@ const CartConfirmation = (props) => {
         <div className="summary">
           <h4 className="sum-h4">SUMMARY</h4>
         </div>
-        <div className="tableFixHead-cart tbody-scroll">
+        <div className="tableFixHead-cart">
           <table className="table">
             <thead className="top-head">
               <tr>
                 <th>Name</th>
                 <th>Qty</th>
                 <th>Price</th>
+                {props.advance ? <th>Delivery Date</th> : null}
               </tr>
             </thead>
             <tbody>
@@ -97,6 +103,11 @@ const CartConfirmation = (props) => {
                     <td data-label="Name">{data[1].title}</td>
                     <td data-label="Qty">{data[1].amount}</td>
                     <td data-label="Price">{data[1].price}</td>
+                    {props.advance ? (
+                      <td data-label="Date">
+                        {new Date(data[1].date).toDateString()}
+                      </td>
+                    ) : null}
                   </tr>
                 )
               })}

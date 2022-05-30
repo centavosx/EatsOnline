@@ -313,7 +313,7 @@ table {
   margin: 0;
   padding: 0;
   width: 100%;
-  table-layout: fixed;
+  /* table-layout: fixed; */
 }
 
 table caption {
@@ -329,7 +329,7 @@ table tr {
 
 table th,
 table td {
-  padding: 0.625em;
+  padding: 3px;
   text-align: center;
   font-size: 15px !important;
   /* text-transform: uppercase; */

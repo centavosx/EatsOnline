@@ -13,20 +13,19 @@ const SelectOrder = (props) => {
   React.useEffect(() => {
     let x = []
     for (let v in props.data) {
-      delete props.data[v].date
       props.data[v].key = props.data[v].key
       x.push([v, props.data[v]])
     }
     props.t_data.items = x
     props.t_data.totalprice = props.totalamount
-
+    console.log(props.t_data)
     props.setData(props.t_data)
     props.setUse(!props.use)
     if (checkItem(x)) {
       setOrderAvail(true)
-      props.setChA(false)
+      // props.setChA(false)
     } else {
-      props.setChA(true)
+      // props.setChA(true)
       setOrderAvail(false)
     }
     setData(x)
@@ -102,7 +101,7 @@ const SelectOrder = (props) => {
           <h4 className="d-flex justify-content-between mb-3">
             <span className="text">Selected Order</span>
           </h4>
-          <div className="tableFixHead-cart tbody-scroll">
+          <div className="tableFixHead-cart">
             <table className="table">
               <thead className="top-head">
                 <tr>
@@ -127,10 +126,7 @@ const SelectOrder = (props) => {
         </div>
         <div id="two">
           <div lassName="needs-validation">
-            <h4 className="order-m">
-              <span style={{ color: 'red' }}>*</span>Order Method
-            </h4>
-            <div className="my-1">
+            {/* <div className="my-1">
               {orderavail ? (
                 <div className="order-now">
                   <input
@@ -170,8 +166,7 @@ const SelectOrder = (props) => {
                 </label>
               </div>
               <br />
-            </div>
-            <hr className="my-2" />
+            </div> */}
             <h4 className="order-m">Message</h4>
             {/* style={{ width: '38vw' }}  */}
             <textarea
@@ -179,6 +174,7 @@ const SelectOrder = (props) => {
               name="message"
               rows="5"
               placeholder="Message"
+              style={{ width: '100%' }}
               value={props.t_data.message}
               onChange={(e) => {
                 props.t_data.message = e.target.value
@@ -186,7 +182,7 @@ const SelectOrder = (props) => {
                 props.setUse(!props.use)
               }}
             ></textarea>
-            {props.chA ? (
+            {/* {props.chA ? (
               <>
                 <hr className="my-2" />
                 <h4 className="order-m">
@@ -227,7 +223,7 @@ const SelectOrder = (props) => {
                   <div></div>
                 </div>
               </>
-            ) : null}
+            ) : null} */}
             <hr className="my-2" />
             <h4 className="order-m">
               <span style={{ color: 'red' }}>*</span>Payment Method

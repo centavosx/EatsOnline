@@ -1,6 +1,16 @@
-.modal {
-  display: contents;
-}
+/* .modal {
+  background-color: yellow;
+  border-radius: 10px;
+  margin: 10px;
+  top: 10px;
+  left: 0;
+  z-index: 1055;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  outline: 0;
+} */
+/*
 .modal-content {
   position: absolute;
   display: flex;
@@ -41,4 +51,95 @@
   font-size: 15px;
   float: right;
   padding: 4px 15px;
+} */
+.cancel_ul h2 {
+  text-align: center;
+  display: flex;
+  color: #ffff;
+}
+/* 
+  position: fixed;
+  top: 50%;
+  bottom: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  background: #f0c929;
+  width: 350px;
+  max-width: 100%;
+  height: 350px;
+  max-height: 100%;
+  z-index: 2;
+  text-align: center;
+  padding: 20px;
+  box-sizing: border-box;
+  border-width: 3px;
+  border-style: solid;
+  border-radius: 30px;
+  border-color: #611b14;
+} */
+.modalBackground {
+  background-color: rgba(0, 0, 0, 0.55);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  padding-top: 200px;
+  padding-bottom: 100px;
+  display: flex;
+  justify-content: center;
+  z-index: 100;
+}
+.please {
+  font-size: 16px;
+  color: white;
+}
+.modalContainer {
+}
+.display-block {
+  height: fit-content;
+  display: block;
+  width: 55%;
+  background-color: #10505e;
+  border-radius: 12px;
+  overflow-y: unset;
+  overflow-x: auto;
+  padding: 25px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.bottom {
+  display: flex;
+}
+.modal-Cancel {
+  margin: 0px 5px;
+  font-weight: 600;
+  position: relative;
+  display: inline-block;
+  font-size: 14px;
+  line-height: 30px;
+  color: #fff;
+  padding: 7px 10px;
+  overflow: hidden;
+  letter-spacing: 0.02em;
+  border-radius: 25px;
+  background-color: #10505e;
+  border: 2px solid #0d6efd;
+}
+.modal-Confirm {
+  margin: 0px 5px;
+  font-weight: 600;
+  position: relative;
+  display: inline-block;
+  font-size: 14px;
+  line-height: 30px;
+  color: #fff;
+  padding: 7px 10px;
+  overflow: hidden;
+  letter-spacing: 0.02em;
+  border-radius: 25px;
+  background-color: #10505e;
+  border: 2px solid #0d6efd;
+}
+.cancel_ul {
+  margin-bottom: 30px;
 }

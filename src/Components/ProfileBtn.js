@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'
 import { Link } from 'react-router-dom'
 import '../CSS/ProfileBtn.css'
+import Modal from './Modal'
 const ProfileBtn = (props) => {
   const history = useHistory()
   const logout = () => {

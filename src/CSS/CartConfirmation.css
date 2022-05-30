@@ -339,11 +339,19 @@ td {
   max-height: 515px;
   overflow-y: scroll;
   bottom: 17px;
-  overflow-x: hidden;
+  overflow-x: scroll;
   /* profile */
   border: 2px solid #000;
 }
-
+.tableFixHead-cart {
+  position: relative;
+  max-height: 515px;
+  overflow-y: scroll;
+  bottom: 17px;
+  /* overflow-x: scroll; */
+  /* profile */
+  border: 2px solid #000;
+}
 .tble {
   /* height: 100%; */
   border: 2px solid #000;
@@ -508,6 +516,8 @@ td {
     width: 200px;
     display: inline-block;
     margin-left: 60px;
+    display: flex;
+    align-items: center;
   }
   .logo {
     display: inline-block;
