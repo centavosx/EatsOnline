@@ -163,7 +163,7 @@ function Products(props) {
             <div className="glider-contain">
               <div className="glider">
                 {/* <!-- Product box --> */}
-                {products.map((data, i) => {
+                {products.map((data) => {
                   return (
                     <FeaturedProductBox
                       key={data[0]}
@@ -645,7 +645,7 @@ const FeaturedProductBox = (props) => {
       ) : null}
       <div className="f-box-text">
         <a href={void 0} className="product-title1">
-          {props.ata[1].title}
+          {props.data[1].title}
           <div className="f-rate">
             {/* right */}
             <div className="prod-price">
