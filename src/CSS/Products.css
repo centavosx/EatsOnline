@@ -325,7 +325,7 @@ body {
 .price-buy {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
+  /* align-items: baseline; */
   /* margin-top: 8px; */
   width: 100%;
 }

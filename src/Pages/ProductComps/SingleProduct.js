@@ -6,6 +6,7 @@ import Reviews from './Reviews'
 import Recommended from './Recommended'
 import { useHistory } from 'react-router-dom'
 import socket from '../../socket'
+import { Redirect } from 'react-router-dom'
 
 const SingleProduct = (props) => {
   const [data, setData] = useState({})
@@ -17,6 +18,7 @@ const SingleProduct = (props) => {
   const [qty, setQty] = useState(1)
   const [message, setMessage] = useState({ added: false, message: '' })
   const [checkB, setCheckB] = useState(false)
+
 
   const [adv, setAdv] = useState(null)
   const [selectedDate, setSelectedDate] = useState(null)
@@ -215,30 +217,7 @@ const SingleProduct = (props) => {
                   <h6 className="product-title">product details</h6>
                   <p>{data.description}</p>
                 </div>
-                {/* <div className="border-product">
-                  <h6 className="product-title">quantity</h6>
-                  <div className="qty-box">
-                    <button
-                      className="m-btn"
-                      type="button"
-                      onClick={() => editQty(parseInt(qty) - 1)}
-                    >
-                      -
-                    </button>
-                    <input
-                      type="number"
-                      className="s-option"
-                      value={qty}
-                      readOnly={true}
-                    />
-                    <button
-                      className="p-btn"
-                      type="button"
-                      onClick={() => editQty(parseInt(qty) + 1)}
-                    >
-                      +
-                    </button>
-                  </div> */}
+               
                 <div>{message.message}</div>
                 <br />{' '}
                 {adv !== null ? (
@@ -303,14 +282,15 @@ const SingleProduct = (props) => {
                   <>
                     <p
                       style={{
-                        textAlign: 'center',
-                        justifyContent: 'center',
+                        justifyContent: 'left',
                         width: '100%',
-                        fontWeight: 500,
+                        fontWeight: "bold",
+                        
                       }}
                     >
                       Add to:
                     </p>
+                    <br></br>
                     {data.adv ? (
                       Object.keys(data.adv).length > 0 ? (
                         <div className="single-ord-conts">
@@ -322,9 +302,7 @@ const SingleProduct = (props) => {
                             >
                               Order Now
                             </a>
-                          </div>
-
-                          <div className="single-adv-btn">
+                            
                             <a
                               style={{ cursor: 'pointer' }}
                               className="single-advance-btn"
@@ -333,6 +311,8 @@ const SingleProduct = (props) => {
                               Advance Order
                             </a>
                           </div>
+
+                          
                         </div>
                       ) : (
                         <div className="single-ord-btn">
@@ -358,7 +338,7 @@ const SingleProduct = (props) => {
                     )}
                   </>
                 ) : null}
-                {data.adv !== null ? (
+                {adv !== null ? (
                   <>
                     <div className="price-buy">
                       {/* quantity adjustment experiment*/}
@@ -369,7 +349,7 @@ const SingleProduct = (props) => {
                           {/* value={"-"} */}
 
                           <button
-                            className="qtyminus"
+                            className='minusme'
                             onClick={(e) => editQty(qty - 1)}
                           >
                             -
@@ -384,7 +364,7 @@ const SingleProduct = (props) => {
                           {/* {console.log(data[0])} */}
                           {/* value={"+"} */}
                           <button
-                            className="qtyplus"
+                            className="plusme"
                             onClick={(e) => editQty(qty + 1)}
                           >
                             +
@@ -394,19 +374,23 @@ const SingleProduct = (props) => {
 
                       {/* right */}
 
-                      <div id="div2">
-                        <a
-                          style={{ cursor: 'pointer' }}
-                          className="prd-btn"
-                          onClick={() =>
-                            props.login
-                              ? addCart(data[0])
-                              : history.push('/login')
-                          }
-                        >
-                          <h6 className="add-to">add to cart</h6>
-                        </a>
-                      </div>
+                      {adv !== null ? 
+                          <div id="div2">
+                          <a
+                            style={{ cursor: 'pointer' }}
+                            className="prd-btn"
+                            onClick={() =>
+                              props.login
+                                ? addCart(data[0])
+                                : history.push('/login')
+                            }
+                          >
+                            <h6 className="add-to">add to cart</h6>
+                          </a>
+                        </div>
+                      : null}
+
+                      
                     </div>
                   </>
                 ) : null}
