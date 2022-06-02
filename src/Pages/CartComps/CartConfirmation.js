@@ -92,8 +92,12 @@ const CartConfirmation = (props) => {
               <tr>
                 <th style={{ color: 'white', padding: '8px 16px' }}>Name</th>
                 <th style={{ color: 'white', padding: '8px 16px' }}>Qty</th>
+                {props.advance ? (
+                  <th style={{ color: 'white', padding: '8px 16px' }}>
+                    Adv Date
+                  </th>
+                ) : null}
                 <th style={{ color: 'white', padding: '8px 16px' }}>Price</th>
-                {props.advance ? <th>Delivery Date</th> : null}
               </tr>
             </thead>
             <tbody>
@@ -103,12 +107,12 @@ const CartConfirmation = (props) => {
                   <tr className="cart-tr" key={index}>
                     <td data-label="Name">{data[1].title}</td>
                     <td data-label="Qty">{data[1].amount}</td>
-                    <td data-label="Price">{data[1].price}</td>
                     {props.advance ? (
-                      <td data-label="Date">
+                      <td data-label="Adv Date">
                         {new Date(data[1].date).toDateString()}
                       </td>
                     ) : null}
+                    <td data-label="Price">{data[1].price}</td>
                   </tr>
                 )
               })}

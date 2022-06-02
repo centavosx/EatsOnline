@@ -488,8 +488,3 @@
 .ord-cols {
   display: grid;
 }
-
-.main_cart {
-  display: flex;
-  justify-content: space-between;
-}

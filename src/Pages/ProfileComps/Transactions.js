@@ -29,7 +29,7 @@ const Transactions = (props) => {
       )
       .then((response) => {
         response.data = decryptJSON(response.data.data)
-
+        console.log(response.data.data)
         setData(response.data.data)
       })
     socket.on(
@@ -51,6 +51,7 @@ const Transactions = (props) => {
           id: localStorage.getItem('id'),
           ref: props.transaction ? 'transaction' : 'reservation',
           reason: reason,
+          request: true,
           key: id,
         })
       )
@@ -58,7 +59,18 @@ const Transactions = (props) => {
         setShowModal(false)
       })
   }
-
+  const CancelRequest = async (id) => {
+    await axios.patch(
+      process.env.REACT_APP_APIURL + 'newcancelorder',
+      encryptJSON({
+        id: localStorage.getItem('id'),
+        ref: props.transaction ? 'transaction' : 'reservation',
+        reason: null,
+        request: null,
+        key: id,
+      })
+    )
+  }
   return (
     <div
       className="tab-pane fade shadow bg-white show active p-3"
@@ -141,7 +153,7 @@ const Transactions = (props) => {
               sort === d[1].status ||
               (sort === 'Requests' && d[1].request) ||
               (sort === 'Cancelled' && d[1].status === 'Cancelled') ? (
-                d[1].reason || d[1].reason ? (
+                !d[1].reason || d[1].reason ? (
                   sort === 'All' ||
                   dispReason === 'All' ||
                   !d[1].reason ||
@@ -150,8 +162,7 @@ const Transactions = (props) => {
                       <td data-label="No.">{i + 1}</td>
                       <td data-label="Order ID">{d[1].id}</td>
                       <td data-label="Order Date">
-                        {new Date(d[1].dateBought).toDateString()}{' '}
-                        {new Date(d[1].dateBought).toLocaleTimeString()}
+                        {new Date(d[1].dateBought).toDateString()}
                       </td>
                       <td data-label="Order Item">{d[1].items.length}</td>
                       <td data-label="Total Price">
@@ -195,7 +206,15 @@ const Transactions = (props) => {
                               Cancel
                             </button>
                           ) : (
-                            'Waiting for approval...'
+                            <>
+                              Waiting for approval...
+                              <button
+                                className="w-button button-small button-round"
+                                onClick={() => CancelRequest(d[0])}
+                              >
+                                Cancel
+                              </button>
+                            </>
                           )
                         ) : (
                           'Cancelled'

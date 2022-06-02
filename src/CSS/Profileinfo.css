@@ -284,7 +284,8 @@ td {
 
 .tbody-scroll {
   position: relative;
-  max-height: 120vw;
+  /* max-height: 120vw; */
+  max-height: 350px;
   overflow-y: scroll;
   bottom: 17px;
   overflow-x: scroll;
@@ -301,13 +302,13 @@ td {
   border-radius: 10px;
 }
 
-.tbody-scroll {
+/* .tbody-scroll {
   position: relative;
   max-height: 515x;
   overflow-y: scroll;
   bottom: 17px;
   overflow-x: hidden;
-}
+} */
 
 .profiletable {
   border: 1px solid #ccc;
@@ -315,7 +316,8 @@ td {
   margin: 0;
   padding: 0;
   width: 100%;
-  /* table-layout: fixed; */
+  table-layout: fixed;
+  display: inline;
 }
 
 table caption {
@@ -674,6 +676,21 @@ body {
   border-radius: 25px;
   background-color: #d11818;
   border: 2px solid #f84b4b;
+}
+
+.w-button {
+  margin: 0px 5px;
+  /* font-weight: 600; */
+  display: inline-block;
+  font-size: 14px;
+  color: #ffffff;
+  padding: 3px 5px;
+  overflow: hidden;
+  letter-spacing: 0.02em;
+  border-radius: 25px;
+  background-color: #d11818;
+  border: 2px solid #f84b4b;
+  margin-top: 10px;
 }
 
 .c-button:hover {

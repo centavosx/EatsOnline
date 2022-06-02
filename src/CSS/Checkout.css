@@ -35,10 +35,10 @@
 td {
   word-wrap: break-word;
 }
-.tableFixHead {
+/* .tableFixHead {
   overflow-y: auto;
   max-height: 511px;
-}
+} */
 
 .tableFixHead th {
   position: sticky;

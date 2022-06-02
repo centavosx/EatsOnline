@@ -157,6 +157,7 @@ const Checkout = (props) => {
               <tr>
                 <th>Name</th>
                 <th>Qty</th>
+                {props.output.what !== 'transaction' ? <th>Adv Date</th> : null}
                 <th>Price</th>
                 {props.output.what !== 'transaction' ? <th>Status</th> : null}
               </tr>
@@ -175,6 +176,11 @@ const Checkout = (props) => {
                           >
                             <td data-label="Name">{data[1].title}</td>
                             <td data-label="Qty">{data[1].amount}</td>
+                            {props.output.what !== 'transaction' ? (
+                              <td data-label="Adv Date">
+                                {new Date(data[1].date).toDateString()}
+                              </td>
+                            ) : null}
                             <td data-label="Price">{data[1].price}</td>
                             {props.output.what !== 'transaction' ? (
                               <td data-label="Status">{data[1].status}</td>
@@ -295,6 +301,32 @@ const Checkout = (props) => {
                 accept="image/*"
               />
             </form>
+            <div>
+              <div
+                className="sum-tPrice"
+                style={{
+                  padding: '10px',
+                  fontWeight: 600,
+                  color: 'black',
+                  float: 'right',
+                }}
+              >
+                <p>Total Price: {output.totalprice}</p>
+              </div>
+              {output.deliveryfee > 0 ? (
+                <div
+                  className="d-sumPrice"
+                  style={{
+                    padding: '10px',
+                    fontWeight: 600,
+                    color: 'black',
+                    float: 'right',
+                  }}
+                >
+                  <p>Delivery Price: {output.deliveryfee}</p>
+                </div>
+              ) : null}
+            </div>
             {image !== null ? (
               loading ? (
                 <h5 className="pay">Uploading...</h5>
