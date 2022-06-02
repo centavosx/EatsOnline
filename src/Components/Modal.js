@@ -3,16 +3,24 @@ import '../CSS/Modal.css'
 
 const Modal = (props) => {
   const [others, setOthers] = useState(false)
+  const [refund, setRefund] = useState(false)
+
   const setVal = (v) => {
     if (v === 'Others') {
       props.reason(null)
       return setOthers(true)
     }
+    if (v === 'Refund') {
+      props.reason(null)
+      return setRefund(true)
+    }
+    setRefund(false)
     setOthers(false)
     if (v === 'Choose Reason' || v === 'null' || v === null)
       return props.reason(null)
     return props.reason(v)
   }
+
   return props.display ? (
     <div className="modalBackground">
       <div className="display-block">
@@ -32,19 +40,19 @@ const Modal = (props) => {
               <option value="Want to change payment method">
                 Want to change payment method
               </option>
-              <option value="Change/Combine order">Change/Combine order</option>
+              <option value="Change/Combine order">Change/Combine Order</option>
               <option value="Delivery time is too long">
                 Delivery time is too long
               </option>
               <option value="Duplicate Order">Duplicate Order</option>
-              <option value="Sourcing payment issue">
-                Sourcing payment issue
-              </option>
               <option value="Change of mind">Change of mind</option>
               <option value="Decided for alternative product">
                 Decided for alternative product
               </option>
-              <option value="Fees-shipping costs">Fees-shipping costs</option>
+              {props.info.payment === 'Online Payment' &&
+              props.info.pstatus === 'Paid' ? (
+                <option value="Refund">Request Refund</option>
+              ) : null}
               <option value="Others">Others</option>
             </select>
           </ul>
@@ -53,6 +61,15 @@ const Modal = (props) => {
           <textarea
             placeholder="Please type your reason for cancelling this transaction."
             onChange={(e) => props.reason('Others: ' + e.target.value)}
+          />
+        ) : null}
+        {refund &&
+        props.info.payment === 'Online Payment' &&
+        props.info.pstatus === 'Paid' ? (
+          <textarea
+            style={{ minHeight: '50px' }}
+            placeholder="Please type your reason for cancelling this transaction."
+            onChange={(e) => props.reason('Refund: ' + e.target.value)}
           />
         ) : null}
         <div className="bottom">
@@ -69,6 +86,7 @@ const Modal = (props) => {
               Confirm
             </button>
           </div>
+          {/* {confirm ? <div></div> : null} */}
         </div>
       </div>
     </div>

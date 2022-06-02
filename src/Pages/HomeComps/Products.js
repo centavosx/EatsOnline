@@ -189,7 +189,6 @@ const ProductBox = (props) => {
   const [num, setNum] = useState(1)
   const [date, setDate] = useState(null)
   const [message, setMessage] = useState({ added: false, message: '' })
-  console.log(message)
   const editQty = (e, x) => {
     e.preventDefault()
 
@@ -402,10 +401,16 @@ const ProductBox = (props) => {
               width: '100%',
             }}
           >
-            Add to {adv === true ? 'Advance Order' : 'Order Now'}
+            Added to {adv === true ? 'Advance Order' : 'Order Now'}
           </p>
         </>
       ) : null}
+      {/* {adv === true ? (
+        <div style={{ margin: 10 }}>
+          <label for="dateofbirth">Select available dates</label>
+          <input type="date" name="dateofbirth" id="advance-order-date" />
+        </div>
+      ) : null} */}
       {adv === true ? (
         <select
           className="form-control alterationTypeSelect"
@@ -728,6 +733,7 @@ const FeaturedProductBox = (props) => {
               </p>
             </>
           ) : null}
+
           {adv === true ? (
             <select
               className="form-control alterationTypeSelect"
@@ -754,8 +760,10 @@ const FeaturedProductBox = (props) => {
                   ))
                 : null}
             </select>
-          ) : null}
-          {/* <br /> */}
+          ) : // try para naging clickable
+
+          // null
+          null}
           {/* order now and advance order button */}
           {adv === null ? (
             <>

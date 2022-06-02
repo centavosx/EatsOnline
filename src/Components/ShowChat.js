@@ -62,9 +62,9 @@ const ShowChat = (props) => {
                   <h4>EATS Online</h4>
                   <h6></h6>
                 </div>
-                <div className="msgheader-icon">
+                {/* <div className="msgheader-icon">
                   <i className="fas fa-window-minimize"></i>
-                </div>
+                </div> */}
               </div>
 
               <div className="chat-page">

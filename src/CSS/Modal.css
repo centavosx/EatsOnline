@@ -122,9 +122,16 @@
   overflow: hidden;
   letter-spacing: 0.02em;
   border-radius: 25px;
-  background-color: #10505e;
-  border: 2px solid #0d6efd;
+  background-color: #d11818;
+  border: 2px solid #f84b4b;
 }
+
+.modal-Cancel:hover {
+  color: #fff;
+  background-color: #f33b3b;
+  color: #f2f36b;
+}
+
 .modal-Confirm {
   margin: 0px 5px;
   font-weight: 600;
@@ -132,13 +139,19 @@
   display: inline-block;
   font-size: 14px;
   line-height: 30px;
-  color: #fff;
+  color: #000;
   padding: 7px 10px;
   overflow: hidden;
   letter-spacing: 0.02em;
   border-radius: 25px;
-  background-color: #10505e;
-  border: 2px solid #0d6efd;
+  background-color: #f2f36b;
+  border: 2px solid #9e9e33;
+}
+
+.modal-Confirm:hover {
+  border: 2px solid #9e9e33;
+  background-color: #f1f19b;
+  color: #000;
 }
 
 .cancel_ul {

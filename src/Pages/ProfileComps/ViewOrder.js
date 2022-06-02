@@ -62,7 +62,12 @@ const ViewOrder = (props) => {
 
             <div className="vcol col-sm-6">
               <h6 className="mb-3">
-                <strong>STATUS</strong>
+                <strong>ORDER METHOD: </strong>
+                {props.data[1] === 'transaction' ? (
+                  <span style={{ color: 'green' }}>ORDER NOW</span>
+                ) : (
+                  <span style={{ color: 'red' }}>ADVANCE ORDER</span>
+                )}
               </h6>
               <strong> ORDER STATUS: </strong>
               {data.status}
@@ -141,7 +146,7 @@ const ViewOrder = (props) => {
             <div className="ttl-amts">
               <h4>
                 {' '}
-                <strong>TOTAL : </strong> {data.totalprice}
+                <strong>TOTAL : </strong>Php {data.totalprice.toFixed(2)}
               </h4>
             </div>
           </div>

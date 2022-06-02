@@ -65,34 +65,62 @@ const Notification = (props) => {
           <ul className="notification_ul">
             {data.map((data, index) => (
               <a href={`/cartlist?id=${data[0][0]}&what=${data[0][1]}`}>
-                <li
-                  key={index}
-                  className={
-                    data[1].status == 'Completed'
-                      ? 'success starbucks'
-                      : data[1].status == 'Pending'
-                      ? 'pending pizza_hut'
-                      : data[1].status == 'Cancelled'
-                      ? 'failed mcd'
-                      : 'delivery baskin_robbins'
-                  }
-                >
-                  <div className="notify_icon">
-                    <span className="icon"></span>
-                  </div>
-                  <div className="notify_data">
-                    <div className="notif_title">{data[1].id}</div>
-                    <div className="sub_title">{data[1].payment}</div>
-                  </div>
-                  <div className="notify_status">
-                    <p>{data[1].status}</p>
-                  </div>
-                </li>
+                {typeof data[1].request === 'undefined' ? (
+                  <li
+                    key={index}
+                    className={
+                      data[1].status == 'Completed'
+                        ? 'success starbucks'
+                        : data[1].status == 'Pending'
+                        ? 'pending pizza_hut'
+                        : data[1].status == 'Cancelled'
+                        ? 'failed mcd'
+                        : 'delivery baskin_robbins'
+                    }
+                  >
+                    <div className="notify_icon">
+                      <span className="icon"></span>
+                    </div>
+                    <div className="notify_data">
+                      <div className="notif_title">{data[1].status} Order</div>
+                      <div className="sub_title">{data[1].id}</div>
+                      <div className="sub_title">{data[1].payment}</div>
+                    </div>
+                    <div className="notify_status">
+                      <p>{data[1].status}</p>
+                    </div>
+                    {/* For refund orders */}
+                  </li>
+                ) : (
+                  <li
+                    key={index}
+                    className={
+                      data[1].request ? 'pending pizza_hut' : 'failed mcd'
+                    }
+                  >
+                    <div className="notify_icon">
+                      <span className="icon"></span>
+                    </div>
+                    <div className="notify_data">
+                      <div className="notif_title">Cancel Request</div>
+                      <div className="sub_title">{data[1].id}</div>
+                      <div className="sub_title">{data[1].payment}</div>
+                      <div className="sub_title">
+                        <b>{data[1].reason?.split(':')[0] ?? ''}</b>
+                      </div>
+                    </div>
+                    <div className="notify_status">
+                      <p>{data[1].request ? 'WAITING' : 'DECLINED'}</p>
+                    </div>
+                    {/* For refund orders */}
+                  </li>
+                )}
               </a>
             ))}
-            <li className="show_all">
+
+            {/* <li className="show_all">
               <p className="link">Show All Activities</p>
-            </li>
+            </li> */}
           </ul>
         </div>
       ) : null}

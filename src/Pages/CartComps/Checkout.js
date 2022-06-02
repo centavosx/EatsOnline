@@ -161,7 +161,7 @@ const Checkout = (props) => {
                 {props.output.what !== 'transaction' ? <th>Status</th> : null}
               </tr>
             </thead>
-            <tbody id="style-4">
+            <tbody>
               <tr>
                 <td colSpan={props.output.what !== 'transaction' ? '4' : '3'}>
                   <div className="scrollit">

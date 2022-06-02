@@ -74,13 +74,13 @@ td {
   border-radius: 10px;
 }
 
-.tbody-scroll {
+/* .tbody-scroll {
   position: relative;
   max-height: 515px;
   overflow-y: scroll;
   bottom: 17px;
   overflow-x: hidden;
-}
+} */
 
 .table {
   /* height: 57vh; */
@@ -358,13 +358,7 @@ table tr {
   .alterationTypeSelect {
     width: 60vw;
   }
-  .tbody-scroll {
-    position: relative;
-    max-height: 120vw;
-    overflow-y: scroll;
-    bottom: 17px;
-    overflow-x: hidden;
-  }
+
   .text {
     margin: 10px 50px 17px;
     /* margin-left: 210px; */

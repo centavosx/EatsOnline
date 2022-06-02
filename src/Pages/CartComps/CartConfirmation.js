@@ -86,17 +86,18 @@ const CartConfirmation = (props) => {
         <div className="summary">
           <h4 className="sum-h4">SUMMARY</h4>
         </div>
-        <div className="tableFixHead-cart">
-          <table className="table">
+        <div className="tableFixHead-cart" style={{ padding: '8px 16px' }}>
+          <table>
             <thead className="top-head">
               <tr>
-                <th>Name</th>
-                <th>Qty</th>
-                <th>Price</th>
+                <th style={{ color: 'white', padding: '8px 16px' }}>Name</th>
+                <th style={{ color: 'white', padding: '8px 16px' }}>Qty</th>
+                <th style={{ color: 'white', padding: '8px 16px' }}>Price</th>
                 {props.advance ? <th>Delivery Date</th> : null}
               </tr>
             </thead>
             <tbody>
+              {/* id="style-4" */}
               {props.output.items.map((data, index) => {
                 return (
                   <tr className="cart-tr" key={index}>

@@ -373,168 +373,184 @@ const CartList = (props) => {
             <div className="scroll-object">
               {cart.length > 0 ? (
                 <div className="cart-container">
-                  {cart.map((data, index) => (
-                    <div className="cart-box" key={index}>
-                      <div style={{ display: 'flex' }}>
-                        <input
-                          type="checkbox"
-                          className="checkbox"
-                          onClick={(e) => check(e, data[0], data[1])}
-                          checked={data[0] in select}
-                        />
-                      </div>
-                      {data[1].discount ? (
-                        <span className="cart-discount">
-                          {data[1].discount}% Off
-                        </span>
-                      ) : null}
-                      {/* <!-- img container --> */}
-                      <div className="c-img-container">
-                        <div className="cart-img">
-                          <a href={void 0}>
-                            <img
-                              src={data[1].link}
-                              className="p-img-front"
-                              alt="Front"
-                            />
-                          </a>
+                  {cart.map((data, index) =>
+                    what || (!what && data[1].numberofitems > 0) ? (
+                      <div className="cart-box" key={index}>
+                        <div style={{ display: 'flex' }}>
+                          <input
+                            type="checkbox"
+                            className="checkbox"
+                            onClick={(e) => check(e, data[0], data[1])}
+                            checked={data[0] in select}
+                          />
                         </div>
-                      </div>
-                      {/* <!-- text --> */}
-                      <div className="p-box-text">
-                        {/* <!-- title --> */}
-                        {/* <span className="cart-discount">
+                        {data[1].discount ? (
+                          <span className="cart-discount">
+                            {data[1].discount}% Off
+                          </span>
+                        ) : null}
+                        {/* <!-- img container --> */}
+                        <div className="c-img-container">
+                          <div className="cart-img">
+                            <a href={void 0}>
+                              <img
+                                src={data[1].link}
+                                className="p-img-front"
+                                alt="Front"
+                              />
+                            </a>
+                          </div>
+                        </div>
+                        {/* <!-- text --> */}
+                        <div className="p-box-text">
+                          {/* <!-- title --> */}
+                          {/* <span className="cart-discount">
                           {data[1].discount}% Off
                         </span> */}
-                        <a href={void 0} className="product-title">
-                          {data[1].title}
-                        </a>
-                        {/* fist 2 div */}
-                        <div className="rate">
-                          {/* left */}
-                          <div className="div-sell">
-                            <span>{data[1].seller}</span>
+                          <a href={void 0} className="product-title">
+                            {data[1].title}
+                          </a>
+                          {/* fist 2 div */}
+                          <div className="rate">
+                            {/* left */}
+                            <div className="div-sell">
+                              <span>{data[1].seller}</span>
+                            </div>
+                            {/* right */}
+                            <div className="div-price">
+                              {data[1].discount || data[1].discount > 0 ? (
+                                <span className="d-price">
+                                  ₱{data[1].price.toFixed(2)}
+                                </span>
+                              ) : (
+                                <span className="p-price">
+                                  ₱{data[1].price.toFixed(2)}
+                                </span>
+                              )}
+                              <br />
+                              {data[1].discount || data[1].discount > 0 ? (
+                                <span className="p-price">
+                                  ₱
+                                  {(
+                                    data[1].price -
+                                    (data[1].discount * data[1].price) / 100
+                                  ).toFixed(2)}
+                                </span>
+                              ) : null}
+                            </div>
+                            {/* end 2 div */}
                           </div>
-                          {/* right */}
-                          <div className="div-price">
-                            <span className="d-price">
-                              ₱{data[1].price.toFixed(2)}
-                            </span>
-                            <br />
-                            <span className="p-price">
-                              ₱{data[1].price.toFixed(2)}
-                            </span>
-                          </div>
-                          {/* end 2 div */}
-                        </div>
-                        {/* rating */}
-                        <div className="container">
-                          <div className="products-btn">
-                            <div className="menu-star">
-                              <div className="star-rating">
-                                {data[1].comments == 0 ? (
-                                  <label htmlFor={'star-1'}>No Ratings</label>
-                                ) : (
-                                  showStar(data[1].comments)
-                                )}
+                          {/* rating */}
+                          <div className="container">
+                            <div className="products-btn">
+                              <div className="menu-star">
+                                <div className="star-rating">
+                                  {data[1].comments == 0 ? (
+                                    <label htmlFor={'star-1'}>No Ratings</label>
+                                  ) : (
+                                    showStar(data[1].comments)
+                                  )}
+                                </div>
                               </div>
-                            </div>
-                            <div className="menu-sold">
-                              <span className="total-sold">
-                                {data[1].totalsold} Sold
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                        {what ? (
-                          <select
-                            className="form-control alterationTypeSelect"
-                            style={{
-                              width: '90%',
-                              height: '35px',
-                              marginLeft: '5%',
-                              marginRight: '5%',
-                            }}
-                            onChange={(e) =>
-                              e.target.value === 'Select available dates'
-                                ? updateDate(e, index, null)
-                                : updateDate(e, index, e.target.value)
-                            }
-                          >
-                            <option disabled="" value={null}>
-                              Select available dates
-                            </option>
-                            {data[1].adv
-                              ? Object.keys(data[1].adv).map((d, i) => (
-                                  <option
-                                    disabled=""
-                                    key={i}
-                                    selected={
-                                      new Date(data[1].date).toDateString() ===
-                                      new Date(data[1].adv[d]).toDateString()
-                                    }
-                                  >
-                                    {new Date(data[1].adv[d]).toDateString()}
-                                  </option>
-                                ))
-                              : null}
-                          </select>
-                        ) : null}
-                        <div className="price-buy">
-                          {/* quantity adjustment experiment*/}
-
-                          <div>
-                            <p className="q-btn">
-                              {/* value={"-"} */}
-                              <button
-                                className="qtyminus"
-                                onClick={(e) =>
-                                  update(e, data[0], dataAmt[data[0]] - 1)
-                                }
-                              >
-                                -
-                              </button>
-                              <input
-                                type="number"
-                                className="qty-int"
-                                name="qty"
-                                value={dataAmt[data[0]]}
-                                readOnly={true}
-                              />
-                              {/* value={"+"} */}
-                              <button
-                                className="qtyplus"
-                                onClick={(e) =>
-                                  what
-                                    ? update(e, data[0], dataAmt[data[0]] + 1)
-                                    : dataAmt[data[0]] + 1 <=
-                                      data[1].numberofitems
-                                    ? update(e, data[0], dataAmt[data[0]] + 1)
-                                    : e.preventDefault()
-                                }
-                              >
-                                +
-                              </button>
-                            </p>
-                          </div>
-
-                          {/* right */}
-                          <div id="div2">
-                            <div className="items-qty">
-                              <div className="itm-q">
-                                <span className="quantity-items">
-                                  Quantity:{' '}
-                                  <strong>{data[1].numberofitems}</strong>
-                                  <br />
+                              <div className="menu-sold">
+                                <span className="total-sold">
+                                  {data[1].totalsold} Sold
                                 </span>
                               </div>
                             </div>
                           </div>
+                          {what ? (
+                            <select
+                              className="form-control alterationTypeSelect"
+                              style={{
+                                width: '90%',
+                                height: '35px',
+                                marginLeft: '5%',
+                                marginRight: '5%',
+                              }}
+                              onChange={(e) =>
+                                e.target.value === 'Select available dates'
+                                  ? updateDate(e, index, null)
+                                  : updateDate(e, index, e.target.value)
+                              }
+                            >
+                              <option disabled="" value={null}>
+                                Select available dates
+                              </option>
+                              {data[1].adv
+                                ? Object.keys(data[1].adv).map((d, i) => (
+                                    <option
+                                      disabled=""
+                                      key={i}
+                                      selected={
+                                        new Date(
+                                          data[1].date
+                                        ).toDateString() ===
+                                        new Date(data[1].adv[d]).toDateString()
+                                      }
+                                    >
+                                      {new Date(data[1].adv[d]).toDateString()}
+                                    </option>
+                                  ))
+                                : null}
+                            </select>
+                          ) : null}
+                          <div className="price-buy">
+                            {/* quantity adjustment experiment*/}
+
+                            <div>
+                              <p className="q-btn">
+                                {/* value={"-"} */}
+                                <button
+                                  className="qtyminus"
+                                  onClick={(e) =>
+                                    update(e, data[0], dataAmt[data[0]] - 1)
+                                  }
+                                >
+                                  -
+                                </button>
+                                <input
+                                  type="number"
+                                  className="qty-int"
+                                  name="qty"
+                                  value={dataAmt[data[0]]}
+                                  readOnly={true}
+                                />
+                                {/* value={"+"} */}
+                                <button
+                                  className="qtyplus"
+                                  onClick={(e) =>
+                                    what
+                                      ? update(e, data[0], dataAmt[data[0]] + 1)
+                                      : dataAmt[data[0]] + 1 <=
+                                        data[1].numberofitems
+                                      ? update(e, data[0], dataAmt[data[0]] + 1)
+                                      : e.preventDefault()
+                                  }
+                                >
+                                  +
+                                </button>
+                              </p>
+                            </div>
+
+                            {/* right */}
+                            <div id="div2">
+                              <div className="items-qty">
+                                <div className="itm-q">
+                                  <span className="quantity-items">
+                                    Quantity:{' '}
+                                    <strong>{data[1].numberofitems}</strong>
+                                    <br />
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          {/* delete */}
                         </div>
-                        {/* delete */}
                       </div>
-                    </div>
-                  ))}
+                    ) : null
+                  )}
                 </div>
               ) : (
                 <h3>NO ITEMS</h3>
