@@ -7,7 +7,7 @@ import Search from '../ProductComps/Search.js'
 import { decryptJSON } from '../EncryptionDecryption'
 function Category(props) {
   const [cat, setCat] = useState([])
-
+  const [what, setWhat] = useState(false)
   React.useEffect(() => {
     axios.get(process.env.REACT_APP_APIURL + 'category').then((resp) => {
       resp.data = decryptJSON(resp.data.data)
@@ -55,6 +55,28 @@ function Category(props) {
               </li>
             ))}
           </ul>
+          <div
+            className="menu-ord-cols"
+            style={{
+              display: 'grid',
+              gridTemplateRows: '50% 50%',
+              paddingLeft: '260px',
+              float: 'right',
+            }}
+          >
+            <select
+              className="menu-OrderMethod"
+              style={{ width: 'fitContent', height: '35px', float: 'right' }}
+              onChange={(e) => {
+                props.setSearch('adv')
+                props.setValues(e.target.value)
+              }}
+            >
+              <option disabled="">All</option>
+              <option disabled="">Order Now</option>
+              <option disabled="">Advance Order</option>
+            </select>
+          </div>
           <Search
             setValues={(v) => props.setValues(v)}
             setSearch={(v) => props.setSearch(v)}

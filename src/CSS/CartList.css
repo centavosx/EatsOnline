@@ -51,10 +51,11 @@
 
 /* please edit */
 .cart-discount {
-  position: relative;
-  left: 60px;
-  top: -10px;
-  width: 65px;
+  position: absolute;
+  /* left: 60px;
+  top: -10px; */
+  margin-left: 45px;
+  width: 150px;
   height: 24px;
   color: #ffffff;
   background-color: #e63b3b;
@@ -487,4 +488,9 @@
 
 .ord-cols {
   display: grid;
+}
+
+.main_cart {
+  display: flex;
+  justify-content: space-between;
 }

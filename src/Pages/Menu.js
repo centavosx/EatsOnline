@@ -12,8 +12,6 @@ const Menu = (props) => {
   const [type, setType] = useState('type')
   const [params, setParams] = useState(null)
   const [search, setSearch] = useState('')
-  const [what, setWhat] = useState(false)
-
   const [login, setLoggedin] = useState(false)
   const [data, setData] = useState({})
   React.useEffect(() => {
@@ -71,42 +69,7 @@ const Menu = (props) => {
         alt=""
       />
       <Category setValues={(v) => setSearch(v)} setSearch={(v) => setType(v)} />
-      <div
-        className="menu-ord-cols"
-        style={{
-          display: 'grid',
-          gridTemplateRows: '50% 50%',
-          paddingRight: 10,
-          float: 'right',
-        }}
-      >
-        <h1
-          className="menu-method"
-          style={{
-            marginTop: '30px',
-            marginBottom: '35px',
-            fontSize: '20px',
-            color: '#fff',
-            padding: '1px',
-            display: 'inlineBlock',
-            float: 'right',
-          }}
-        >
-          Order Method
-        </h1>
-        <select
-          className="menu-OrderMethod"
-          style={{ width: 'fitContent', height: '35px', float: 'right' }}
-          onChange={(e) => setWhat(e.target.value === 'Advance Order')}
-        >
-          <option disabled="" selected={!what}>
-            Order Now
-          </option>
-          <option disabled="" selected={what}>
-            Advance Order
-          </option>
-        </select>
-      </div>
+
       <div style={{ width: '90%', margin: 'auto' }}>
         {params !== null ? (
           <SingleProduct login={login} data={data} />

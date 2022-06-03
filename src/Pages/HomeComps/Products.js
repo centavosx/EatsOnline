@@ -97,7 +97,26 @@ function Products(props) {
       setProducts(props.value)
     }
   }, [props.value])
-
+  const checkORDERADV = (d) => {
+    if (props.type === 'adv') {
+      if (props.search === 'All') {
+        return true
+      }
+      if (props.search === 'Order Now') {
+        return d[1].numberofitems > 0
+      }
+      if (props.search === 'Advance Order') return d[1].adv
+    }
+    return false
+  }
+  const checkSA = (data) => {
+    if (typeof data[1][props.type] === 'string')
+      return data[1][props.type]
+        .toLowerCase()
+        .includes(props.search.toLowerCase())
+    console.log(checkORDERADV(data))
+    return checkORDERADV(data)
+  }
   // const nextOrBack = (c) => {
   //   c
   // }
@@ -123,10 +142,7 @@ function Products(props) {
           {products.length ? (
             <div className="product-container">
               {products.map((data, index) => {
-                return data[1][props.type]
-                  .toLowerCase()
-                  .includes(props.search.toLowerCase()) ||
-                  props.search.length <= 0 ? (
+                return checkSA(data) || props.search.length <= 0 ? (
                   <ProductBox
                     key={data[0]}
                     data={data}

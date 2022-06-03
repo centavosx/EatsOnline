@@ -56,7 +56,7 @@ const CartList = (props) => {
               document.getElementById('allcheck').checked = false
               setTotalAmount(0)
               setSelect({})
-              console.log(resp.data.data)
+
               setdataAmt(obj)
               setCart(resp.data.data)
             }
@@ -386,7 +386,7 @@ const CartList = (props) => {
                         </div>
                         {data[1].discount ? (
                           <span className="cart-discount">
-                            {data[1].discount}% Off
+                            {data[1].discount}% Off Discount
                           </span>
                         ) : null}
                         {/* <!-- img container --> */}
