@@ -58,7 +58,7 @@ function Category(props) {
           <div
             className="menu-ord-cols"
             style={{
-              display: 'grid',
+              display: 'flex',
               gridTemplateRows: '50% 50%',
               paddingLeft: '260px',
               float: 'right',
@@ -66,7 +66,12 @@ function Category(props) {
           >
             <select
               className="menu-OrderMethod"
-              style={{ width: 'fitContent', height: '35px', float: 'right' }}
+              style={{
+                width: 'fitContent',
+                height: '35px',
+                float: 'right',
+                margin: '10px',
+              }}
               onChange={(e) => {
                 props.setSearch('adv')
                 props.setValues(e.target.value)
@@ -76,11 +81,11 @@ function Category(props) {
               <option disabled="">Order Now</option>
               <option disabled="">Advance Order</option>
             </select>
+            <Search
+              setValues={(v) => props.setValues(v)}
+              setSearch={(v) => props.setSearch(v)}
+            />{' '}
           </div>
-          <Search
-            setValues={(v) => props.setValues(v)}
-            setSearch={(v) => props.setSearch(v)}
-          />
         </div>
       </nav>
     </nav>

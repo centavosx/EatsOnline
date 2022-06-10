@@ -719,7 +719,7 @@ const FeaturedProductBox = (props) => {
             <p></p>
           )}
         </div>{' '}
-        <center>
+        {/* <center>
           {adv !== null ? (
             <>
               <div className="adv-btn">
@@ -780,7 +780,7 @@ const FeaturedProductBox = (props) => {
 
           // null
           null}
-          {/* order now and advance order button */}
+          {/* order now and advance order button 
           {adv === null ? (
             <>
               <p
@@ -843,11 +843,11 @@ const FeaturedProductBox = (props) => {
           {adv !== null ? (
             <>
               <div className="price-buy">
-                {/* quantity adjustment experiment*/}
+                {/* quantity adjustment experiment*
 
                 <div>
                   <p className="q-btn">
-                    {/* value={"-"} */}
+                    {/* value={"-"} 
                     <button
                       className="qtyminus"
                       onClick={(e) => editQty(e, num - 1)}
@@ -862,8 +862,8 @@ const FeaturedProductBox = (props) => {
                       value={num}
                       onChange={(e) => editQty(e, parseInt(e.target.value))}
                     />
-                    {/* {console.log(data[0])} */}
-                    {/* value={"+"} */}
+                    {/* {console.log(data[0])} 
+                    {/* value={"+"} 
                     <button
                       className="qtyplus"
                       onClick={(e) => editQty(e, num + 1)}
@@ -873,7 +873,7 @@ const FeaturedProductBox = (props) => {
                   </p>
                 </div>
 
-                {/* right */}
+                {/* right 
 
                 <div id="div2">
                   <a
@@ -891,7 +891,7 @@ const FeaturedProductBox = (props) => {
               </div>
             </>
           ) : null}
-        </center>
+        </center> */}
       </div>
     </div>
   )
